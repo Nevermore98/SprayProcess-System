@@ -5,6 +5,7 @@ using SprayProcessSystem.Helper;
 using SprayProcessSystem.Model;
 
 using SprayProcessSystem.UI.Views;
+using SqlSugar;
 using static SprayProcessSystem.Model.Constants;
 
 
@@ -24,6 +25,7 @@ namespace SprayProcessSystem.UI
 
             LoadMenu();
             BindEvent();
+            menu.SelectIndex(0);
         }
 
         private void BindEvent()
@@ -33,11 +35,16 @@ namespace SprayProcessSystem.UI
 
         private void Menu_SelectChanged(object sender, MenuSelectEventArgs e)
         {
-            NavigationType navigationType = EnumHelper.GetEnumFromDescription<NavigationType>(e.Value.Text!);
+            Navigate(e.Value.Text!);
+        }
+
+        private void Navigate(string view)
+        {
+            NavigationType navigationType = EnumHelper.GetEnumFromDescription<NavigationType>(view);
             Control viewToNavigate = navigationType switch
             {
-                NavigationType.TotalControl => Program.ServiceProvider.GetRequiredService<ViewTotalControl>(),
                 NavigationType.ProductionBoard => Program.ServiceProvider.GetRequiredService<ViewProductionBoard>(),
+                NavigationType.TotalControl => Program.ServiceProvider.GetRequiredService<ViewTotalControl>(),
                 NavigationType.RecipeManage => Program.ServiceProvider.GetRequiredService<ViewRecipeManage>(),
 
                 NavigationType.ChartManage => Program.ServiceProvider.GetRequiredService<ViewChartManage>(),
@@ -52,7 +59,7 @@ namespace SprayProcessSystem.UI
             };
 
 
-            if (viewToNavigate.GetType == CurrentNavigationView.GetType) return;
+            if (viewToNavigate.GetType() == CurrentNavigationView.GetType()) return;
 
             panelContent.Controls.Clear();
             CurrentNavigationView = viewToNavigate;
@@ -68,7 +75,6 @@ namespace SprayProcessSystem.UI
             }
 
             panelContent.Controls.Add(CurrentNavigationView);
-
         }
 
         private void LoadMenu()

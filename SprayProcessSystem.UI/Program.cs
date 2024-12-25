@@ -58,8 +58,8 @@ namespace SprayProcessSystem.UI
 
             services.AddSingleton<MainForm>();
 
+            services.AddSingleton<ViewProductionBoard>();
             services.AddSingleton<ViewTotalControl>();
-            services.AddTransient<ViewProductionBoard>();
             services.AddSingleton<ViewRecipeManage>();
 
             services.AddSingleton<ViewChartManage>();
