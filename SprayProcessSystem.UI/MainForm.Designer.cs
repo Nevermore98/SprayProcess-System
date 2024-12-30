@@ -48,10 +48,11 @@
             pageHeader.Icon = (Image)resources.GetObject("pageHeader.Icon");
             pageHeader.Location = new Point(0, 0);
             pageHeader.Margin = new Padding(0);
+            pageHeader.MaximizeBox = false;
             pageHeader.Name = "pageHeader";
             pageHeader.ShowButton = true;
             pageHeader.ShowIcon = true;
-            pageHeader.Size = new Size(1000, 34);
+            pageHeader.Size = new Size(1080, 40);
             pageHeader.TabIndex = 0;
             pageHeader.Text = "喷涂工艺 SCADA";
             // 
@@ -61,10 +62,10 @@
             flowPanel1.BackColor = Color.Transparent;
             flowPanel1.Controls.Add(dropdown1);
             flowPanel1.Dock = DockStyle.Right;
-            flowPanel1.Location = new Point(581, 0);
-            flowPanel1.Margin = new Padding(2, 3, 2, 3);
+            flowPanel1.Location = new Point(815, 0);
+            flowPanel1.Margin = new Padding(3, 4, 3, 4);
             flowPanel1.Name = "flowPanel1";
-            flowPanel1.Size = new Size(275, 34);
+            flowPanel1.Size = new Size(141, 40);
             flowPanel1.TabIndex = 4;
             flowPanel1.Text = "flowPanel1";
             // 
@@ -73,11 +74,11 @@
             dropdown1.Dock = DockStyle.Right;
             dropdown1.IconRatio = 0.9F;
             dropdown1.IconSvg = resources.GetString("dropdown1.IconSvg");
-            dropdown1.Location = new Point(170, 3);
-            dropdown1.Margin = new Padding(2, 3, 2, 3);
+            dropdown1.Location = new Point(6, 4);
+            dropdown1.Margin = new Padding(3, 4, 3, 4);
             dropdown1.Name = "dropdown1";
             dropdown1.ShowArrow = true;
-            dropdown1.Size = new Size(103, 29);
+            dropdown1.Size = new Size(132, 34);
             dropdown1.TabIndex = 0;
             dropdown1.Text = "Admin";
             dropdown1.WaveSize = 0;
@@ -88,10 +89,10 @@
             menu.Dock = DockStyle.Left;
             menu.Font = new Font("Microsoft YaHei UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
             menu.Indent = true;
-            menu.Location = new Point(0, 34);
-            menu.Margin = new Padding(2, 3, 2, 3);
+            menu.Location = new Point(0, 40);
+            menu.Margin = new Padding(3, 4, 3, 4);
             menu.Name = "menu";
-            menu.Size = new Size(140, 666);
+            menu.Size = new Size(180, 700);
             menu.TabIndex = 0;
             menu.Text = "menu1";
             // 
@@ -99,23 +100,23 @@
             // 
             panelContent.BackColor = Color.White;
             panelContent.Dock = DockStyle.Fill;
-            panelContent.Location = new Point(140, 34);
-            panelContent.Margin = new Padding(2, 3, 2, 3);
+            panelContent.Location = new Point(180, 40);
+            panelContent.Margin = new Padding(3, 4, 3, 4);
             panelContent.Name = "panelContent";
-            panelContent.Padding = new Padding(10);
-            panelContent.Size = new Size(860, 666);
+            panelContent.Padding = new Padding(13, 12, 13, 12);
+            panelContent.Size = new Size(900, 700);
             panelContent.TabIndex = 1;
             // 
             // MainForm
             // 
-            AutoScaleDimensions = new SizeF(7F, 17F);
+            AutoScaleDimensions = new SizeF(9F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1000, 700);
+            ClientSize = new Size(1080, 740);
             Controls.Add(panelContent);
             Controls.Add(menu);
             Controls.Add(pageHeader);
             Icon = (Icon)resources.GetObject("$this.Icon");
-            Margin = new Padding(2, 3, 2, 3);
+            Margin = new Padding(3, 4, 3, 4);
             Name = "MainForm";
             Text = "Form1";
             pageHeader.ResumeLayout(false);

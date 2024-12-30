@@ -37,11 +37,11 @@ namespace SprayProcessSystem.UI
         {
             var services = new ServiceCollection();
 
-
             var config = new ConfigurationBuilder()
-                .SetBasePath(Environment.CurrentDirectory)
+                .SetBasePath(Path.Combine(Environment.CurrentDirectory, "Configs"))
                 .AddJsonFile("appsettings.json")
                 .Build();
+
 
             services.AddSingleton<IConfiguration>(config)
                 .AddLogging(loggerBuilder => {
