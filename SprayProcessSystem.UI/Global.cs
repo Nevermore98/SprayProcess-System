@@ -25,7 +25,7 @@ namespace SprayProcessSystem.UI
 
 
         // 获取所有控件
-        public static List<Control> GetAllControls(Control control)
+        public static List<Control> GetDescendantControls(Control control)
         {
             List<Control> allControls = new List<Control>();
             CollectControls(control.Controls, allControls);
@@ -43,6 +43,17 @@ namespace SprayProcessSystem.UI
                     CollectControls(control.Controls, allControls);
                 }
             }
+        }
+
+        // 获取某个控件的第一级子控件
+        public static List<Control> GetChildControls(Control control)
+        {
+            List<Control> childControls = new List<Control>();
+            foreach (Control item in control.Controls)
+            {
+                childControls.Add(item);
+            }
+            return childControls;
         }
 
     }

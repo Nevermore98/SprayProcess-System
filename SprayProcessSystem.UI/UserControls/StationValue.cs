@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace SprayProcessSystem.UI.UserControls
 {
-    public partial class DeviceValue : UserControl
+    public partial class StationValue : UserControl
     {
-        public DeviceValue()
+        public StationValue()
         {
             InitializeComponent(); 
         }
@@ -32,9 +32,9 @@ namespace SprayProcessSystem.UI.UserControls
             }
         }
 
-        private string _deviceName = "设备名称";
+        private string _deviceName = "工站设备名称";
 
-        [Description("设备名称")]
+        [Description("工站设备名称")]
         [Category("自定义属性")]
         [Browsable(true)]
         public string DeviceName

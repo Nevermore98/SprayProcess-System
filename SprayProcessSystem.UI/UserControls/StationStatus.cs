@@ -2,16 +2,16 @@
 
 namespace SprayProcessSystem.UI.UserControls
 {
-    public partial class DeviceStatus : UserControl
+    public partial class StationStatus : UserControl
     {
-        public DeviceStatus()
+        public StationStatus()
         {
             InitializeComponent();
         }
 
-        private string _deviceName = "设备名称";
+        private string _deviceName = "工站设备名称";
 
-        [Description("设置或获取设备运行状态名称")]
+        [Description("工站设备名称")]
         [Category("自定义属性")]
         [Browsable(true)]
         public string DeviceName
@@ -29,7 +29,7 @@ namespace SprayProcessSystem.UI.UserControls
 
         [Browsable(true)]
         [Category("自定义属性")]
-        [Description("设置或获取设备运行状态")]
+        [Description("工站设备运行状态")]
         public bool Status
         {
             get { return _status; }
