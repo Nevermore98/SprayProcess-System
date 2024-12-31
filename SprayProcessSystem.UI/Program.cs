@@ -1,8 +1,11 @@
+using LiveChartsCore;
+using LiveChartsCore.SkiaSharpView;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using NLog;
 using NLog.Extensions.Logging;
+using SkiaSharp;
 using SprayProcessSystem.UI.Views;
 
 namespace SprayProcessSystem.UI
@@ -25,6 +28,9 @@ namespace SprayProcessSystem.UI
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
+
+            // 解决 liveCharts 中文乱码问题
+            LiveCharts.Configure(config => config.HasGlobalSKTypeface(SKFontManager.Default.MatchCharacter('汉')));
 
             ConfigureServices();
 

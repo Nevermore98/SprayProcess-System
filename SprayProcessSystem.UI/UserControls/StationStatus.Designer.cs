@@ -39,6 +39,7 @@
             badge_state.Location = new Point(100, 0);
             badge_state.Margin = new Padding(0);
             badge_state.Name = "badge_state";
+            badge_state.Padding = new Padding(0, 0, 0, 3);
             badge_state.Size = new Size(90, 30);
             badge_state.State = AntdUI.TState.Success;
             badge_state.TabIndex = 0;
@@ -67,14 +68,14 @@
             gridPanel1.TabIndex = 3;
             gridPanel1.Text = "gridPanel1";
             // 
-            // DeviceStatus
+            // StationStatus
             // 
             AutoScaleDimensions = new SizeF(9F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Transparent;
             Controls.Add(gridPanel1);
             Margin = new Padding(0);
-            Name = "DeviceStatus";
+            Name = "StationStatus";
             Size = new Size(190, 30);
             gridPanel1.ResumeLayout(false);
             ResumeLayout(false);

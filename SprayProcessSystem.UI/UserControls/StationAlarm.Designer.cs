@@ -54,6 +54,7 @@
             lbl_alarmName.Location = new Point(51, 0);
             lbl_alarmName.Margin = new Padding(0);
             lbl_alarmName.Name = "lbl_alarmName";
+            lbl_alarmName.Padding = new Padding(0, 3, 0, 0);
             lbl_alarmName.Size = new Size(139, 35);
             lbl_alarmName.TabIndex = 1;
             lbl_alarmName.Text = "报警名称";
@@ -65,15 +66,15 @@
             avatar1.Name = "avatar1";
             avatar1.Size = new Size(45, 29);
             avatar1.TabIndex = 2;
-            avatar1.Text = "a";
+            avatar1.Text = "";
             // 
-            // DeviceAlarm
+            // StationAlarm
             // 
             AutoScaleDimensions = new SizeF(9F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Transparent;
             Controls.Add(gridPanel1);
-            Name = "DeviceAlarm";
+            Name = "StationAlarm";
             Size = new Size(190, 35);
             gridPanel1.ResumeLayout(false);
             ResumeLayout(false);

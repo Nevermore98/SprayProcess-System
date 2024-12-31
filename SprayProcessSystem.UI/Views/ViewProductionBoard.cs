@@ -1,10 +1,15 @@
 ﻿using IoTClient.Enums;
+using LiveChartsCore;
+using LiveChartsCore.SkiaSharpView;
 using MiniExcelLibs;
 using NLog;
 using SprayProcessSystem.BLL;
 using SprayProcessSystem.Model;
 using SprayProcessSystem.UI.UserControls;
+using System.Collections.ObjectModel;
 using Timer = System.Timers.Timer;
+using LiveChartsCore.SkiaSharpView.VisualElements;
+using SqlSugar;
 
 namespace SprayProcessSystem.UI.Views
 {
@@ -22,6 +27,17 @@ namespace SprayProcessSystem.UI.Views
         private Dictionary<string, List<string>> _stationNameAlarmDict = new();
 
 
+
+        private float _waterStoveTemperature;
+        private float _solidifyStoveTemperature;
+        private ObservableCollection<string> _currentTimeLabels;
+        private ObservableCollection<double> _waterStoveValues;
+        private ObservableCollection<double> _solidifyStoveValues;
+        private Timer _chartInsertDataTimer = new();
+
+        private bool isAnyChartInteracting = false;
+        private System.Threading.Timer resetTimer;
+
         public ViewProductionBoard()
         {
             InitializeComponent();
@@ -33,9 +49,13 @@ namespace SprayProcessSystem.UI.Views
             _readPlcTimer.Start();
 
             lbl_title.Font = new Font(Global.FontCollection.Families[0], 18, FontStyle.Bold);
+            lbl_time.Font = new Font(Global.FontCollection.Families[0], 10);
             gridPanel_TitleInfo.Font = new Font(Global.FontCollection.Families[0], 9);
+
             InitValue();
         }
+
+
 
         private void ReadPlcTimer_Elapsed(object? sender, System.Timers.ElapsedEventArgs e)
         {
@@ -43,6 +63,9 @@ namespace SprayProcessSystem.UI.Views
             {
                 lbl_temperature.Text = $"厂内温度：{Global.PlcNameDataDict["厂内温度"].Value}℃";
                 lbl_humidity.Text = $"厂内湿度：{Global.PlcNameDataDict["厂内湿度"].Value}%";
+
+                if (Global.PlcNameDataDict["水分炉测量温度"].Value != null) _waterStoveTemperature = (float)Global.PlcNameDataDict["水分炉测量温度"].Value;
+                if (Global.PlcNameDataDict["固化炉测量温度"].Value != null) _solidifyStoveTemperature = (float)Global.PlcNameDataDict["固化炉测量温度"].Value;
 
                 //遍历所有控件
                 foreach (Control control in _controlList)
@@ -58,6 +81,16 @@ namespace SprayProcessSystem.UI.Views
                     }
                     if (control is StationStatus deviceStatus)
                     {
+                        if (deviceStatus.DeviceName == "输送机变频器电源")
+                        {
+                            var powerStatus = deviceStatus.DeviceName + "状态";
+                            if (Global.PlcNameDataDict.ContainsKey(powerStatus) && Global.PlcNameDataDict[powerStatus].Value != null)
+                            {
+                                deviceStatus.Status = (int)Global.PlcNameDataDict[powerStatus].Value == 1;
+                            }
+                            continue;
+                        }
+
                         var statusName = deviceStatus.DeviceName + "运行状态";
                         if (Global.PlcNameDataDict.ContainsKey(statusName) && Global.PlcNameDataDict[statusName].Value != null)
                         {
@@ -74,15 +107,18 @@ namespace SprayProcessSystem.UI.Views
                                 var stationName = alarmName.Substring(0, 2);
                                 bool IsAlarm = (int)Global.PlcNameDataDict[alarmName].Value == 1;
 
-                                if (IsAlarm && !_stationNameAlarmDict[stationName].Contains(alarmName))
+                                if (_stationNameAlarmDict.ContainsKey(stationName))
                                 {
-                                    _stationNameAlarmDict[stationName].Add(alarmName);
+                                    if (IsAlarm && !_stationNameAlarmDict[stationName].Contains(alarmName))
+                                    {
+                                        _stationNameAlarmDict[stationName].Add(alarmName);
+                                    }
+                                    if (!IsAlarm && _stationNameAlarmDict[stationName].Contains(alarmName))
+                                    {
+                                        _stationNameAlarmDict[stationName].Remove(alarmName);
+                                    }
                                 }
-                                if (!IsAlarm && _stationNameAlarmDict[stationName].Contains(alarmName))
-                                {
-                                    _stationNameAlarmDict[stationName].Remove(alarmName);
-                                }
-
+    
                                 deviceAlarm.Visible = IsAlarm;
                             });
                         }
@@ -106,16 +142,7 @@ namespace SprayProcessSystem.UI.Views
                                 Invoke(() =>
                                 {
                                     panel.Visible = false;
-                                    var controlList = Global.GetChildControls(panel.Parent);
-                                    // 找到 AntdUI.Panel
-                                    foreach (var item in controlList)
-                                    {
-                                        if (item is AntdUI.Panel p && panel.Tag.ToString() == $"{stationName}监控")
-                                        {
-                                            p.Visible = true;
-                                            p.BringToFront();
-                                        }
-                                    }
+                                    panel.SendToBack();
                                 });
                             }
                         }
@@ -124,10 +151,6 @@ namespace SprayProcessSystem.UI.Views
             }
         }
 
-        private void InitControl()
-        {
-
-        }
 
         private void InitValue()
         {
@@ -137,6 +160,10 @@ namespace SprayProcessSystem.UI.Views
                 { "粗洗", new List<string>() },
                 { "陶化", new List<string>() },
                 { "精洗", new List<string>() },
+                { "水分", new List<string>() },
+                { "固化", new List<string>() },
+                { "冷却", new List<string>() },
+                { "输送", new List<string>() },
             };
 
             _controlList = Global.GetDescendantControls(this);
@@ -152,7 +179,147 @@ namespace SprayProcessSystem.UI.Views
         private void ViewProductionBoard_Load(object? sender, EventArgs e)
         {
             ConnectPlc();
+            InitLineChart();
+
         }
+
+        private void InitLineChart()
+        {
+            _waterStoveValues = new ObservableCollection<double>();
+            _currentTimeLabels = new ObservableCollection<string>();
+            _solidifyStoveValues = new ObservableCollection<double>();
+
+            lineChart_WaterStove.ZoomMode = LiveChartsCore.Measure.ZoomAndPanMode.Both;
+            lineChart_WaterStove.Series = new ObservableCollection<ISeries>
+            {
+                new LineSeries<double>
+                {
+                    Values = _waterStoveValues,
+                    GeometryStroke = null,
+                    GeometryFill = null,
+                    Fill = null,
+                    LineSmoothness = 0,
+                }
+            };
+            lineChart_WaterStove.Title = new LabelVisual
+            {
+                Text = "水分炉温度",
+                TextSize = 18,
+            };
+            lineChart_WaterStove.YAxes = new List<Axis>
+            {
+                new Axis
+                {
+                    Name = "温度（℃）",
+                    NameTextSize = 14
+                }
+            };
+            lineChart_WaterStove.XAxes = new List<Axis>
+            {
+                new Axis
+                {
+                    Labels = _currentTimeLabels,
+                    LabelsRotation = 30,
+                }
+            };
+
+            lineChart_WaterStove.MouseWheel += ChartInteractionStarted;
+            lineChart_WaterStove.MouseDown += ChartInteractionStarted;
+            lineChart_WaterStove.MouseUp += ChartInteractionEnded;
+
+            // 以下事件不触发
+            //cartesianChart1.MouseEnter += ChartInteractionStarted;
+            //cartesianChart1.MouseLeave += ChartInteractionEnded;
+            //cartesianChart1.MouseHover += ChartInteractionStarted;
+
+            lineChart_SolidifyStove.ZoomMode = LiveChartsCore.Measure.ZoomAndPanMode.Both;
+            lineChart_SolidifyStove.Series = new ObservableCollection<ISeries>
+            {
+                new LineSeries<double>
+                {
+                    Values = _solidifyStoveValues,
+                    GeometryStroke = null,
+                    GeometryFill = null,
+                    Fill = null,
+                    LineSmoothness = 0,
+                }
+            };
+            lineChart_SolidifyStove.Title = new LabelVisual
+            {
+                Text = "固化炉温度",
+                TextSize = 18,
+            };
+            lineChart_SolidifyStove.YAxes = new List<Axis>
+            {
+                new Axis
+                {
+                    Name = "温度（℃）",
+                    NameTextSize = 14
+                }
+            };
+            lineChart_SolidifyStove.XAxes = new List<Axis>
+            {
+                new Axis
+                {
+                    Labels = _currentTimeLabels,
+                    LabelsRotation = 30,
+                }
+            };
+            lineChart_SolidifyStove.MouseWheel += ChartInteractionStarted;
+            lineChart_SolidifyStove.MouseDown += ChartInteractionStarted;
+            lineChart_SolidifyStove.MouseUp += ChartInteractionEnded;
+
+
+            _chartInsertDataTimer.Interval = 1000;
+            _chartInsertDataTimer.Elapsed += _WaterStoveTempChartTimer_Elapsed;
+            _chartInsertDataTimer.Start();
+
+            void ChartInteractionStarted(object sender, EventArgs e)
+            {
+                isAnyChartInteracting = true;
+                resetTimer?.Dispose();
+            }
+
+            void ChartInteractionEnded(object sender, EventArgs e)
+            {
+                resetTimer?.Dispose();
+                resetTimer = new System.Threading.Timer(_ =>
+                {
+                    this.Invoke(() =>
+                    {
+                        lineChart_WaterStove.XAxes.FirstOrDefault()!.MinLimit = null;
+                        lineChart_WaterStove.XAxes.FirstOrDefault()!.MaxLimit = null;
+                        lineChart_WaterStove.YAxes.FirstOrDefault()!.MinLimit = null;
+                        lineChart_WaterStove.YAxes.FirstOrDefault()!.MaxLimit = null;
+
+                        lineChart_SolidifyStove.XAxes.FirstOrDefault()!.MinLimit = null;
+                        lineChart_SolidifyStove.XAxes.FirstOrDefault()!.MaxLimit = null;
+                        lineChart_SolidifyStove.YAxes.FirstOrDefault()!.MinLimit = null;
+                        lineChart_SolidifyStove.YAxes.FirstOrDefault()!.MaxLimit = null;
+
+                        isAnyChartInteracting = false;
+                    });
+                }, null, 4000, Timeout.Infinite);
+            }
+        }
+
+
+        private void _WaterStoveTempChartTimer_Elapsed(object? sender, System.Timers.ElapsedEventArgs e)
+        {
+            if (!_isPlcConnected) return;
+            _currentTimeLabels.Add(DateTime.Now.ToString("HH:mm:ss"));
+            _waterStoveValues.Add(_waterStoveTemperature);
+            _solidifyStoveValues.Add(_solidifyStoveTemperature);
+
+            // 保持最近1200个数据点
+            if (_waterStoveValues.Count > 1200)
+            {
+                _waterStoveValues.RemoveAt(0);
+                _solidifyStoveValues.RemoveAt(0);
+                _currentTimeLabels.RemoveAt(0);
+            }
+        }
+
 
         private void ConnectPlc()
         {
@@ -186,6 +353,7 @@ namespace SprayProcessSystem.UI.Views
                                 {
                                     lbl_plcStatus.Text = "PLC 状态：未连接";
                                     lbl_plcStatus.ForeColor = new ColorConverter().ConvertFromString("#ff4d4f") as Color?;
+                                    _waterStoveTemperature = 0;
                                 });
                             }
                             await Task.Delay(AppConfig.Current.Plc.ReadInterval);

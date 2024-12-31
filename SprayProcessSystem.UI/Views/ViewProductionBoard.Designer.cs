@@ -36,14 +36,13 @@
             gridPanel1 = new AntdUI.GridPanel();
             gridPanel_TitleInfo = new AntdUI.GridPanel();
             panel1 = new Panel();
-            labelTime1 = new AntdUI.LabelTime();
+            lbl_time = new AntdUI.LabelTime();
             gridPanel2 = new AntdUI.GridPanel();
             label8 = new AntdUI.Label();
             label7 = new AntdUI.Label();
             label6 = new AntdUI.Label();
             label5 = new AntdUI.Label();
             label4 = new AntdUI.Label();
-            gridPanel5 = new AntdUI.GridPanel();
             gridPanel4 = new AntdUI.GridPanel();
             panel12 = new AntdUI.Panel();
             panel15 = new AntdUI.Panel();
@@ -84,6 +83,49 @@
             deviceAlarm5 = new UserControls.StationAlarm();
             panel8 = new AntdUI.Panel();
             label1 = new AntdUI.Label();
+            gridPanel3 = new AntdUI.GridPanel();
+            panel19 = new AntdUI.Panel();
+            lineChart_SolidifyStove = new LiveChartsCore.SkiaSharpView.WinForms.CartesianChart();
+            panel21 = new AntdUI.Panel();
+            panel22 = new AntdUI.Panel();
+            stationValue1 = new UserControls.StationValue();
+            stationStatus6 = new UserControls.StationStatus();
+            stationStatus7 = new UserControls.StationStatus();
+            panel33 = new AntdUI.Panel();
+            stationAlarm7 = new UserControls.StationAlarm();
+            stationAlarm8 = new UserControls.StationAlarm();
+            stationAlarm9 = new UserControls.StationAlarm();
+            panel34 = new AntdUI.Panel();
+            label9 = new AntdUI.Label();
+            panel18 = new AntdUI.Panel();
+            panel20 = new AntdUI.Panel();
+            lineChart_WaterStove = new LiveChartsCore.SkiaSharpView.WinForms.CartesianChart();
+            panel24 = new AntdUI.Panel();
+            panel25 = new AntdUI.Panel();
+            stationValue2 = new UserControls.StationValue();
+            stationStatus1 = new UserControls.StationStatus();
+            stationStatus2 = new UserControls.StationStatus();
+            panel26 = new AntdUI.Panel();
+            stationAlarm3 = new UserControls.StationAlarm();
+            stationAlarm2 = new UserControls.StationAlarm();
+            stationAlarm1 = new UserControls.StationAlarm();
+            panel23 = new AntdUI.Panel();
+            label2 = new AntdUI.Label();
+            gridPanel5 = new AntdUI.GridPanel();
+            panel27 = new AntdUI.Panel();
+            panel31 = new AntdUI.Panel();
+            gridPanel6 = new AntdUI.GridPanel();
+            stationStatus5 = new UserControls.StationStatus();
+            stationStatus3 = new UserControls.StationStatus();
+            panel32 = new AntdUI.Panel();
+            gridPanel7 = new AntdUI.GridPanel();
+            stationAlarm6 = new UserControls.StationAlarm();
+            stationAlarm5 = new UserControls.StationAlarm();
+            panel29 = new AntdUI.Panel();
+            panel28 = new AntdUI.Panel();
+            stationStatus4 = new UserControls.StationStatus();
+            panel30 = new AntdUI.Panel();
+            stationAlarm4 = new UserControls.StationAlarm();
             gridPanel1.SuspendLayout();
             gridPanel_TitleInfo.SuspendLayout();
             panel1.SuspendLayout();
@@ -105,6 +147,27 @@
             panel6.SuspendLayout();
             panel7.SuspendLayout();
             panel8.SuspendLayout();
+            gridPanel3.SuspendLayout();
+            panel19.SuspendLayout();
+            panel21.SuspendLayout();
+            panel22.SuspendLayout();
+            panel33.SuspendLayout();
+            panel34.SuspendLayout();
+            panel18.SuspendLayout();
+            panel20.SuspendLayout();
+            panel24.SuspendLayout();
+            panel25.SuspendLayout();
+            panel26.SuspendLayout();
+            panel23.SuspendLayout();
+            gridPanel5.SuspendLayout();
+            panel27.SuspendLayout();
+            panel31.SuspendLayout();
+            gridPanel6.SuspendLayout();
+            panel32.SuspendLayout();
+            gridPanel7.SuspendLayout();
+            panel29.SuspendLayout();
+            panel28.SuspendLayout();
+            panel30.SuspendLayout();
             SuspendLayout();
             // 
             // lbl_sysStatus
@@ -185,22 +248,24 @@
             // 
             // panel1
             // 
-            panel1.Controls.Add(labelTime1);
+            panel1.BackColor = Color.RosyBrown;
+            panel1.Controls.Add(lbl_time);
             panel1.Location = new Point(0, 0);
             panel1.Margin = new Padding(0);
             panel1.Name = "panel1";
             panel1.Size = new Size(282, 46);
             panel1.TabIndex = 2;
             // 
-            // labelTime1
+            // lbl_time
             // 
-            labelTime1.BackColor = Color.Transparent;
-            labelTime1.Location = new Point(26, 6);
-            labelTime1.Margin = new Padding(0);
-            labelTime1.Name = "labelTime1";
-            labelTime1.Size = new Size(216, 32);
-            labelTime1.TabIndex = 1;
-            labelTime1.Text = "labelTime1";
+            lbl_time.BackColor = Color.Gray;
+            lbl_time.Location = new Point(66, 12);
+            lbl_time.Margin = new Padding(0);
+            lbl_time.MaximumSize = new Size(180, 20);
+            lbl_time.Name = "lbl_time";
+            lbl_time.RightToLeft = RightToLeft.No;
+            lbl_time.Size = new Size(110, 20);
+            lbl_time.TabIndex = 1;
             // 
             // gridPanel2
             // 
@@ -262,16 +327,6 @@
             label4.Size = new Size(172, 19);
             label4.TabIndex = 0;
             label4.Text = "计划产量：5000";
-            // 
-            // gridPanel5
-            // 
-            gridPanel5.Dock = DockStyle.Fill;
-            gridPanel5.Location = new Point(0, 231);
-            gridPanel5.Margin = new Padding(4);
-            gridPanel5.Name = "gridPanel5";
-            gridPanel5.Size = new Size(900, 469);
-            gridPanel5.TabIndex = 8;
-            gridPanel5.Text = "gridPanel5";
             // 
             // gridPanel4
             // 
@@ -787,11 +842,565 @@
             label1.TabIndex = 0;
             label1.Text = "脱脂";
             // 
+            // gridPanel3
+            // 
+            gridPanel3.BackColor = Color.Transparent;
+            gridPanel3.Controls.Add(panel19);
+            gridPanel3.Controls.Add(panel18);
+            gridPanel3.Dock = DockStyle.Fill;
+            gridPanel3.Location = new Point(0, 231);
+            gridPanel3.Name = "gridPanel3";
+            gridPanel3.Size = new Size(900, 420);
+            gridPanel3.Span = "50% 50%;";
+            gridPanel3.TabIndex = 0;
+            gridPanel3.Text = "gridPanel3";
+            // 
+            // panel19
+            // 
+            panel19.Back = Color.WhiteSmoke;
+            panel19.BackColor = Color.White;
+            panel19.BorderColor = Color.FromArgb(217, 217, 217);
+            panel19.Controls.Add(lineChart_SolidifyStove);
+            panel19.Controls.Add(panel21);
+            panel19.Controls.Add(panel34);
+            panel19.Dock = DockStyle.Fill;
+            panel19.Location = new Point(450, 0);
+            panel19.Margin = new Padding(0);
+            panel19.Name = "panel19";
+            panel19.Shadow = 4;
+            panel19.ShadowOpacityAnimation = true;
+            panel19.Size = new Size(450, 420);
+            panel19.TabIndex = 19;
+            panel19.Text = "panel19";
+            // 
+            // lineChart_SolidifyStove
+            // 
+            lineChart_SolidifyStove.Dock = DockStyle.Top;
+            lineChart_SolidifyStove.Location = new Point(5, 44);
+            lineChart_SolidifyStove.Name = "lineChart_SolidifyStove";
+            lineChart_SolidifyStove.Size = new Size(440, 228);
+            lineChart_SolidifyStove.TabIndex = 19;
+            // 
+            // panel21
+            // 
+            panel21.Back = Color.WhiteSmoke;
+            panel21.BackColor = Color.Transparent;
+            panel21.BorderColor = Color.FromArgb(217, 217, 217);
+            panel21.Controls.Add(panel22);
+            panel21.Controls.Add(panel33);
+            panel21.Dock = DockStyle.Bottom;
+            panel21.Location = new Point(5, 322);
+            panel21.Margin = new Padding(0);
+            panel21.Name = "panel21";
+            panel21.ShadowOpacityAnimation = true;
+            panel21.Size = new Size(440, 93);
+            panel21.TabIndex = 18;
+            panel21.Text = "panel21";
+            // 
+            // panel22
+            // 
+            panel22.Back = Color.Transparent;
+            panel22.BackColor = SystemColors.Control;
+            panel22.Controls.Add(stationValue1);
+            panel22.Controls.Add(stationStatus6);
+            panel22.Controls.Add(stationStatus7);
+            panel22.Dock = DockStyle.Fill;
+            panel22.Location = new Point(0, 0);
+            panel22.Margin = new Padding(0);
+            panel22.Name = "panel22";
+            panel22.Size = new Size(440, 93);
+            panel22.TabIndex = 9;
+            panel22.Tag = "水分炉监控";
+            panel22.Text = "panel22";
+            // 
+            // stationValue1
+            // 
+            stationValue1.BackColor = Color.Transparent;
+            stationValue1.DeviceName = "固化炉测量温度";
+            stationValue1.Dock = DockStyle.Top;
+            stationValue1.Location = new Point(0, 50);
+            stationValue1.Margin = new Padding(0);
+            stationValue1.Name = "stationValue1";
+            stationValue1.Size = new Size(440, 25);
+            stationValue1.TabIndex = 6;
+            stationValue1.Value = 0F;
+            // 
+            // stationStatus6
+            // 
+            stationStatus6.BackColor = Color.Transparent;
+            stationStatus6.DeviceName = "固化炉炉口风帘风机";
+            stationStatus6.Dock = DockStyle.Top;
+            stationStatus6.Location = new Point(0, 25);
+            stationStatus6.Margin = new Padding(0);
+            stationStatus6.Name = "stationStatus6";
+            stationStatus6.Size = new Size(440, 25);
+            stationStatus6.Status = false;
+            stationStatus6.TabIndex = 7;
+            // 
+            // stationStatus7
+            // 
+            stationStatus7.BackColor = Color.Transparent;
+            stationStatus7.DeviceName = "固化炉变频器";
+            stationStatus7.Dock = DockStyle.Top;
+            stationStatus7.Location = new Point(0, 0);
+            stationStatus7.Margin = new Padding(0);
+            stationStatus7.Name = "stationStatus7";
+            stationStatus7.Size = new Size(440, 25);
+            stationStatus7.Status = false;
+            stationStatus7.TabIndex = 2;
+            // 
+            // panel33
+            // 
+            panel33.Back = Color.Transparent;
+            panel33.BackColor = SystemColors.Control;
+            panel33.Controls.Add(stationAlarm7);
+            panel33.Controls.Add(stationAlarm8);
+            panel33.Controls.Add(stationAlarm9);
+            panel33.Dock = DockStyle.Fill;
+            panel33.Location = new Point(0, 0);
+            panel33.Margin = new Padding(0);
+            panel33.Name = "panel33";
+            panel33.Size = new Size(440, 93);
+            panel33.TabIndex = 8;
+            panel33.Tag = "水分炉报警";
+            panel33.Text = "panel33";
+            // 
+            // stationAlarm7
+            // 
+            stationAlarm7.AlarmName = "固化炉煤气泄漏";
+            stationAlarm7.BackColor = Color.Transparent;
+            stationAlarm7.Dock = DockStyle.Top;
+            stationAlarm7.IsAlarm = false;
+            stationAlarm7.Location = new Point(0, 50);
+            stationAlarm7.Name = "stationAlarm7";
+            stationAlarm7.Size = new Size(440, 25);
+            stationAlarm7.TabIndex = 8;
+            stationAlarm7.Visible = false;
+            // 
+            // stationAlarm8
+            // 
+            stationAlarm8.AlarmName = "固化炉燃烧机";
+            stationAlarm8.BackColor = Color.Transparent;
+            stationAlarm8.Dock = DockStyle.Top;
+            stationAlarm8.IsAlarm = false;
+            stationAlarm8.Location = new Point(0, 25);
+            stationAlarm8.Name = "stationAlarm8";
+            stationAlarm8.Size = new Size(440, 25);
+            stationAlarm8.TabIndex = 7;
+            stationAlarm8.Visible = false;
+            // 
+            // stationAlarm9
+            // 
+            stationAlarm9.AlarmName = "固化炉温度";
+            stationAlarm9.BackColor = Color.Transparent;
+            stationAlarm9.Dock = DockStyle.Top;
+            stationAlarm9.IsAlarm = false;
+            stationAlarm9.Location = new Point(0, 0);
+            stationAlarm9.Name = "stationAlarm9";
+            stationAlarm9.Size = new Size(440, 25);
+            stationAlarm9.TabIndex = 6;
+            stationAlarm9.Visible = false;
+            // 
+            // panel34
+            // 
+            panel34.Back = Color.LightGray;
+            panel34.BackColor = Color.Transparent;
+            panel34.Controls.Add(label9);
+            panel34.Dock = DockStyle.Top;
+            panel34.Location = new Point(5, 5);
+            panel34.Margin = new Padding(0);
+            panel34.Name = "panel34";
+            panel34.Size = new Size(440, 39);
+            panel34.TabIndex = 0;
+            // 
+            // label9
+            // 
+            label9.Font = new Font("Microsoft YaHei UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            label9.Location = new Point(8, 0);
+            label9.Margin = new Padding(3, 4, 3, 4);
+            label9.Name = "label9";
+            label9.Size = new Size(96, 39);
+            label9.TabIndex = 0;
+            label9.Text = "固化炉";
+            // 
+            // panel18
+            // 
+            panel18.Controls.Add(panel20);
+            panel18.Location = new Point(0, 0);
+            panel18.Margin = new Padding(0);
+            panel18.Name = "panel18";
+            panel18.Size = new Size(450, 420);
+            panel18.TabIndex = 0;
+            panel18.Text = "panel18";
+            // 
+            // panel20
+            // 
+            panel20.Back = Color.WhiteSmoke;
+            panel20.BackColor = Color.White;
+            panel20.BorderColor = Color.FromArgb(217, 217, 217);
+            panel20.Controls.Add(lineChart_WaterStove);
+            panel20.Controls.Add(panel24);
+            panel20.Controls.Add(panel23);
+            panel20.Dock = DockStyle.Fill;
+            panel20.Location = new Point(0, 0);
+            panel20.Margin = new Padding(0);
+            panel20.Name = "panel20";
+            panel20.Shadow = 4;
+            panel20.ShadowOpacityAnimation = true;
+            panel20.Size = new Size(450, 420);
+            panel20.TabIndex = 18;
+            panel20.Text = "panel20";
+            // 
+            // lineChart_WaterStove
+            // 
+            lineChart_WaterStove.Dock = DockStyle.Top;
+            lineChart_WaterStove.Location = new Point(5, 44);
+            lineChart_WaterStove.Name = "lineChart_WaterStove";
+            lineChart_WaterStove.Size = new Size(440, 228);
+            lineChart_WaterStove.TabIndex = 19;
+            // 
+            // panel24
+            // 
+            panel24.Back = Color.WhiteSmoke;
+            panel24.BackColor = Color.Transparent;
+            panel24.BorderColor = Color.FromArgb(217, 217, 217);
+            panel24.Controls.Add(panel25);
+            panel24.Controls.Add(panel26);
+            panel24.Dock = DockStyle.Bottom;
+            panel24.Location = new Point(5, 322);
+            panel24.Margin = new Padding(0);
+            panel24.Name = "panel24";
+            panel24.ShadowOpacityAnimation = true;
+            panel24.Size = new Size(440, 93);
+            panel24.TabIndex = 18;
+            panel24.Text = "panel24";
+            // 
+            // panel25
+            // 
+            panel25.Back = Color.Transparent;
+            panel25.BackColor = SystemColors.Control;
+            panel25.Controls.Add(stationValue2);
+            panel25.Controls.Add(stationStatus1);
+            panel25.Controls.Add(stationStatus2);
+            panel25.Dock = DockStyle.Fill;
+            panel25.Location = new Point(0, 0);
+            panel25.Margin = new Padding(0);
+            panel25.Name = "panel25";
+            panel25.Size = new Size(440, 93);
+            panel25.TabIndex = 9;
+            panel25.Tag = "水分炉监控";
+            panel25.Text = "panel25";
+            // 
+            // stationValue2
+            // 
+            stationValue2.BackColor = Color.Transparent;
+            stationValue2.DeviceName = "水分炉测量温度";
+            stationValue2.Dock = DockStyle.Top;
+            stationValue2.Location = new Point(0, 50);
+            stationValue2.Margin = new Padding(0);
+            stationValue2.Name = "stationValue2";
+            stationValue2.Size = new Size(440, 25);
+            stationValue2.TabIndex = 6;
+            stationValue2.Value = 0F;
+            // 
+            // stationStatus1
+            // 
+            stationStatus1.BackColor = Color.Transparent;
+            stationStatus1.DeviceName = "水分炉炉口风帘风机";
+            stationStatus1.Dock = DockStyle.Top;
+            stationStatus1.Location = new Point(0, 25);
+            stationStatus1.Margin = new Padding(0);
+            stationStatus1.Name = "stationStatus1";
+            stationStatus1.Size = new Size(440, 25);
+            stationStatus1.Status = false;
+            stationStatus1.TabIndex = 7;
+            // 
+            // stationStatus2
+            // 
+            stationStatus2.BackColor = Color.Transparent;
+            stationStatus2.DeviceName = "水分炉变频器";
+            stationStatus2.Dock = DockStyle.Top;
+            stationStatus2.Location = new Point(0, 0);
+            stationStatus2.Margin = new Padding(0);
+            stationStatus2.Name = "stationStatus2";
+            stationStatus2.Size = new Size(440, 25);
+            stationStatus2.Status = false;
+            stationStatus2.TabIndex = 2;
+            // 
+            // panel26
+            // 
+            panel26.Back = Color.Transparent;
+            panel26.BackColor = SystemColors.Control;
+            panel26.Controls.Add(stationAlarm3);
+            panel26.Controls.Add(stationAlarm2);
+            panel26.Controls.Add(stationAlarm1);
+            panel26.Dock = DockStyle.Fill;
+            panel26.Location = new Point(0, 0);
+            panel26.Margin = new Padding(0);
+            panel26.Name = "panel26";
+            panel26.Size = new Size(440, 93);
+            panel26.TabIndex = 8;
+            panel26.Tag = "水分炉报警";
+            panel26.Text = "panel26";
+            // 
+            // stationAlarm3
+            // 
+            stationAlarm3.AlarmName = "水分炉煤气泄漏";
+            stationAlarm3.BackColor = Color.Transparent;
+            stationAlarm3.Dock = DockStyle.Top;
+            stationAlarm3.IsAlarm = false;
+            stationAlarm3.Location = new Point(0, 50);
+            stationAlarm3.Name = "stationAlarm3";
+            stationAlarm3.Size = new Size(440, 25);
+            stationAlarm3.TabIndex = 8;
+            stationAlarm3.Visible = false;
+            // 
+            // stationAlarm2
+            // 
+            stationAlarm2.AlarmName = "水分炉燃烧机";
+            stationAlarm2.BackColor = Color.Transparent;
+            stationAlarm2.Dock = DockStyle.Top;
+            stationAlarm2.IsAlarm = false;
+            stationAlarm2.Location = new Point(0, 25);
+            stationAlarm2.Name = "stationAlarm2";
+            stationAlarm2.Size = new Size(440, 25);
+            stationAlarm2.TabIndex = 7;
+            stationAlarm2.Visible = false;
+            // 
+            // stationAlarm1
+            // 
+            stationAlarm1.AlarmName = "水分炉温度";
+            stationAlarm1.BackColor = Color.Transparent;
+            stationAlarm1.Dock = DockStyle.Top;
+            stationAlarm1.IsAlarm = false;
+            stationAlarm1.Location = new Point(0, 0);
+            stationAlarm1.Name = "stationAlarm1";
+            stationAlarm1.Size = new Size(440, 25);
+            stationAlarm1.TabIndex = 6;
+            stationAlarm1.Visible = false;
+            // 
+            // panel23
+            // 
+            panel23.Back = Color.LightGray;
+            panel23.BackColor = Color.Transparent;
+            panel23.Controls.Add(label2);
+            panel23.Dock = DockStyle.Top;
+            panel23.Location = new Point(5, 5);
+            panel23.Margin = new Padding(0);
+            panel23.Name = "panel23";
+            panel23.Size = new Size(440, 39);
+            panel23.TabIndex = 0;
+            // 
+            // label2
+            // 
+            label2.Font = new Font("Microsoft YaHei UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            label2.Location = new Point(8, 0);
+            label2.Margin = new Padding(3, 4, 3, 4);
+            label2.Name = "label2";
+            label2.Size = new Size(96, 39);
+            label2.TabIndex = 0;
+            label2.Text = "水分炉";
+            // 
+            // gridPanel5
+            // 
+            gridPanel5.BackColor = Color.Transparent;
+            gridPanel5.Controls.Add(panel27);
+            gridPanel5.Controls.Add(panel29);
+            gridPanel5.Dock = DockStyle.Bottom;
+            gridPanel5.Location = new Point(0, 651);
+            gridPanel5.Name = "gridPanel5";
+            gridPanel5.Size = new Size(900, 49);
+            gridPanel5.Span = "50% 50%;\r\n";
+            gridPanel5.TabIndex = 1;
+            gridPanel5.Text = "gridPanel5";
+            // 
+            // panel27
+            // 
+            panel27.Back = Color.WhiteSmoke;
+            panel27.BackColor = Color.White;
+            panel27.Controls.Add(panel31);
+            panel27.Controls.Add(panel32);
+            panel27.Dock = DockStyle.Fill;
+            panel27.Location = new Point(450, 0);
+            panel27.Margin = new Padding(0);
+            panel27.Name = "panel27";
+            panel27.Shadow = 4;
+            panel27.ShadowOpacityAnimation = true;
+            panel27.Size = new Size(450, 49);
+            panel27.TabIndex = 11;
+            panel27.Tag = "水分炉监控";
+            panel27.Text = "panel27";
+            // 
+            // panel31
+            // 
+            panel31.Back = Color.Transparent;
+            panel31.BackColor = SystemColors.Control;
+            panel31.Controls.Add(gridPanel6);
+            panel31.Dock = DockStyle.Fill;
+            panel31.Location = new Point(5, 5);
+            panel31.Name = "panel31";
+            panel31.Size = new Size(440, 39);
+            panel31.TabIndex = 10;
+            panel31.Tag = "输送机监控";
+            panel31.Text = "panel31";
+            // 
+            // gridPanel6
+            // 
+            gridPanel6.Controls.Add(stationStatus5);
+            gridPanel6.Controls.Add(stationStatus3);
+            gridPanel6.Dock = DockStyle.Fill;
+            gridPanel6.Location = new Point(0, 0);
+            gridPanel6.Margin = new Padding(0);
+            gridPanel6.Name = "gridPanel6";
+            gridPanel6.Size = new Size(440, 39);
+            gridPanel6.Span = "50% 50%;";
+            gridPanel6.TabIndex = 4;
+            gridPanel6.Text = "gridPanel6";
+            // 
+            // stationStatus5
+            // 
+            stationStatus5.BackColor = Color.Transparent;
+            stationStatus5.DeviceName = "输送机变频器";
+            stationStatus5.Location = new Point(220, 0);
+            stationStatus5.Margin = new Padding(0);
+            stationStatus5.Name = "stationStatus5";
+            stationStatus5.Size = new Size(220, 39);
+            stationStatus5.Status = false;
+            stationStatus5.TabIndex = 3;
+            // 
+            // stationStatus3
+            // 
+            stationStatus3.BackColor = Color.Transparent;
+            stationStatus3.DeviceName = "输送机变频器电源";
+            stationStatus3.Dock = DockStyle.Fill;
+            stationStatus3.Location = new Point(0, 0);
+            stationStatus3.Margin = new Padding(0);
+            stationStatus3.Name = "stationStatus3";
+            stationStatus3.Size = new Size(220, 39);
+            stationStatus3.Status = false;
+            stationStatus3.TabIndex = 4;
+            // 
+            // panel32
+            // 
+            panel32.Back = Color.Transparent;
+            panel32.BackColor = SystemColors.Control;
+            panel32.Controls.Add(gridPanel7);
+            panel32.Dock = DockStyle.Fill;
+            panel32.Location = new Point(5, 5);
+            panel32.Name = "panel32";
+            panel32.Size = new Size(440, 39);
+            panel32.TabIndex = 11;
+            panel32.Tag = "输送机报警";
+            panel32.Text = "panel32";
+            // 
+            // gridPanel7
+            // 
+            gridPanel7.Controls.Add(stationAlarm6);
+            gridPanel7.Controls.Add(stationAlarm5);
+            gridPanel7.Dock = DockStyle.Fill;
+            gridPanel7.Location = new Point(0, 0);
+            gridPanel7.Margin = new Padding(0);
+            gridPanel7.Name = "gridPanel7";
+            gridPanel7.Size = new Size(440, 39);
+            gridPanel7.Span = "50% 50%;";
+            gridPanel7.TabIndex = 4;
+            gridPanel7.Text = "gridPanel7";
+            // 
+            // stationAlarm6
+            // 
+            stationAlarm6.AlarmName = "输送机行程";
+            stationAlarm6.BackColor = Color.Transparent;
+            stationAlarm6.IsAlarm = false;
+            stationAlarm6.Location = new Point(223, 3);
+            stationAlarm6.Name = "stationAlarm6";
+            stationAlarm6.Size = new Size(214, 33);
+            stationAlarm6.TabIndex = 7;
+            stationAlarm6.Visible = false;
+            // 
+            // stationAlarm5
+            // 
+            stationAlarm5.AlarmName = "输送机变频器故障";
+            stationAlarm5.BackColor = Color.Transparent;
+            stationAlarm5.IsAlarm = false;
+            stationAlarm5.Location = new Point(3, 3);
+            stationAlarm5.Name = "stationAlarm5";
+            stationAlarm5.Size = new Size(214, 33);
+            stationAlarm5.TabIndex = 6;
+            stationAlarm5.Visible = false;
+            // 
+            // panel29
+            // 
+            panel29.Back = Color.WhiteSmoke;
+            panel29.BackColor = Color.White;
+            panel29.Controls.Add(panel28);
+            panel29.Controls.Add(panel30);
+            panel29.Dock = DockStyle.Fill;
+            panel29.Location = new Point(0, 0);
+            panel29.Margin = new Padding(0);
+            panel29.Name = "panel29";
+            panel29.Shadow = 4;
+            panel29.ShadowOpacityAnimation = true;
+            panel29.Size = new Size(450, 49);
+            panel29.TabIndex = 10;
+            panel29.Tag = "水分炉监控";
+            panel29.Text = "panel29";
+            // 
+            // panel28
+            // 
+            panel28.Back = Color.Transparent;
+            panel28.BackColor = SystemColors.Control;
+            panel28.Controls.Add(stationStatus4);
+            panel28.Dock = DockStyle.Fill;
+            panel28.Location = new Point(5, 5);
+            panel28.Name = "panel28";
+            panel28.Size = new Size(440, 39);
+            panel28.TabIndex = 10;
+            panel28.Tag = "冷却室监控";
+            panel28.Text = "panel28";
+            // 
+            // stationStatus4
+            // 
+            stationStatus4.BackColor = Color.Transparent;
+            stationStatus4.DeviceName = "冷却室离心风机";
+            stationStatus4.Dock = DockStyle.Fill;
+            stationStatus4.Location = new Point(0, 0);
+            stationStatus4.Margin = new Padding(0);
+            stationStatus4.Name = "stationStatus4";
+            stationStatus4.Size = new Size(440, 39);
+            stationStatus4.Status = false;
+            stationStatus4.TabIndex = 2;
+            // 
+            // panel30
+            // 
+            panel30.Back = Color.Transparent;
+            panel30.BackColor = SystemColors.Control;
+            panel30.Controls.Add(stationAlarm4);
+            panel30.Dock = DockStyle.Fill;
+            panel30.Location = new Point(5, 5);
+            panel30.Name = "panel30";
+            panel30.Size = new Size(440, 39);
+            panel30.TabIndex = 11;
+            panel30.Tag = "冷却室报警";
+            panel30.Text = "panel30";
+            // 
+            // stationAlarm4
+            // 
+            stationAlarm4.AlarmName = "冷却室离心风机过载";
+            stationAlarm4.BackColor = Color.Transparent;
+            stationAlarm4.Dock = DockStyle.Fill;
+            stationAlarm4.IsAlarm = false;
+            stationAlarm4.Location = new Point(0, 0);
+            stationAlarm4.Name = "stationAlarm4";
+            stationAlarm4.Size = new Size(440, 39);
+            stationAlarm4.TabIndex = 6;
+            stationAlarm4.Visible = false;
+            // 
             // ViewProductionBoard
             // 
             AutoScaleDimensions = new SizeF(9F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
+            Controls.Add(gridPanel3);
             Controls.Add(gridPanel5);
             Controls.Add(gridPanel4);
             Controls.Add(gridPanel2);
@@ -820,6 +1429,27 @@
             panel6.ResumeLayout(false);
             panel7.ResumeLayout(false);
             panel8.ResumeLayout(false);
+            gridPanel3.ResumeLayout(false);
+            panel19.ResumeLayout(false);
+            panel21.ResumeLayout(false);
+            panel22.ResumeLayout(false);
+            panel33.ResumeLayout(false);
+            panel34.ResumeLayout(false);
+            panel18.ResumeLayout(false);
+            panel20.ResumeLayout(false);
+            panel24.ResumeLayout(false);
+            panel25.ResumeLayout(false);
+            panel26.ResumeLayout(false);
+            panel23.ResumeLayout(false);
+            gridPanel5.ResumeLayout(false);
+            panel27.ResumeLayout(false);
+            panel31.ResumeLayout(false);
+            gridPanel6.ResumeLayout(false);
+            panel32.ResumeLayout(false);
+            gridPanel7.ResumeLayout(false);
+            panel29.ResumeLayout(false);
+            panel28.ResumeLayout(false);
+            panel30.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -829,18 +1459,16 @@
         private AntdUI.Label lbl_title;
         private AntdUI.Label lbl_plcStatus;
         private AntdUI.GridPanel gridPanel1;
-        private AntdUI.LabelTime labelTime1;
+        private AntdUI.LabelTime lbl_time;
         private AntdUI.Label lbl_temperature;
         private AntdUI.Label lbl_humidity;
         private AntdUI.GridPanel gridPanel_TitleInfo;
-        private Panel panel1;
         private AntdUI.GridPanel gridPanel2;
         private AntdUI.Label label4;
         private AntdUI.Label label8;
         private AntdUI.Label label7;
         private AntdUI.Label label6;
         private AntdUI.Label label5;
-        private AntdUI.GridPanel gridPanel5;
         private AntdUI.GridPanel gridPanel4;
         private UserControls.StationValue deviceValue5;
         private UserControls.StationValue deviceValue6;
@@ -896,5 +1524,49 @@
         private UserControls.StationAlarm deviceAlarm5;
         private AntdUI.Panel panel8;
         private AntdUI.Label label1;
+        private AntdUI.GridPanel gridPanel3;
+        private AntdUI.Panel panel18;
+        private AntdUI.Panel panel20;
+        private AntdUI.Panel panel23;
+        private AntdUI.Label label2;
+        private AntdUI.Panel panel24;
+        private AntdUI.Panel panel25;
+        private UserControls.StationValue stationValue2;
+        private UserControls.StationStatus stationStatus1;
+        private UserControls.StationStatus stationStatus2;
+        private AntdUI.Panel panel26;
+        private UserControls.StationAlarm stationAlarm1;
+        private LiveChartsCore.SkiaSharpView.WinForms.CartesianChart lineChart_WaterStove;
+        private UserControls.StationAlarm stationAlarm3;
+        private UserControls.StationAlarm stationAlarm2;
+        private AntdUI.GridPanel gridPanel5;
+        private AntdUI.Panel panel29;
+        private AntdUI.Panel panel28;
+        private UserControls.StationStatus stationStatus4;
+        private AntdUI.Panel panel30;
+        private UserControls.StationAlarm stationAlarm4;
+        private AntdUI.Panel panel27;
+        private AntdUI.Panel panel31;
+        private UserControls.StationStatus stationStatus5;
+        private AntdUI.Panel panel32;
+        private UserControls.StationAlarm stationAlarm6;
+        private UserControls.StationAlarm stationAlarm5;
+        private AntdUI.GridPanel gridPanel6;
+        private AntdUI.GridPanel gridPanel7;
+        private UserControls.StationStatus stationStatus3;
+        private Panel panel1;
+        private AntdUI.Panel panel19;
+        private LiveChartsCore.SkiaSharpView.WinForms.CartesianChart lineChart_SolidifyStove;
+        private AntdUI.Panel panel21;
+        private AntdUI.Panel panel22;
+        private UserControls.StationValue stationValue1;
+        private UserControls.StationStatus stationStatus6;
+        private UserControls.StationStatus stationStatus7;
+        private AntdUI.Panel panel33;
+        private UserControls.StationAlarm stationAlarm7;
+        private UserControls.StationAlarm stationAlarm8;
+        private UserControls.StationAlarm stationAlarm9;
+        private AntdUI.Panel panel34;
+        private AntdUI.Label label9;
     }
 }

@@ -22,6 +22,7 @@ namespace SprayProcessSystem.UI.UserControls
             {
                 _alarmName = value;
                 lbl_alarmName.Text = value;
+                lbl_alarmName.ForeColor = (Color)new ColorConverter().ConvertFromString("#ff4d4f");
             }
         }
 
@@ -32,7 +33,8 @@ namespace SprayProcessSystem.UI.UserControls
         public bool IsAlarm
         {
             get { return _isAlarm; }
-            set {
+            set 
+            {
                 _isAlarm = value;
             }
         }
