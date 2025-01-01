@@ -92,7 +92,7 @@
             menu.Location = new Point(0, 40);
             menu.Margin = new Padding(3, 4, 3, 4);
             menu.Name = "menu";
-            menu.Size = new Size(180, 810);
+            menu.Size = new Size(180, 710);
             menu.TabIndex = 0;
             menu.Text = "menu1";
             // 
@@ -104,22 +104,21 @@
             panelContent.Margin = new Padding(3, 4, 3, 4);
             panelContent.Name = "panelContent";
             panelContent.Padding = new Padding(13, 12, 13, 12);
-            panelContent.Size = new Size(900, 810);
+            panelContent.Size = new Size(900, 710);
             panelContent.TabIndex = 1;
             // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(9F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1080, 850);
+            ClientSize = new Size(1080, 750);
             Controls.Add(panelContent);
             Controls.Add(menu);
             Controls.Add(pageHeader);
             Icon = (Icon)resources.GetObject("$this.Icon");
             Margin = new Padding(3, 4, 3, 4);
             Name = "MainForm";
-            Resizable = false;
-            Text = "Form1";
+            Text = "喷涂工艺 SCADA";
             pageHeader.ResumeLayout(false);
             flowPanel1.ResumeLayout(false);
             ResumeLayout(false);

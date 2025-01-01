@@ -27,6 +27,18 @@ namespace SprayProcessSystem.Model
             Settings,
         }
 
+        public enum LogLevelEnum
+        {
+            [EnumDescription("信息")]
+            Info,
+            [EnumDescription("警告")]
+            Warn,
+            [EnumDescription("错误")]
+            Error,
+            [EnumDescription("调试")]
+            Debug,
+        }
+
 
         public static readonly Dictionary<MenuItem, List<MenuItem>> MenuItemDict = new Dictionary<MenuItem, List<MenuItem>>()
         {

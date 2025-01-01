@@ -166,7 +166,7 @@ namespace SprayProcessSystem.UI.Views
                 { "输送", new List<string>() },
             };
 
-            _controlList = Global.GetDescendantControls(this);
+            _controlList = Generic.GetDescendantControls(this);
             _plcVarConfigList = MiniExcel.Query<PLCVarConfig>(AppConfig.Current.Plc.ConfigPath).ToList();
 
             foreach (var item in _plcVarConfigList)
@@ -301,22 +301,21 @@ namespace SprayProcessSystem.UI.Views
                     });
                 }, null, 4000, Timeout.Infinite);
             }
-        }
 
-
-        private void _WaterStoveTempChartTimer_Elapsed(object? sender, System.Timers.ElapsedEventArgs e)
-        {
-            if (!_isPlcConnected) return;
-            _currentTimeLabels.Add(DateTime.Now.ToString("HH:mm:ss"));
-            _waterStoveValues.Add(_waterStoveTemperature);
-            _solidifyStoveValues.Add(_solidifyStoveTemperature);
-
-            // 保持最近1200个数据点
-            if (_waterStoveValues.Count > 1200)
+            void _WaterStoveTempChartTimer_Elapsed(object? sender, System.Timers.ElapsedEventArgs e)
             {
-                _waterStoveValues.RemoveAt(0);
-                _solidifyStoveValues.RemoveAt(0);
-                _currentTimeLabels.RemoveAt(0);
+                if (!_isPlcConnected) return;
+                _currentTimeLabels.Add(DateTime.Now.ToString("HH:mm:ss"));
+                _waterStoveValues.Add(_waterStoveTemperature);
+                _solidifyStoveValues.Add(_solidifyStoveTemperature);
+
+                // 保持最近1200个数据点
+                if (_waterStoveValues.Count > 1200)
+                {
+                    _waterStoveValues.RemoveAt(0);
+                    _solidifyStoveValues.RemoveAt(0);
+                    _currentTimeLabels.RemoveAt(0);
+                }
             }
         }
 

@@ -33,7 +33,11 @@ namespace SprayProcessSystem.UI
             LoadMenu();
             BindEvent();
             InitPlcClient();
-            menu.SelectIndex(0);
+            // 设置初始的页面
+            menu.SelectIndex(1);
+
+            AntdUI.Style.SetPrimary(Color.FromArgb(64, 158, 255));
+
         }
 
 
@@ -88,6 +92,7 @@ namespace SprayProcessSystem.UI
                     OkType = TTypeMini.Error,
                     OnOk = config =>
                     {
+                        Global.SiemensClient.Close();
                         return true;
                     },
 

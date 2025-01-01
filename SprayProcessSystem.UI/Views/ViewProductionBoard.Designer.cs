@@ -875,10 +875,10 @@
             // 
             // lineChart_SolidifyStove
             // 
-            lineChart_SolidifyStove.Dock = DockStyle.Top;
+            lineChart_SolidifyStove.Dock = DockStyle.Fill;
             lineChart_SolidifyStove.Location = new Point(5, 44);
             lineChart_SolidifyStove.Name = "lineChart_SolidifyStove";
-            lineChart_SolidifyStove.Size = new Size(440, 228);
+            lineChart_SolidifyStove.Size = new Size(440, 291);
             lineChart_SolidifyStove.TabIndex = 19;
             // 
             // panel21
@@ -889,11 +889,12 @@
             panel21.Controls.Add(panel22);
             panel21.Controls.Add(panel33);
             panel21.Dock = DockStyle.Bottom;
-            panel21.Location = new Point(5, 322);
+            panel21.Location = new Point(5, 335);
             panel21.Margin = new Padding(0);
             panel21.Name = "panel21";
+            panel21.Padding = new Padding(4);
             panel21.ShadowOpacityAnimation = true;
-            panel21.Size = new Size(440, 93);
+            panel21.Size = new Size(440, 80);
             panel21.TabIndex = 18;
             panel21.Text = "panel21";
             // 
@@ -905,10 +906,10 @@
             panel22.Controls.Add(stationStatus6);
             panel22.Controls.Add(stationStatus7);
             panel22.Dock = DockStyle.Fill;
-            panel22.Location = new Point(0, 0);
+            panel22.Location = new Point(4, 4);
             panel22.Margin = new Padding(0);
             panel22.Name = "panel22";
-            panel22.Size = new Size(440, 93);
+            panel22.Size = new Size(432, 72);
             panel22.TabIndex = 9;
             panel22.Tag = "水分炉监控";
             panel22.Text = "panel22";
@@ -921,7 +922,7 @@
             stationValue1.Location = new Point(0, 50);
             stationValue1.Margin = new Padding(0);
             stationValue1.Name = "stationValue1";
-            stationValue1.Size = new Size(440, 25);
+            stationValue1.Size = new Size(432, 25);
             stationValue1.TabIndex = 6;
             stationValue1.Value = 0F;
             // 
@@ -933,7 +934,7 @@
             stationStatus6.Location = new Point(0, 25);
             stationStatus6.Margin = new Padding(0);
             stationStatus6.Name = "stationStatus6";
-            stationStatus6.Size = new Size(440, 25);
+            stationStatus6.Size = new Size(432, 25);
             stationStatus6.Status = false;
             stationStatus6.TabIndex = 7;
             // 
@@ -945,7 +946,7 @@
             stationStatus7.Location = new Point(0, 0);
             stationStatus7.Margin = new Padding(0);
             stationStatus7.Name = "stationStatus7";
-            stationStatus7.Size = new Size(440, 25);
+            stationStatus7.Size = new Size(432, 25);
             stationStatus7.Status = false;
             stationStatus7.TabIndex = 2;
             // 
@@ -957,10 +958,10 @@
             panel33.Controls.Add(stationAlarm8);
             panel33.Controls.Add(stationAlarm9);
             panel33.Dock = DockStyle.Fill;
-            panel33.Location = new Point(0, 0);
+            panel33.Location = new Point(4, 4);
             panel33.Margin = new Padding(0);
             panel33.Name = "panel33";
-            panel33.Size = new Size(440, 93);
+            panel33.Size = new Size(432, 72);
             panel33.TabIndex = 8;
             panel33.Tag = "水分炉报警";
             panel33.Text = "panel33";
@@ -973,7 +974,7 @@
             stationAlarm7.IsAlarm = false;
             stationAlarm7.Location = new Point(0, 50);
             stationAlarm7.Name = "stationAlarm7";
-            stationAlarm7.Size = new Size(440, 25);
+            stationAlarm7.Size = new Size(432, 25);
             stationAlarm7.TabIndex = 8;
             stationAlarm7.Visible = false;
             // 
@@ -985,7 +986,7 @@
             stationAlarm8.IsAlarm = false;
             stationAlarm8.Location = new Point(0, 25);
             stationAlarm8.Name = "stationAlarm8";
-            stationAlarm8.Size = new Size(440, 25);
+            stationAlarm8.Size = new Size(432, 25);
             stationAlarm8.TabIndex = 7;
             stationAlarm8.Visible = false;
             // 
@@ -997,7 +998,7 @@
             stationAlarm9.IsAlarm = false;
             stationAlarm9.Location = new Point(0, 0);
             stationAlarm9.Name = "stationAlarm9";
-            stationAlarm9.Size = new Size(440, 25);
+            stationAlarm9.Size = new Size(432, 25);
             stationAlarm9.TabIndex = 6;
             stationAlarm9.Visible = false;
             // 
@@ -1053,10 +1054,10 @@
             // 
             // lineChart_WaterStove
             // 
-            lineChart_WaterStove.Dock = DockStyle.Top;
+            lineChart_WaterStove.Dock = DockStyle.Fill;
             lineChart_WaterStove.Location = new Point(5, 44);
             lineChart_WaterStove.Name = "lineChart_WaterStove";
-            lineChart_WaterStove.Size = new Size(440, 228);
+            lineChart_WaterStove.Size = new Size(440, 291);
             lineChart_WaterStove.TabIndex = 19;
             // 
             // panel24
@@ -1067,11 +1068,12 @@
             panel24.Controls.Add(panel25);
             panel24.Controls.Add(panel26);
             panel24.Dock = DockStyle.Bottom;
-            panel24.Location = new Point(5, 322);
+            panel24.Location = new Point(5, 335);
             panel24.Margin = new Padding(0);
             panel24.Name = "panel24";
+            panel24.Padding = new Padding(4);
             panel24.ShadowOpacityAnimation = true;
-            panel24.Size = new Size(440, 93);
+            panel24.Size = new Size(440, 80);
             panel24.TabIndex = 18;
             panel24.Text = "panel24";
             // 
@@ -1083,10 +1085,10 @@
             panel25.Controls.Add(stationStatus1);
             panel25.Controls.Add(stationStatus2);
             panel25.Dock = DockStyle.Fill;
-            panel25.Location = new Point(0, 0);
+            panel25.Location = new Point(4, 4);
             panel25.Margin = new Padding(0);
             panel25.Name = "panel25";
-            panel25.Size = new Size(440, 93);
+            panel25.Size = new Size(432, 72);
             panel25.TabIndex = 9;
             panel25.Tag = "水分炉监控";
             panel25.Text = "panel25";
@@ -1099,7 +1101,7 @@
             stationValue2.Location = new Point(0, 50);
             stationValue2.Margin = new Padding(0);
             stationValue2.Name = "stationValue2";
-            stationValue2.Size = new Size(440, 25);
+            stationValue2.Size = new Size(432, 25);
             stationValue2.TabIndex = 6;
             stationValue2.Value = 0F;
             // 
@@ -1111,7 +1113,7 @@
             stationStatus1.Location = new Point(0, 25);
             stationStatus1.Margin = new Padding(0);
             stationStatus1.Name = "stationStatus1";
-            stationStatus1.Size = new Size(440, 25);
+            stationStatus1.Size = new Size(432, 25);
             stationStatus1.Status = false;
             stationStatus1.TabIndex = 7;
             // 
@@ -1123,7 +1125,7 @@
             stationStatus2.Location = new Point(0, 0);
             stationStatus2.Margin = new Padding(0);
             stationStatus2.Name = "stationStatus2";
-            stationStatus2.Size = new Size(440, 25);
+            stationStatus2.Size = new Size(432, 25);
             stationStatus2.Status = false;
             stationStatus2.TabIndex = 2;
             // 
@@ -1135,10 +1137,10 @@
             panel26.Controls.Add(stationAlarm2);
             panel26.Controls.Add(stationAlarm1);
             panel26.Dock = DockStyle.Fill;
-            panel26.Location = new Point(0, 0);
+            panel26.Location = new Point(4, 4);
             panel26.Margin = new Padding(0);
             panel26.Name = "panel26";
-            panel26.Size = new Size(440, 93);
+            panel26.Size = new Size(432, 72);
             panel26.TabIndex = 8;
             panel26.Tag = "水分炉报警";
             panel26.Text = "panel26";
@@ -1151,7 +1153,7 @@
             stationAlarm3.IsAlarm = false;
             stationAlarm3.Location = new Point(0, 50);
             stationAlarm3.Name = "stationAlarm3";
-            stationAlarm3.Size = new Size(440, 25);
+            stationAlarm3.Size = new Size(432, 25);
             stationAlarm3.TabIndex = 8;
             stationAlarm3.Visible = false;
             // 
@@ -1163,7 +1165,7 @@
             stationAlarm2.IsAlarm = false;
             stationAlarm2.Location = new Point(0, 25);
             stationAlarm2.Name = "stationAlarm2";
-            stationAlarm2.Size = new Size(440, 25);
+            stationAlarm2.Size = new Size(432, 25);
             stationAlarm2.TabIndex = 7;
             stationAlarm2.Visible = false;
             // 
@@ -1175,7 +1177,7 @@
             stationAlarm1.IsAlarm = false;
             stationAlarm1.Location = new Point(0, 0);
             stationAlarm1.Name = "stationAlarm1";
-            stationAlarm1.Size = new Size(440, 25);
+            stationAlarm1.Size = new Size(432, 25);
             stationAlarm1.TabIndex = 6;
             stationAlarm1.Visible = false;
             // 

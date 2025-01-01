@@ -87,6 +87,7 @@
             // 
             // stackPanel1
             // 
+            stackPanel1.AutoScroll = true;
             stackPanel1.Controls.Add(flowPanel6);
             stackPanel1.Controls.Add(flowPanel5);
             stackPanel1.Controls.Add(label12);
@@ -449,6 +450,7 @@
             // 
             AutoScaleDimensions = new SizeF(9F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            AutoScroll = true;
             BackColor = Color.White;
             Controls.Add(stackPanel1);
             Name = "ViewSettings";
