@@ -93,7 +93,6 @@ namespace SprayProcessSystem.UI
             services.AddTransient<ViewLogManage>();
 
             services.AddTransient<ViewUserManage>();
-            services.AddTransient<ViewAuthManage>();
             services.AddTransient<ViewSettings>();
 
             services.AddTransient<ModalUserEdit>();

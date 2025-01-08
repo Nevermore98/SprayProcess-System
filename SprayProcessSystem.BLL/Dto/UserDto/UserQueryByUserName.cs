@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace SprayProcessSystem.BLL.Dto.UserDto
 {
-    public class UserQueryById:BaseDto
+    public class UserQueryByUserName:BaseDto
     {
+        public string UserName { get; set; }
     }
 }

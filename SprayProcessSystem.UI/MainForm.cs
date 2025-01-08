@@ -133,7 +133,6 @@ namespace SprayProcessSystem.UI
                 NavigationType.LogManage => Program.ServiceProvider.GetRequiredService<ViewLogManage>(),
 
                 NavigationType.UserManage => Program.ServiceProvider.GetRequiredService<ViewUserManage>(),
-                NavigationType.AuthManage => Program.ServiceProvider.GetRequiredService<ViewAuthManage>(),
                 NavigationType.Settings => Program.ServiceProvider.GetRequiredService<ViewSettings>(),
 
                 _ => Program.ServiceProvider.GetRequiredService<ViewTotalControl>(),

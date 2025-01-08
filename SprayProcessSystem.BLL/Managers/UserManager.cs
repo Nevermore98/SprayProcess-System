@@ -114,7 +114,7 @@ namespace SprayProcessSystem.BLL.Managers
         }
 
 
-        public async Task<BaseResult<ResultUserQueryDto>> QueryUserByIdAsync(UserQueryById request)
+        public async Task<BaseResult<ResultUserQueryDto>> QueryUserByUserNameAsync(UserQueryByUserName request)
         {
             var entity = request.Adapt<UserEntity>();
 

@@ -25,38 +25,27 @@ namespace SprayProcessSystem.UI.Views
             LoadTableData();
         }
 
-        private AntdUI.Table.CellStyleInfo Table_SetRowStyle(object sender, TableSetRowStyleEventArgs e)
-        {
-            if (e.RowIndex % 2 == 0)
-            {
-                return new AntdUI.Table.CellStyleInfo
-                {
-                    BackColor = AntdUI.Style.Db.BgLayout,
-                };
-            }
-            return null;
-        }
-
         private void InitTableColumns()
         {
             //table_user.SetRowEnable(0, false, true);
-            //table_user.SetRowStyle += Table_SetRowStyle;
             table_user.RowHeight = 40;
             table_user.Columns = new ColumnCollection() {
                 new ColumnCheck("IsSelected"){Fixed = true},
                 new Column("UserName", "账号", ColumnAlign.Center)
                 {
                     Width="160",
-                    KeyTree = "Users"
+                    SortOrder = true
                 },
                 new Column("NickName", "昵称", ColumnAlign.Center)
                 {
                      Width="160",
+                     SortOrder = true
                 },
                 // Table 修改 RowHeight 行高后，中文无法显示，需要修改表格的 Gap
                 new Column("Role", "角色", ColumnAlign.Center),
                 new Column("CreatedAt", "创建时间", ColumnAlign.Center){
                     Width = "190",
+                    SortOrder = true
                 },
                 new ColumnSwitch("IsEnabled", "是否启用", ColumnAlign.Center){
                     Call = (value, record, i_row, i_col) => {
@@ -87,7 +76,10 @@ namespace SprayProcessSystem.UI.Views
             _userList.AddRange(userList.Select(x => x.Adapt<User>()).ToArray());
             Console.WriteLine(_userList);
             table_user.Binding(_userList);
-            table_user.Invalidate();
+
+            // 禁用默认管理员账号
+            var index = _userList.IndexOf(_userList.FirstOrDefault(x => x.UserName == "Admin"));
+            table_user.SetRowEnable(index, false, true);
         }
 
         private async void table_user_CellButtonClick(object sender, TableButtonEventArgs e)
