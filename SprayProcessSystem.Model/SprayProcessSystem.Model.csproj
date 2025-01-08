@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <PackageReference Include="IoTClient" Version="1.0.41" />
+    <PackageReference Include="Mapster" Version="7.4.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="8.0.1" />
     <PackageReference Include="MiniExcel" Version="1.36.0" />
     <PackageReference Include="NLog" Version="5.3.4" />

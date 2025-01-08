@@ -8,7 +8,6 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <ApplicationIcon>Assets\FluentEmojiFlatFactory.ico</ApplicationIcon>
     <UseWPF>False</UseWPF>
-    <RunPostBuildEvent>OnOutputUpdated</RunPostBuildEvent>
   </PropertyGroup>
 
   <ItemGroup>
@@ -68,4 +67,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="xcopy &quot;$(TargetDir)*.dll&quot; &quot;$(TargetDir)\AllDlls\&quot; /Y /E /I" />
+  </Target>
+
 </Project>

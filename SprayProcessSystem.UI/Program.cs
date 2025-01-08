@@ -7,13 +7,18 @@ using NLog;
 using NLog.Extensions.Logging;
 using SkiaSharp;
 using SprayProcessSystem.UI.Views;
+using SprayProcessSystem.DAL;
+using SqlSugar;
+using SprayProcessSystem.Model.Entities;
+using SprayProcessSystem.UI.UserControls.Modals;
+using SprayProcessSystem.BLL.Managers;
+using SprayProcessSystem.DAL.Services;
 
 namespace SprayProcessSystem.UI
 {
     internal static class Program
     {
         public static IServiceProvider ServiceProvider { get; private set; } = null!;
-
 
         [STAThread]
         static void Main()
@@ -34,6 +39,11 @@ namespace SprayProcessSystem.UI
 
             ConfigureServices();
 
+            var db = ServiceProvider.GetRequiredService<ISqlSugarClient>();
+#if DEBUG
+            db.CodeFirst.SetStringDefaultLength(200).InitTables(typeof(AuthEntity), typeof(DataEntity), typeof(RecipeEntity), typeof(UserEntity));
+#endif
+
             var mainForm = ServiceProvider.GetRequiredService<MainForm>();
             Application.Run(mainForm);
         }
@@ -50,7 +60,8 @@ namespace SprayProcessSystem.UI
 
 
             services.AddSingleton<IConfiguration>(config)
-                .AddLogging(loggerBuilder => {
+                .AddLogging(loggerBuilder =>
+                {
                     loggerBuilder.ClearProviders(); //清除其他日志的提供者
                     loggerBuilder.SetMinimumLevel(Microsoft.Extensions.Logging.LogLevel.Trace); //设置等级
                     loggerBuilder.AddNLog(config);
@@ -62,6 +73,15 @@ namespace SprayProcessSystem.UI
             //设置 NLog 配置
             LogManager.Configuration = new NLogLoggingConfiguration(nlogConifg);
 
+            var sqlSugarConfig = config.GetSection("SqlSugar");
+            var dbType = Enum.Parse<DbType>(sqlSugarConfig["DbType"]);
+            var connectionString = sqlSugarConfig[$"{dbType}:ConnectionString"];
+
+            services.AddSingleton<UserService>();
+            services.AddSingleton<UserManager>(sp => new UserManager(sp.GetService<UserService>()));
+
+            services.AddSqlSugarSetup(dbType, connectionString);
+
             services.AddSingleton<MainForm>();
 
             services.AddSingleton<ViewProductionBoard>();
@@ -72,9 +92,11 @@ namespace SprayProcessSystem.UI
             services.AddSingleton<ViewReportManage>();
             services.AddTransient<ViewLogManage>();
 
-            services.AddSingleton<ViewUserManage>();
+            services.AddTransient<ViewUserManage>();
             services.AddTransient<ViewAuthManage>();
             services.AddTransient<ViewSettings>();
+
+            services.AddTransient<ModalUserEdit>();
 
 
             ServiceProvider = services.BuildServiceProvider();
@@ -93,15 +115,16 @@ namespace SprayProcessSystem.UI
         // 捕获UI线程中的未处理异常
         static void Application_ThreadException(object sender, System.Threading.ThreadExceptionEventArgs e)
         {
-            //LoggerHelper.Logger.Fatal(e.Exception, "未处理的UI线程异常");
             //AntdUI.Notification.error(mainWindow, "未处理的UI线程异常", e.Exception.Message, autoClose: 3, align: AntdUI.TAlignFrom.TR);
+            LogManager.GetCurrentClassLogger().Warn(e.Exception, "未处理的UI线程异常");
         }
+
 
         // 捕获非UI线程中的未处理异常
         static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
-            //LoggerHelper.Logger.Fatal(e.ExceptionObject as Exception, "未处理的非UI线程异常");
             //AntdUI.Notification.error(mainWindow, "未处理的非UI线程异常", e.ToString(), autoClose: 3, align: AntdUI.TAlignFrom.TR);
+            LogManager.GetCurrentClassLogger().Warn(e.ExceptionObject as Exception, "未处理的非UI线程异常");
         }
     }
 }

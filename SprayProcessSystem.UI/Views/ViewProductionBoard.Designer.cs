@@ -36,7 +36,6 @@
             gridPanel1 = new AntdUI.GridPanel();
             gridPanel_TitleInfo = new AntdUI.GridPanel();
             panel1 = new Panel();
-            lbl_time = new AntdUI.LabelTime();
             gridPanel2 = new AntdUI.GridPanel();
             label8 = new AntdUI.Label();
             label7 = new AntdUI.Label();
@@ -126,6 +125,7 @@
             stationStatus4 = new UserControls.StationStatus();
             panel30 = new AntdUI.Panel();
             stationAlarm4 = new UserControls.StationAlarm();
+            lbl_time = new AntdUI.LabelTime();
             gridPanel1.SuspendLayout();
             gridPanel_TitleInfo.SuspendLayout();
             panel1.SuspendLayout();
@@ -248,24 +248,13 @@
             // 
             // panel1
             // 
-            panel1.BackColor = Color.RosyBrown;
+            panel1.BackColor = Color.Transparent;
             panel1.Controls.Add(lbl_time);
             panel1.Location = new Point(0, 0);
             panel1.Margin = new Padding(0);
             panel1.Name = "panel1";
             panel1.Size = new Size(282, 46);
             panel1.TabIndex = 2;
-            // 
-            // lbl_time
-            // 
-            lbl_time.BackColor = Color.Gray;
-            lbl_time.Location = new Point(66, 12);
-            lbl_time.Margin = new Padding(0);
-            lbl_time.MaximumSize = new Size(180, 20);
-            lbl_time.Name = "lbl_time";
-            lbl_time.RightToLeft = RightToLeft.No;
-            lbl_time.Size = new Size(110, 20);
-            lbl_time.TabIndex = 1;
             // 
             // gridPanel2
             // 
@@ -1397,6 +1386,14 @@
             stationAlarm4.TabIndex = 6;
             stationAlarm4.Visible = false;
             // 
+            // lbl_time
+            // 
+            lbl_time.Location = new Point(40, 8);
+            lbl_time.Name = "lbl_time";
+            lbl_time.Size = new Size(157, 29);
+            lbl_time.TabIndex = 2;
+            lbl_time.Text = "labelTime1";
+            // 
             // ViewProductionBoard
             // 
             AutoScaleDimensions = new SizeF(9F, 20F);
@@ -1461,7 +1458,6 @@
         private AntdUI.Label lbl_title;
         private AntdUI.Label lbl_plcStatus;
         private AntdUI.GridPanel gridPanel1;
-        private AntdUI.LabelTime lbl_time;
         private AntdUI.Label lbl_temperature;
         private AntdUI.Label lbl_humidity;
         private AntdUI.GridPanel gridPanel_TitleInfo;
@@ -1472,22 +1468,7 @@
         private AntdUI.Label label6;
         private AntdUI.Label label5;
         private AntdUI.GridPanel gridPanel4;
-        private UserControls.StationValue deviceValue5;
-        private UserControls.StationValue deviceValue6;
-        private UserControls.StationValue deviceValue3;
-        private UserControls.StationValue deviceValue4;
-        private UserControls.StationValue deviceValue7;
-        private UserControls.StationStatus deviceStatus3;
-        private UserControls.StationStatus deviceStatus4;
-        private UserControls.StationValue deviceValue8;
-        private UserControls.StationValue deviceValue9;
-        private UserControls.StationValue deviceValue12;
-        private UserControls.StationValue deviceValue13;
-        private UserControls.StationStatus deviceStatus7;
-        private UserControls.StationStatus deviceStatus8;
         private AntdUI.Panel panel2;
-        private UserControls.StationValue deviceValue10;
-        private UserControls.StationStatus deviceStatus6;
         private AntdUI.Panel panel4;
         private AntdUI.Label label3;
         private UserControls.StationValue deviceValue14;
@@ -1556,7 +1537,6 @@
         private AntdUI.GridPanel gridPanel6;
         private AntdUI.GridPanel gridPanel7;
         private UserControls.StationStatus stationStatus3;
-        private Panel panel1;
         private AntdUI.Panel panel19;
         private LiveChartsCore.SkiaSharpView.WinForms.CartesianChart lineChart_SolidifyStove;
         private AntdUI.Panel panel21;
@@ -1570,5 +1550,7 @@
         private UserControls.StationAlarm stationAlarm9;
         private AntdUI.Panel panel34;
         private AntdUI.Label label9;
+        private Panel panel1;
+        private AntdUI.LabelTime lbl_time;
     }
 }

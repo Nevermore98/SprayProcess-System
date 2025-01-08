@@ -3,7 +3,7 @@ using MiniExcelLibs.Attributes;
 
 namespace SprayProcessSystem.Model
 {
-    public class PLCVarConfig
+    public class PlcVarConfig
     {
         [ExcelColumnName("ËùÊôÄ£¿é")]
         public string Module { get; set; }

@@ -87,5 +87,28 @@ namespace SprayProcessSystem.UI
                     break;
             }
         }
+
+
+        public static void ShowMessage(Form form, string message, TType messageType)
+        {
+            AntdUI.Message.open(new AntdUI.Message.Config(form, message, messageType)
+            {
+                AutoClose = 3,
+                Align = TAlignFrom.Top,
+                Font = new Font(Global.FontCollection.Families[0], 13),
+                ShowInWindow = true
+            });
+        }
+
+        public static DialogResult ShowModal(Form form, string title, object content, TType modalType, bool isShowDefaultBtns =true)
+        {
+            return AntdUI.Modal.open(new AntdUI.Modal.Config(form, title, content, modalType)
+            {
+                Keyboard = false,
+                Font = new Font(Global.FontCollection.Families[0], 11),
+                BtnHeight = isShowDefaultBtns ? 38 : 0,
+                MaskClosable = true,
+            });
+        }
     }
 }

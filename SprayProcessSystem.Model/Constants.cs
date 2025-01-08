@@ -39,6 +39,25 @@ namespace SprayProcessSystem.Model
             Debug,
         }
 
+        public enum RoleEnum
+        {
+            [EnumDescription("管理员")]
+            Admin,
+            [EnumDescription("工程师")]
+            Engineer,
+            [EnumDescription("操作员")]
+            Operator,
+            [EnumDescription("访客")]
+            Visitor
+        }
+
+        public enum Result
+        {
+            [EnumDescription("成功")]
+            Success,
+            [EnumDescription("失败")]
+            Fail
+        }
 
         public static readonly Dictionary<MenuItem, List<MenuItem>> MenuItemDict = new Dictionary<MenuItem, List<MenuItem>>()
         {

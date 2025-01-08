@@ -30,5 +30,17 @@ namespace SprayProcessSystem.Helper
             }
             return value.ToString();
         }
+
+        // 获取枚举类型的所有字段和描述组成的对象数组
+        public static (T Value, string Description)[] GetAllEnumDescriptionArray<T>() where T : Enum
+        {
+            return typeof(T)
+                .GetFields(BindingFlags.Public | BindingFlags.Static)
+                .Select(field => (
+                    Value: (T)field.GetValue(null),
+                    Description: field.GetCustomAttribute<DescriptionAttribute>()?.Description ?? field.Name
+                ))
+                .ToArray();
+        }
     }
 }

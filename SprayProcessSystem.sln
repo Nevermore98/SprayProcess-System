@@ -3,15 +3,20 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35222.181
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SprayProcessSystem.UI", "SprayProcessSystem.UI\SprayProcessSystem.UI.csproj", "{F5D6EEBE-215A-49BD-A1A5-6296813B2A3B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SprayProcessSystem.UI", "SprayProcessSystem.UI\SprayProcessSystem.UI.csproj", "{F5D6EEBE-215A-49BD-A1A5-6296813B2A3B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SprayProcessSystem.DAL", "SprayProcessSystem.DAL\SprayProcessSystem.DAL.csproj", "{02D4FC2D-D02D-48BF-BC99-4C41359680BD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SprayProcessSystem.DAL", "SprayProcessSystem.DAL\SprayProcessSystem.DAL.csproj", "{02D4FC2D-D02D-48BF-BC99-4C41359680BD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SprayProcessSystem.BLL", "SprayProcessSystem.BLL\SprayProcessSystem.BLL.csproj", "{97A2CDD3-94F9-4B0C-8FA1-8F7A62EFC3A3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SprayProcessSystem.BLL", "SprayProcessSystem.BLL\SprayProcessSystem.BLL.csproj", "{97A2CDD3-94F9-4B0C-8FA1-8F7A62EFC3A3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SprayProcessSystem.Model", "SprayProcessSystem.Model\SprayProcessSystem.Model.csproj", "{FB713BCF-9B3A-4D92-9DE6-2A99CCFE19C3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SprayProcessSystem.Model", "SprayProcessSystem.Model\SprayProcessSystem.Model.csproj", "{FB713BCF-9B3A-4D92-9DE6-2A99CCFE19C3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SprayProcessSystem.Helper", "SprayProcessSystem.Helper\SprayProcessSystem.Helper.csproj", "{CD7E6362-B207-49A7-9689-32BBFEC94F03}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SprayProcessSystem.Helper", "SprayProcessSystem.Helper\SprayProcessSystem.Helper.csproj", "{CD7E6362-B207-49A7-9689-32BBFEC94F03}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{77B10AF5-D636-4CA2-BFAD-3F4C05EA0F50}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

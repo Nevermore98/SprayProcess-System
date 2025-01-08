@@ -3,7 +3,6 @@ using IoTClient.Clients.PLC;
 using Microsoft.Extensions.DependencyInjection;
 using MiniExcelLibs;
 using NLog;
-using SprayProcessSystem.BLL;
 using SprayProcessSystem.Helper;
 using SprayProcessSystem.Model;
 using SprayProcessSystem.UI.Views;
@@ -15,7 +14,6 @@ namespace SprayProcessSystem.UI
     public partial class MainForm : AntdUI.Window
     {
         private readonly ILogger _logger;
-        private readonly IAppConfigService _appConfig;
 
         public Control CurrentNavigationView { get; set; } = new Control();
 
@@ -43,7 +41,7 @@ namespace SprayProcessSystem.UI
 
         private void InitPlcClient()
         {
-            var plcVarConfigList = MiniExcel.Query<PLCVarConfig>(AppConfig.Current.Plc.ConfigPath).ToList();
+            var plcVarConfigList = MiniExcel.Query<PlcVarConfig>(AppConfig.Current.Plc.ConfigPath).ToList();
 
             var plcConfig = new AppConfig.PlcSettings
             {
@@ -82,12 +80,12 @@ namespace SprayProcessSystem.UI
             menu.SelectChanged += Menu_SelectChanged;
             Closing += (s, e) =>
             {
-
-                AntdUI.Modal.open(new AntdUI.Modal.Config(this, "警告", "是否确认关闭系统")
+                AntdUI.Modal.open(new AntdUI.Modal.Config(this, "警告", "是否确认关闭系统？", TType.Warn)
                 {
                     Btns = new Modal.Btn[]{ new AntdUI.Modal.Btn("cancel", "取消", AntdUI.TTypeMini.Default) },
                     MaskClosable = false,
                     CancelText = null,
+                    Font = new Font(Global.FontCollection.Families[0], 11),
                     OkText = "关闭",
                     OkType = TTypeMini.Error,
                     OnOk = config =>

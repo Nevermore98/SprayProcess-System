@@ -15,14 +15,13 @@ namespace SprayProcessSystem.UI.Views
 {
     public partial class ViewProductionBoard : UserControl
     {
-        private readonly IAppConfigService _appConfig;
         private readonly ILogger _logger;
 
         private List<Control> _controlList;
 
         private bool _isPlcConnected = false;
         private CancellationTokenSource _readPlcCts = new();
-        private List<PLCVarConfig> _plcVarConfigList = new();
+        private List<PlcVarConfig> _plcVarConfigList = new();
         private Timer _readPlcTimer = new();
         private Dictionary<string, List<string>> _stationNameAlarmDict = new();
 
@@ -34,9 +33,7 @@ namespace SprayProcessSystem.UI.Views
         private ObservableCollection<double> _waterStoveValues;
         private ObservableCollection<double> _solidifyStoveValues;
         private Timer _chartInsertDataTimer = new();
-
-        private bool isAnyChartInteracting = false;
-        private System.Threading.Timer resetTimer;
+        private System.Threading.Timer resetTimer; 
 
         public ViewProductionBoard()
         {
@@ -70,8 +67,6 @@ namespace SprayProcessSystem.UI.Views
                 //遍历所有控件
                 foreach (Control control in _controlList)
                 {
-                    PlcData plcData;
-
                     if (control is StationValue deviceValue)
                     {
                         if (Global.PlcNameDataDict.ContainsKey(deviceValue.DeviceName) && Global.PlcNameDataDict[deviceValue.DeviceName].Value != null)
@@ -167,7 +162,7 @@ namespace SprayProcessSystem.UI.Views
             };
 
             _controlList = Generic.GetDescendantControls(this);
-            _plcVarConfigList = MiniExcel.Query<PLCVarConfig>(AppConfig.Current.Plc.ConfigPath).ToList();
+            _plcVarConfigList = MiniExcel.Query<PlcVarConfig>(AppConfig.Current.Plc.ConfigPath).ToList();
 
             foreach (var item in _plcVarConfigList)
             {
@@ -276,7 +271,6 @@ namespace SprayProcessSystem.UI.Views
 
             void ChartInteractionStarted(object sender, EventArgs e)
             {
-                isAnyChartInteracting = true;
                 resetTimer?.Dispose();
             }
 
@@ -296,8 +290,6 @@ namespace SprayProcessSystem.UI.Views
                         lineChart_SolidifyStove.XAxes.FirstOrDefault()!.MaxLimit = null;
                         lineChart_SolidifyStove.YAxes.FirstOrDefault()!.MinLimit = null;
                         lineChart_SolidifyStove.YAxes.FirstOrDefault()!.MaxLimit = null;
-
-                        isAnyChartInteracting = false;
                     });
                 }, null, 4000, Timeout.Infinite);
             }
