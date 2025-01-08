@@ -40,7 +40,7 @@
             label4 = new AntdUI.Label();
             stackPanel5 = new AntdUI.StackPanel();
             txt_password = new AntdUI.Input();
-            label5 = new AntdUI.Label();
+            lbl_password = new AntdUI.Label();
             stackPanel3 = new AntdUI.StackPanel();
             select_role = new AntdUI.Select();
             label3 = new AntdUI.Label();
@@ -150,9 +150,10 @@
             // 
             // switch_enabled
             // 
-            switch_enabled.Location = new Point(74, 3);
+            switch_enabled.Location = new Point(77, 6);
+            switch_enabled.Margin = new Padding(6);
             switch_enabled.Name = "switch_enabled";
-            switch_enabled.Size = new Size(52, 35);
+            switch_enabled.Size = new Size(40, 29);
             switch_enabled.TabIndex = 5;
             switch_enabled.Text = "switch1";
             // 
@@ -167,7 +168,7 @@
             // stackPanel5
             // 
             stackPanel5.Controls.Add(txt_password);
-            stackPanel5.Controls.Add(label5);
+            stackPanel5.Controls.Add(lbl_password);
             stackPanel5.Location = new Point(26, 120);
             stackPanel5.Margin = new Padding(0);
             stackPanel5.Name = "stackPanel5";
@@ -183,13 +184,13 @@
             txt_password.TabIndex = 4;
             txt_password.WaveSize = 1;
             // 
-            // label5
+            // lbl_password
             // 
-            label5.Location = new Point(3, 3);
-            label5.Name = "label5";
-            label5.Size = new Size(65, 34);
-            label5.TabIndex = 0;
-            label5.Text = "密码";
+            lbl_password.Location = new Point(3, 3);
+            lbl_password.Name = "lbl_password";
+            lbl_password.Size = new Size(65, 34);
+            lbl_password.TabIndex = 0;
+            lbl_password.Text = "密码";
             // 
             // stackPanel3
             // 
@@ -284,6 +285,6 @@
         private AntdUI.Label label4;
         private AntdUI.StackPanel stackPanel5;
         private AntdUI.Input txt_password;
-        private AntdUI.Label label5;
+        private AntdUI.Label lbl_password;
     }
 }

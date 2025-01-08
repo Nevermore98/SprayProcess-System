@@ -1,4 +1,7 @@
-﻿using SprayProcessSystem.BLL.Dto.UserDto;
+﻿using AntdUI;
+using Microsoft.Extensions.DependencyInjection;
+using SprayProcessSystem.BLL.Dto.UserDto;
+using SprayProcessSystem.BLL.Managers;
 using SprayProcessSystem.Helper;
 using SprayProcessSystem.Model;
 using Window = System.Windows.Forms.Form;
@@ -9,15 +12,19 @@ namespace SprayProcessSystem.UI.UserControls.Modals
     {
         private readonly Window _window;
         private readonly UserAddUpdateDto _user;
+        private readonly bool _isEdit;
+        private readonly UserManager _userManager;
         public bool Submit { get; set; }
 
         public string UserName { get; set; }
-
-        public ModalUserEdit(Window window, UserAddUpdateDto user)
+        
+        public ModalUserEdit(Window window, UserAddUpdateDto user, bool isEdit = true)
         {
             InitializeComponent();
             _window = window;
             _user = user;
+            _isEdit = isEdit;
+            _userManager = Program.ServiceProvider.GetRequiredService<UserManager>();
 
             var list = EnumHelper.GetAllEnumDescriptionArray<Constants.RoleEnum>();
             select_role.Items.AddRange(list.Select(x => x.Description).ToArray());
@@ -33,18 +40,48 @@ namespace SprayProcessSystem.UI.UserControls.Modals
             txt_nickName.Text = _user.NickName;
             select_role.SelectedValue = _user.Role;
             switch_enabled.Checked = _user.IsEnabled;
+
+            if (_isEdit)
+            {
+                lbl_password.Visible = false;
+                txt_password.Visible = false;
+                txt_userName.Enabled = false;
+            }
+
+            AntdUI.TooltipComponent tooltip = new AntdUI.TooltipComponent()
+            {
+                Font = new Font(Global.FontCollection.Families[0], 10)
+            };
+            tooltip.SetTip(txt_userName, "账号名不区分大小写");
+
         }
 
 
 
-        private void btn_ok_Click(object sender, EventArgs e)
+        private async void btn_ok_Click(object sender, EventArgs e)
         {
-            //input_name.Status = AntdUI.TType.None;
-            ////检查输入内容
+            //检查输入内容
             if (string.IsNullOrEmpty(txt_userName.Text))
             {
                 txt_userName.Status = AntdUI.TType.Error;
-                AntdUI.Message.warn(this.ParentForm, "用户名不能为空！", autoClose: 3);
+                Generic.ShowMessage(_window, "账号名不能为空！", TType.Warn);
+                return;
+            }
+            if (string.IsNullOrEmpty(txt_nickName.Text))
+            {
+                txt_nickName.Status = AntdUI.TType.Error;
+                Generic.ShowMessage(_window, "昵称不能为空！", TType.Warn);
+                return;
+            }
+            if (string.IsNullOrEmpty(txt_password.Text) && !_isEdit)
+            {
+                txt_password.Status = AntdUI.TType.Error;
+                Generic.ShowMessage(_window, "密码不能为空！", TType.Warn);
+                return;
+            }
+            if (string.IsNullOrEmpty((string)select_role.SelectedValue))
+            {
+                Generic.ShowMessage(_window, "角色不能为空！", TType.Warn);
                 return;
             }
 
@@ -53,8 +90,25 @@ namespace SprayProcessSystem.UI.UserControls.Modals
             _user.Role = (string)select_role.SelectedValue;
             _user.Password = txt_password.Text;
             _user.IsEnabled = switch_enabled.Checked;
-            Submit = true;
-            this.Dispose();
+
+            if (!_isEdit)
+            {
+                var isExistResponse = await _userManager.IsUserExistAsync(new UserIsExistDto() { UserName = _user.UserName });
+                if (isExistResponse.Result == Constants.Result.Success)
+                {
+                    Submit = true;
+                    this.Dispose();
+                }
+                else
+                {
+                    Generic.ShowMessage(_window, isExistResponse.Message, TType.Warn);
+                }
+            }
+            else
+            {
+                Submit = true;
+                this.Dispose();
+            }
         }
 
 

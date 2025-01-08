@@ -483,6 +483,7 @@
             table_user.Bordered = true;
             table_user.Gap = 10;
             table_user.Location = new Point(3, 81);
+            table_user.LostFocusClearSelection = true;
             table_user.Name = "table_user";
             table_user.Size = new Size(894, 220);
             table_user.TabIndex = 2;

@@ -39,11 +39,11 @@ namespace SprayProcessSystem.BLL.Managers
         {
             var entity = request.Adapt<UserEntity>();
 
-            var res = await _userService.IsExistAsync(e => e.UserName == entity.UserName);
+            var isExist = await _userService.IsExistAsync(e => e.UserName.ToLower() == request.UserName.ToLower());
 
-            if (!res)
+            if (isExist)
             {
-                return new BaseResult() { Result = Constants.Result.Fail, Message = "用户不存在" };
+                return new BaseResult() { Result = Constants.Result.Fail, Message = "用户已存在" };
             }
 
             return new BaseResult() { Result = Constants.Result.Success };
@@ -51,7 +51,7 @@ namespace SprayProcessSystem.BLL.Managers
 
         public async Task<BaseResult> AddUserAsync(UserAddUpdateDto request)
         {
-            var isExist = await _userService.IsExistAsync(e => e.UserName == request.UserName);
+            var isExist = await _userService.IsExistAsync(e => e.UserName.ToLower() == request.UserName.ToLower());
             if (isExist)
             {
                 return new BaseResult() { Result = Constants.Result.Fail, Message = "用户已存在" };
@@ -71,7 +71,7 @@ namespace SprayProcessSystem.BLL.Managers
 
         public async Task<BaseResult> UpdateUserAsync(UserAddUpdateDto request)
         {
-            var isExist = await _userService.IsExistAsync(x => x.UserName == request.UserName && x.Id != request.Id);
+            var isExist = await _userService.IsExistAsync(x => x.UserName.ToLower() == request.UserName.ToLower() && x.Id != request.Id);
             if (isExist)
             {
                 return new BaseResult() { Result = Constants.Result.Fail, Message = $"账号名 {request.UserName} 已存在，请设置不同的账号名" };
@@ -118,7 +118,7 @@ namespace SprayProcessSystem.BLL.Managers
         {
             var entity = request.Adapt<UserEntity>();
 
-            var res = await _userService.QueryOneAsync(e => e.UserName == entity.UserName);
+            var res = await _userService.QueryOneAsync(e => e.UserName.ToLower() == entity.UserName.ToLower());
 
             if (res == null)
             {

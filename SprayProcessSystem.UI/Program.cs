@@ -44,6 +44,20 @@ namespace SprayProcessSystem.UI
             db.CodeFirst.SetStringDefaultLength(200).InitTables(typeof(AuthEntity), typeof(DataEntity), typeof(RecipeEntity), typeof(UserEntity));
 #endif
 
+            // 如果 User 表里没有 Admin，则添加
+            if (!db.Queryable<UserEntity>().Any(x => x.UserName.ToLower() == "admin"))
+            {
+                db.Insertable(new UserEntity()
+                {
+                    UserName = "admin",
+                    Password = "admin",
+                    Role = "管理员",
+                    NickName = "默认管理员",
+                    IsEnabled = true
+                }).ExecuteCommand();
+            }
+
+
             var mainForm = ServiceProvider.GetRequiredService<MainForm>();
             Application.Run(mainForm);
         }

@@ -78,7 +78,7 @@ namespace SprayProcessSystem.UI.Views
             table_user.Binding(_userList);
 
             // 禁用默认管理员账号
-            var index = _userList.IndexOf(_userList.FirstOrDefault(x => x.UserName == "Admin"));
+            var index = _userList.IndexOf(_userList.FirstOrDefault(x => x.UserName.ToLower() == "admin"));
             table_user.SetRowEnable(index, false, true);
         }
 
@@ -129,7 +129,7 @@ namespace SprayProcessSystem.UI.Views
         {
             var userAddUpdateDto = new UserAddUpdateDto();
 
-            var form = ActivatorUtilities.CreateInstance<ModalUserEdit>(Program.ServiceProvider, this.ParentForm, userAddUpdateDto);
+            var form = ActivatorUtilities.CreateInstance<ModalUserEdit>(Program.ServiceProvider, this.ParentForm, userAddUpdateDto, false);
             form.Size = new Size(300, 350);
             AntdUI.Modal.open(new AntdUI.Modal.Config(this.ParentForm, "添加用户", form, TType.Info)
             {
