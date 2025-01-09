@@ -1,5 +1,6 @@
 ﻿using Mapster;
 using SprayProcessSystem.BLL.Dto.UserDto;
+using SprayProcessSystem.DAL;
 using SprayProcessSystem.DAL.Services;
 using SprayProcessSystem.Model;
 using SprayProcessSystem.Model.Entities;
@@ -58,6 +59,7 @@ namespace SprayProcessSystem.BLL.Managers
             }
             
             var entity = request.Adapt<UserEntity>();
+            entity.Password = Database.HashValue(entity.Password);
 
             var res = await _userService.InsertAsync(entity);
 

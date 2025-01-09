@@ -98,7 +98,7 @@
             flowPanel1.Name = "flowPanel1";
             flowPanel1.Padding = new Padding(0, 0, 12, 0);
             flowPanel1.Size = new Size(300, 350);
-            flowPanel1.TabIndex = 2;
+            flowPanel1.TabIndex = 0;
             flowPanel1.Text = "flowPanel1";
             // 
             // flowPanel2
@@ -110,7 +110,7 @@
             flowPanel2.Margin = new Padding(0, 30, 0, 0);
             flowPanel2.Name = "flowPanel2";
             flowPanel2.Size = new Size(240, 38);
-            flowPanel2.TabIndex = 4;
+            flowPanel2.TabIndex = 6;
             flowPanel2.Text = "flowPanel2";
             // 
             // btn_ok
@@ -119,7 +119,7 @@
             btn_ok.Location = new Point(131, 3);
             btn_ok.Name = "btn_ok";
             btn_ok.Size = new Size(80, 32);
-            btn_ok.TabIndex = 6;
+            btn_ok.TabIndex = 0;
             btn_ok.Text = "确定";
             btn_ok.Type = AntdUI.TTypeMini.Primary;
             btn_ok.WaveSize = 1;
@@ -132,7 +132,7 @@
             btn_cancel.Margin = new Padding(3, 3, 20, 3);
             btn_cancel.Name = "btn_cancel";
             btn_cancel.Size = new Size(80, 32);
-            btn_cancel.TabIndex = 2;
+            btn_cancel.TabIndex = 0;
             btn_cancel.Text = "取消";
             btn_cancel.WaveSize = 1;
             btn_cancel.Click += btn_cancel_Click;
@@ -145,7 +145,7 @@
             stackPanel4.Margin = new Padding(0, 3, 0, 0);
             stackPanel4.Name = "stackPanel4";
             stackPanel4.Size = new Size(235, 41);
-            stackPanel4.TabIndex = 4;
+            stackPanel4.TabIndex = 5;
             stackPanel4.Text = "stackPanel4";
             // 
             // switch_enabled
@@ -154,7 +154,7 @@
             switch_enabled.Margin = new Padding(6);
             switch_enabled.Name = "switch_enabled";
             switch_enabled.Size = new Size(40, 29);
-            switch_enabled.TabIndex = 5;
+            switch_enabled.TabIndex = 0;
             switch_enabled.Text = "switch1";
             // 
             // label4
@@ -173,7 +173,7 @@
             stackPanel5.Margin = new Padding(0);
             stackPanel5.Name = "stackPanel5";
             stackPanel5.Size = new Size(235, 40);
-            stackPanel5.TabIndex = 5;
+            stackPanel5.TabIndex = 4;
             stackPanel5.Text = "stackPanel5";
             // 
             // txt_password
@@ -181,7 +181,7 @@
             txt_password.Location = new Point(74, 3);
             txt_password.Name = "txt_password";
             txt_password.Size = new Size(161, 34);
-            txt_password.TabIndex = 4;
+            txt_password.TabIndex = 3;
             txt_password.WaveSize = 1;
             // 
             // lbl_password
@@ -209,7 +209,7 @@
             select_role.Location = new Point(74, 3);
             select_role.Name = "select_role";
             select_role.Size = new Size(161, 34);
-            select_role.TabIndex = 3;
+            select_role.TabIndex = 0;
             select_role.WaveSize = 1;
             // 
             // label3

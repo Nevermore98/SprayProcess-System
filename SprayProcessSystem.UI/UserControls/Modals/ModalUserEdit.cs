@@ -4,13 +4,12 @@ using SprayProcessSystem.BLL.Dto.UserDto;
 using SprayProcessSystem.BLL.Managers;
 using SprayProcessSystem.Helper;
 using SprayProcessSystem.Model;
-using Window = System.Windows.Forms.Form;
 
 namespace SprayProcessSystem.UI.UserControls.Modals
 {
     public partial class ModalUserEdit : UserControl
     {
-        private readonly Window _window;
+        private readonly Form _form;
         private readonly UserAddUpdateDto _user;
         private readonly bool _isEdit;
         private readonly UserManager _userManager;
@@ -18,10 +17,10 @@ namespace SprayProcessSystem.UI.UserControls.Modals
 
         public string UserName { get; set; }
         
-        public ModalUserEdit(Window window, UserAddUpdateDto user, bool isEdit = true)
+        public ModalUserEdit(Form form, UserAddUpdateDto user, bool isEdit = true)
         {
             InitializeComponent();
-            _window = window;
+            _form = form;
             _user = user;
             _isEdit = isEdit;
             _userManager = Program.ServiceProvider.GetRequiredService<UserManager>();
@@ -64,24 +63,24 @@ namespace SprayProcessSystem.UI.UserControls.Modals
             if (string.IsNullOrEmpty(txt_userName.Text))
             {
                 txt_userName.Status = AntdUI.TType.Error;
-                Generic.ShowMessage(_window, "账号名不能为空！", TType.Warn);
+                Generic.ShowMessage(_form, "账号名不能为空！", TType.Warn);
                 return;
             }
             if (string.IsNullOrEmpty(txt_nickName.Text))
             {
                 txt_nickName.Status = AntdUI.TType.Error;
-                Generic.ShowMessage(_window, "昵称不能为空！", TType.Warn);
+                Generic.ShowMessage(_form, "昵称不能为空！", TType.Warn);
                 return;
             }
             if (string.IsNullOrEmpty(txt_password.Text) && !_isEdit)
             {
                 txt_password.Status = AntdUI.TType.Error;
-                Generic.ShowMessage(_window, "密码不能为空！", TType.Warn);
+                Generic.ShowMessage(_form, "密码不能为空！", TType.Warn);
                 return;
             }
             if (string.IsNullOrEmpty((string)select_role.SelectedValue))
             {
-                Generic.ShowMessage(_window, "角色不能为空！", TType.Warn);
+                Generic.ShowMessage(_form, "角色不能为空！", TType.Warn);
                 return;
             }
 
@@ -101,7 +100,7 @@ namespace SprayProcessSystem.UI.UserControls.Modals
                 }
                 else
                 {
-                    Generic.ShowMessage(_window, isExistResponse.Message, TType.Warn);
+                    Generic.ShowMessage(_form, isExistResponse.Message, TType.Warn);
                 }
             }
             else

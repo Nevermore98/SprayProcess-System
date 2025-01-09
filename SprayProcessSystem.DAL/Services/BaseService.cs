@@ -25,14 +25,14 @@ namespace SprayProcessSystem.DAL.Services
             return rows > 0;
         }
 
-        public async virtual Task<bool> UpdateAsync(T model, Expression<Func<T, bool>> whereExpression, Expression<Func<T, object>> updateColumns)
-        {
-            var sql = Database.SqlSugarClient.Updateable(model)
-                .Where(whereExpression)
-                .UpdateColumns(updateColumns);
-            var rows = await sql.ExecuteCommandAsync();
-            return rows > 0;
-        }
+        //public async virtual Task<bool> UpdateAsync(T model, Expression<Func<T, bool>> whereExpression, Expression<Func<T, object>> updateColumns)
+        //{
+        //    var sql = Database.SqlSugarClient.Updateable(model)
+        //        .Where(whereExpression)
+        //        .UpdateColumns(updateColumns);
+        //    var rows = await sql.ExecuteCommandAsync();
+        //    return rows > 0;
+        //}
 
         public async virtual Task<bool> DeleteAsync(T model)
         {

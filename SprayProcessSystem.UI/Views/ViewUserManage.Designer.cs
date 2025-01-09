@@ -196,7 +196,7 @@
             label6.Name = "label6";
             label6.Size = new Size(124, 29);
             label6.TabIndex = 4;
-            label6.Text = "工程师权限";
+            label6.Text = "访客权限";
             label6.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // panel2
@@ -278,7 +278,7 @@
             label5.Name = "label5";
             label5.Size = new Size(124, 29);
             label5.TabIndex = 4;
-            label5.Text = "工程师权限";
+            label5.Text = "操作员权限";
             label5.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // panel1
@@ -508,6 +508,7 @@
             btn_removeBatch.TabIndex = 0;
             btn_removeBatch.Text = "批量删除";
             btn_removeBatch.Type = AntdUI.TTypeMini.Error;
+            btn_removeBatch.Click += btn_removeBatch_Click;
             // 
             // btn_addUser
             // 

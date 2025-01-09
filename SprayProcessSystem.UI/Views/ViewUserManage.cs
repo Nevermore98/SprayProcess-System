@@ -3,6 +3,7 @@ using Mapster;
 using Microsoft.Extensions.DependencyInjection;
 using SprayProcessSystem.BLL.Dto.UserDto;
 using SprayProcessSystem.BLL.Managers;
+using SprayProcessSystem.DAL;
 using SprayProcessSystem.Model;
 using SprayProcessSystem.UI.Models;
 using SprayProcessSystem.UI.UserControls.Modals;
@@ -14,6 +15,7 @@ namespace SprayProcessSystem.UI.Views
         private AntList<User> _userList = new();
         private User _currentUser;
         private readonly UserManager _userManager;
+        private int _adminRowIndex;
 
         public ViewUserManage()
         {
@@ -54,7 +56,7 @@ namespace SprayProcessSystem.UI.Views
                         var response =  _userManager.UpdateUserAsync(dto).GetAwaiter().GetResult();
                         var messageType = response.Result == Constants.Result.Success ? TType.Success : TType.Error;
                         Generic.ShowMessage(this.ParentForm, response.Message.ToString(), messageType);
-                        
+
                         return response.Result == Constants.Result.Success ? value : !value;
                     }
                 },
@@ -71,6 +73,7 @@ namespace SprayProcessSystem.UI.Views
         private async void LoadTableData()
         {
             _userList.Clear();
+            table_user.SetRowEnable(_adminRowIndex, true, true);
             var queryAllUserResponse = await _userManager.QueryAllUserAsync();
             var userList = queryAllUserResponse.Data;
             _userList.AddRange(userList.Select(x => x.Adapt<User>()).ToArray());
@@ -78,8 +81,8 @@ namespace SprayProcessSystem.UI.Views
             table_user.Binding(_userList);
 
             // 禁用默认管理员账号
-            var index = _userList.IndexOf(_userList.FirstOrDefault(x => x.UserName.ToLower() == "admin"));
-            table_user.SetRowEnable(index, false, true);
+            _adminRowIndex = _userList.IndexOf(_userList.FirstOrDefault(x => x.UserName.ToLower() == "admin"));
+            table_user.SetRowEnable(_adminRowIndex, false, true);
         }
 
         private async void table_user_CellButtonClick(object sender, TableButtonEventArgs e)
@@ -147,6 +150,25 @@ namespace SprayProcessSystem.UI.Views
                 Generic.ShowMessage(this.ParentForm, addUserResponse.Message, messageType);
             }
         }
-    }
 
+        private async void btn_removeBatch_Click(object sender, EventArgs e)
+        {
+            if (!_userList.Any(x => x.IsSelected == true))
+            {
+                Generic.ShowMessage(this.ParentForm, "请勾选需要删除的用户", TType.Error);
+
+                return;
+            }
+
+            foreach (var user in _userList)
+            {
+                if (user.IsSelected)
+                {
+                    await _userManager.DeleteUserAsync(new UserDeleteDto { Id = user.Id });
+                }
+            }
+            LoadTableData();
+            Generic.ShowMessage(this.ParentForm, "更新用户数据完成", TType.Success);
+        }
+    }
 }

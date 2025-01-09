@@ -8,12 +8,13 @@ namespace SprayProcessSystem.DAL.Services
         public async Task<BaseResult<UserEntity>> LoginAsync(UserEntity entity)
         {
             var result = new BaseResult<UserEntity>();
-            var sqlResult = await Database.SqlSugarClient.Queryable<UserEntity>().Where(x => x.UserName == entity.UserName && x.Password == entity.Password).FirstAsync();
 
-            if (sqlResult != null)
+            var sqlResult = await Database.SqlSugarClient.Queryable<UserEntity>().Where(x => x.UserName == entity.UserName.ToLower()).FirstAsync();
+            if (sqlResult != null && Database.VerifyHash(entity.Password, sqlResult.Password))
             {
                 result.Data = new List<UserEntity>() { sqlResult };
                 result.Result = Constants.Result.Success;
+                result.Message = "登录成功";
             }
             else
             {

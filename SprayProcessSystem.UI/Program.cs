@@ -50,7 +50,7 @@ namespace SprayProcessSystem.UI
                 db.Insertable(new UserEntity()
                 {
                     UserName = "admin",
-                    Password = "admin",
+                    Password = Database.HashValue("admin"),
                     Role = "管理员",
                     NickName = "默认管理员",
                     IsEnabled = true
@@ -110,6 +110,7 @@ namespace SprayProcessSystem.UI
             services.AddTransient<ViewSettings>();
 
             services.AddTransient<ModalUserEdit>();
+            services.AddTransient<ModalLogin>();
 
 
             ServiceProvider = services.BuildServiceProvider();

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using SqlSugar;
+using BCrypt.Net;
 
 namespace SprayProcessSystem.DAL
 {
@@ -25,6 +26,16 @@ namespace SprayProcessSystem.DAL
                 });
                 return SqlSugarClient;
             });
+        }
+
+        public static string HashValue(string value)
+        {
+             return BCrypt.Net.BCrypt.HashPassword(value);
+        }
+
+        public static bool VerifyHash(string rawValue, string hashedValue)
+        {
+            return BCrypt.Net.BCrypt.Verify(rawValue, hashedValue);
         }
     }
 }
