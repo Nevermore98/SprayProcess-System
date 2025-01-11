@@ -7,15 +7,15 @@ namespace SprayProcessSystem.Model.Entities
     {
         [SugarColumn(ColumnDataType = "Nvarchar(255)", IsNullable = false)]
         public string Role { get; set; } = "管理员";
-        public bool ControlModule { get; set; }
-        public bool MonitorModule { get; set; }
-        public bool RecipeModule { get; set; }
-        public bool LogModule { get; set; }
-        public bool ReportModule { get; set; }
-        public bool ChartModule { get; set; }
-        public bool ParamModule { get; set; }
-        //管理员特有
-        //public bool AuthModule { get; set; }
-        public bool UserModule { get; set; }
+
+        [SugarColumn(ColumnDataType = "Nvarchar(500)")]
+        public string Auths { get; set; }
+
+        [SugarColumn(IsIgnore = true)]
+        public List<string> AuthList
+        {
+            get => string.IsNullOrEmpty(Auths) ? new List<string>() : Auths.Split(',').ToList();
+            set => Auths = string.Join(",", value);
+        }
     }
 }

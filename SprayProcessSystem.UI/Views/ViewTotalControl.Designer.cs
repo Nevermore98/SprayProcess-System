@@ -103,9 +103,9 @@
             // stationTotalControl6
             // 
             stationTotalControl6.IsTurnOn = false;
-            stationTotalControl6.Location = new Point(590, 3);
+            stationTotalControl6.Location = new Point(600, 3);
             stationTotalControl6.Name = "stationTotalControl6";
-            stationTotalControl6.Size = new Size(150, 45);
+            stationTotalControl6.Size = new Size(160, 45);
             stationTotalControl6.StationName = "输送机工位";
             stationTotalControl6.TabIndex = 6;
             stationTotalControl6.SwitchStatusEvent += stationTotalControl_SwitchStatusEvent;
@@ -115,7 +115,7 @@
             stationTotalControl4.IsTurnOn = false;
             stationTotalControl4.Location = new Point(419, 3);
             stationTotalControl4.Name = "stationTotalControl4";
-            stationTotalControl4.Size = new Size(150, 45);
+            stationTotalControl4.Size = new Size(160, 45);
             stationTotalControl4.StationName = "固化炉工位";
             stationTotalControl4.TabIndex = 5;
             stationTotalControl4.SwitchStatusEvent += stationTotalControl_SwitchStatusEvent;
@@ -123,9 +123,9 @@
             // stationTotalControl3
             // 
             stationTotalControl3.IsTurnOn = false;
-            stationTotalControl3.Location = new Point(248, 3);
+            stationTotalControl3.Location = new Point(238, 3);
             stationTotalControl3.Name = "stationTotalControl3";
-            stationTotalControl3.Size = new Size(150, 45);
+            stationTotalControl3.Size = new Size(160, 45);
             stationTotalControl3.StationName = "冷却室工位";
             stationTotalControl3.TabIndex = 4;
             stationTotalControl3.SwitchStatusEvent += stationTotalControl_SwitchStatusEvent;
@@ -133,9 +133,9 @@
             // stationTotalControl5
             // 
             stationTotalControl5.IsTurnOn = false;
-            stationTotalControl5.Location = new Point(77, 3);
+            stationTotalControl5.Location = new Point(57, 3);
             stationTotalControl5.Name = "stationTotalControl5";
-            stationTotalControl5.Size = new Size(150, 45);
+            stationTotalControl5.Size = new Size(160, 45);
             stationTotalControl5.StationName = "水分炉工位";
             stationTotalControl5.TabIndex = 3;
             stationTotalControl5.SwitchStatusEvent += stationTotalControl_SwitchStatusEvent;
@@ -159,9 +159,9 @@
             // stationTotalControl8
             // 
             stationTotalControl8.IsTurnOn = false;
-            stationTotalControl8.Location = new Point(587, 3);
+            stationTotalControl8.Location = new Point(597, 3);
             stationTotalControl8.Name = "stationTotalControl8";
-            stationTotalControl8.Size = new Size(150, 45);
+            stationTotalControl8.Size = new Size(160, 45);
             stationTotalControl8.StationName = "精洗工位";
             stationTotalControl8.TabIndex = 6;
             stationTotalControl8.SwitchStatusEvent += stationTotalControl_SwitchStatusEvent;
@@ -171,7 +171,7 @@
             stationTotalControl7.IsTurnOn = false;
             stationTotalControl7.Location = new Point(418, 3);
             stationTotalControl7.Name = "stationTotalControl7";
-            stationTotalControl7.Size = new Size(150, 45);
+            stationTotalControl7.Size = new Size(160, 45);
             stationTotalControl7.StationName = "陶化工位";
             stationTotalControl7.TabIndex = 5;
             stationTotalControl7.SwitchStatusEvent += stationTotalControl_SwitchStatusEvent;
@@ -179,9 +179,9 @@
             // stationTotalControl1
             // 
             stationTotalControl1.IsTurnOn = false;
-            stationTotalControl1.Location = new Point(249, 3);
+            stationTotalControl1.Location = new Point(239, 3);
             stationTotalControl1.Name = "stationTotalControl1";
-            stationTotalControl1.Size = new Size(150, 45);
+            stationTotalControl1.Size = new Size(160, 45);
             stationTotalControl1.StationName = "粗洗工位";
             stationTotalControl1.TabIndex = 4;
             stationTotalControl1.SwitchStatusEvent += stationTotalControl_SwitchStatusEvent;
@@ -189,9 +189,9 @@
             // stationTotalControl2
             // 
             stationTotalControl2.IsTurnOn = false;
-            stationTotalControl2.Location = new Point(80, 3);
+            stationTotalControl2.Location = new Point(60, 3);
             stationTotalControl2.Name = "stationTotalControl2";
-            stationTotalControl2.Size = new Size(150, 45);
+            stationTotalControl2.Size = new Size(160, 45);
             stationTotalControl2.StationName = "脱脂工位";
             stationTotalControl2.TabIndex = 7;
             stationTotalControl2.SwitchStatusEvent += stationTotalControl_SwitchStatusEvent;

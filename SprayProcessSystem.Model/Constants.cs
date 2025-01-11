@@ -39,6 +39,8 @@ namespace SprayProcessSystem.Model
 
         public enum RoleEnum
         {
+            [EnumDescription("开发者")]
+            Developer,
             [EnumDescription("管理员")]
             Admin,
             [EnumDescription("工程师")]

@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace SprayProcessSystem.BLL.Dto.AuthDto
 {
-    public class AuthQueryResultDto : BaseDto
+    public class AuthUpdateDto: BaseDto
     {
         public string Role { get; set; }
-        public List<string> AuthList { get; set; }
+        public string Auths { get; set; }
     }
 }

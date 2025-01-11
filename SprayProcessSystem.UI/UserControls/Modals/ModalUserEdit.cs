@@ -20,6 +20,18 @@ namespace SprayProcessSystem.UI.UserControls.Modals
         public ModalUserEdit(Form form, UserAddUpdateDto user, bool isEdit = true)
         {
             InitializeComponent();
+            this.Load += (s, e) =>
+            {
+                if (txt_userName.Enabled)
+                {
+                    txt_userName.Select();
+                }
+                else
+                {
+                    txt_nickName.SelectAll();
+                }
+            };
+
             _form = form;
             _user = user;
             _isEdit = isEdit;

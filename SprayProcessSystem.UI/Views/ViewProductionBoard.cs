@@ -3,7 +3,6 @@ using LiveChartsCore;
 using LiveChartsCore.SkiaSharpView;
 using MiniExcelLibs;
 using NLog;
-using SprayProcessSystem.BLL;
 using SprayProcessSystem.Model;
 using SprayProcessSystem.UI.UserControls;
 using System.Collections.ObjectModel;
@@ -279,18 +278,21 @@ namespace SprayProcessSystem.UI.Views
                 resetTimer?.Dispose();
                 resetTimer = new System.Threading.Timer(_ =>
                 {
-                    this.Invoke(() =>
+                    if (_isPlcConnected)
                     {
-                        lineChart_WaterStove.XAxes.FirstOrDefault()!.MinLimit = null;
-                        lineChart_WaterStove.XAxes.FirstOrDefault()!.MaxLimit = null;
-                        lineChart_WaterStove.YAxes.FirstOrDefault()!.MinLimit = null;
-                        lineChart_WaterStove.YAxes.FirstOrDefault()!.MaxLimit = null;
+                        Invoke(() =>
+                        {
+                            lineChart_WaterStove.XAxes.FirstOrDefault()!.MinLimit = null;
+                            lineChart_WaterStove.XAxes.FirstOrDefault()!.MaxLimit = null;
+                            lineChart_WaterStove.YAxes.FirstOrDefault()!.MinLimit = null;
+                            lineChart_WaterStove.YAxes.FirstOrDefault()!.MaxLimit = null;
 
-                        lineChart_SolidifyStove.XAxes.FirstOrDefault()!.MinLimit = null;
-                        lineChart_SolidifyStove.XAxes.FirstOrDefault()!.MaxLimit = null;
-                        lineChart_SolidifyStove.YAxes.FirstOrDefault()!.MinLimit = null;
-                        lineChart_SolidifyStove.YAxes.FirstOrDefault()!.MaxLimit = null;
-                    });
+                            lineChart_SolidifyStove.XAxes.FirstOrDefault()!.MinLimit = null;
+                            lineChart_SolidifyStove.XAxes.FirstOrDefault()!.MaxLimit = null;
+                            lineChart_SolidifyStove.YAxes.FirstOrDefault()!.MinLimit = null;
+                            lineChart_SolidifyStove.YAxes.FirstOrDefault()!.MaxLimit = null;
+                        });
+                    }
                 }, null, 4000, Timeout.Infinite);
             }
 
@@ -367,6 +369,7 @@ namespace SprayProcessSystem.UI.Views
                             }
                             else
                             {
+                                if (Global.IsAppClosing) return;
                                 Invoke(() =>
                                 {
                                     lbl_plcStatus.Text = "PLC 状态：未连接";

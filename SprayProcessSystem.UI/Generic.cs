@@ -7,7 +7,7 @@ namespace SprayProcessSystem.UI
 {
     public class Generic
     {
-        private static ILogger _logger;
+        private static ILogger _logger = LogManager.GetCurrentClassLogger();
 
         /// <summary>
         /// 写入 PLC 数据
@@ -63,8 +63,6 @@ namespace SprayProcessSystem.UI
 
         public static void AppendLog(string message, LogLevelEnum logLevelEnum, Input inputControl, bool isWriteToLog = true)
         {
-            _logger = LogManager.GetCurrentClassLogger();
-
             inputControl.AppendText($"{DateTime.Now:yyyy-MM-dd HH:mm:ss} --- [{EnumHelper.GetEnumDescription(logLevelEnum)}] --- {message}\r\n");
 
             if (!isWriteToLog) return;
@@ -98,6 +96,22 @@ namespace SprayProcessSystem.UI
                 Font = new Font(Global.FontCollection.Families[0], 13),
                 ShowInWindow = true
             });
+
+            switch (messageType)
+            {
+                case TType.Success:
+                    _logger.Info(message);
+                    break;
+                case TType.Warn:
+                    _logger.Warn(message);
+                    break;
+                case TType.Error:
+                    _logger.Error(message);
+                    break;
+                default:
+                    _logger.Info(message);
+                    break;
+            }
         }
 
         public static DialogResult ShowModal(Form form, string title, object content, TType modalType, bool isShowDefaultBtns =true)

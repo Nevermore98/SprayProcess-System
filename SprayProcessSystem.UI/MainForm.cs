@@ -3,6 +3,7 @@ using IoTClient.Clients.PLC;
 using Microsoft.Extensions.DependencyInjection;
 using MiniExcelLibs;
 using NLog;
+using SprayProcessSystem.BLL.Dto.AuthDto;
 using SprayProcessSystem.BLL.Managers;
 using SprayProcessSystem.Helper;
 using SprayProcessSystem.Model;
@@ -18,6 +19,8 @@ namespace SprayProcessSystem.UI
     {
         private readonly ILogger _logger;
         private readonly UserManager _userManager;
+        private readonly AuthManager _authManager;
+
         public User CurrentUser { get; set; }
 
         public Control CurrentNavigationView { get; set; } = new Control();
@@ -29,6 +32,7 @@ namespace SprayProcessSystem.UI
             _logger = LogManager.GetCurrentClassLogger();
             AppConfig.Current.Load();
             _userManager = Program.ServiceProvider.GetRequiredService<UserManager>();
+            _authManager = Program.ServiceProvider.GetRequiredService<AuthManager>();
 
             InitPlcClient();
             InitControl();
@@ -42,20 +46,25 @@ namespace SprayProcessSystem.UI
             AntdUI.Style.SetPrimary(Color.FromArgb(64, 158, 255));
 
             LoadMenu();
-   
-            // 设置初始的页面
-            menu.SelectIndex(0);
-            Navigate(EnumHelper.GetEnumDescription(NavigationType.ProductionBoard));
 
             dp_user.ShowArrow = false;
             dp_user.Text = "登录";
             dp_user.Trigger = Trigger.Click;
+        }
 
-            dp_user.Click += async (s, e) =>
+        private void BindEvent()
+        {
+            menu.SelectChanged += (s, e) =>
+            {
+                Navigate(e.Value.Text!);
+            };
+
+            void LoginOrSwitchUser()
             {
                 var form = ActivatorUtilities.CreateInstance<ModalLogin>(Program.ServiceProvider, this);
                 form.Size = new Size(300, 200);
-                Generic.ShowModal(this, "登录用户", form, TType.None, false);
+                Generic.ShowModal(this, CurrentUser == null ? "登录用户" : "切换用户", form, TType.None, false);
+
                 // 提交编辑
                 if (form.Submit)
                 {
@@ -76,7 +85,12 @@ namespace SprayProcessSystem.UI
                     });
 
                     LoadMenu();
+                    LoadDevTool();
                 }
+            }
+            dp_user.Click += async (s, e) =>
+            {
+                LoginOrSwitchUser();
             };
 
             dp_user.SelectedValueChanged += (s, e) =>
@@ -93,20 +107,12 @@ namespace SprayProcessSystem.UI
                         CurrentUser = null;
                         LoadMenu();
                         break;
-                    // TODO0 切换用户
                     case "切换用户":
+                        LoginOrSwitchUser();
                         break;
                 }
             };
 
-        }
-
-        private void BindEvent()
-        {
-            menu.SelectChanged += (s, e) =>
-            {
-                Navigate(e.Value.Text!);
-            };
 
             Closing += (s, e) =>
             {
@@ -121,6 +127,8 @@ namespace SprayProcessSystem.UI
                     OnOk = config =>
                     {
                         Global.SiemensClient.Close();
+                        Global.IsAppClosing = true;
+
                         return true;
                     },
 
@@ -142,6 +150,7 @@ namespace SprayProcessSystem.UI
                 Global.SiemensClient.Close();
             };
         }
+
 
 
         private void InitPlcClient()
@@ -218,27 +227,92 @@ namespace SprayProcessSystem.UI
             panelContent.Controls.Add(CurrentNavigationView);
         }
 
-        private void LoadMenu()
+        private async void LoadMenu()
         {
             menu.Items.Clear();
 
-            foreach (var rootItem in Constants.MenuItemDict)
-            {
-                var rootMenu = new AntdUI.MenuItem { Text = rootItem.Key.Text, IconSvg = rootItem.Key.IconSvg };
+            // TODO 调试
+            //foreach (var rootItem in Constants.MenuItemDict)
+            //{
+            //    var rootMenu = new AntdUI.MenuItem { Text = rootItem.Key.Text, IconSvg = rootItem.Key.IconSvg };
 
-                foreach (var item in rootItem.Value)
+            //    foreach (var item in rootItem.Value)
+            //    {
+            //        var menuItem = new AntdUI.MenuItem
+            //        {
+            //            Text = item.Text,
+            //            IconSvg = item.IconSvg,
+            //            Tag = item.Tag,
+            //        };
+            //        rootMenu.Sub.Add(menuItem);
+            //    }
+
+            //    menu.Items.Add(rootMenu);
+            //}
+
+
+            if (CurrentUser == null)
+            {
+                var productMenuKeyPair = Constants.MenuItemDict.Where(x => x.Key.Text == "生产看板").FirstOrDefault();
+                var productMenuRootMenu = new AntdUI.MenuItem { Text = productMenuKeyPair.Key.Text, IconSvg = productMenuKeyPair.Key.IconSvg };
+                foreach (var item in productMenuKeyPair.Value)
                 {
-                    var menuItem = new AntdUI.MenuItem
+                    var subMenuItem = new AntdUI.MenuItem
                     {
                         Text = item.Text,
                         IconSvg = item.IconSvg,
                         Tag = item.Tag,
                     };
-                    rootMenu.Sub.Add(menuItem);
+                    productMenuRootMenu.Sub.Add(subMenuItem);
                 }
+                menu.Items.Add(productMenuRootMenu);
+            }
+            else
+            {
+                var getAuthListResponse = await _authManager.QueryAuthByRoleAsync(new AuthQueryResultDto() { Role = CurrentUser.Role });
+                if (getAuthListResponse.Result == Result.Success)
+                {
+                    foreach (var auth in getAuthListResponse.Data)
+                    {
+                        foreach (var item in Constants.MenuItemDict)
+                        {
+                            if (auth.AuthList.Contains(item.Key.Text))
+                            {
+                                var rootMenu = new AntdUI.MenuItem { Text = item.Key.Text, IconSvg = item.Key.IconSvg };
+                                foreach (var subItem in item.Value)
+                                {
+                                    var menuItem = new AntdUI.MenuItem
+                                    {
+                                        Text = subItem.Text,
+                                        IconSvg = subItem.IconSvg,
+                                        Tag = subItem.Tag,
+                                    };
+                                    rootMenu.Sub.Add(menuItem);
+                                }
+                                menu.Items.Add(rootMenu);
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    Generic.ShowMessage(this, getAuthListResponse.Message, TType.Error);
+                }
+            }
 
-                menu.Items.Add(rootMenu);
+            // 设置初始的页面
+            menu.SelectIndex(0);
+            Navigate(EnumHelper.GetEnumDescription(NavigationType.ProductionBoard));
+
+        }
+        // 加载开发者工具
+        private void LoadDevTool()
+        {
+            if (CurrentUser.Role == EnumHelper.GetEnumDescription(RoleEnum.Developer))
+            {
+                Generic.ShowMessage(this, "开发者模式已开启", TType.Success);
             }
         }
     }
+
 }

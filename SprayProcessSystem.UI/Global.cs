@@ -20,6 +20,6 @@ namespace SprayProcessSystem.UI
 
         public static Dictionary<string, PlcData> PlcNameDataDict = new();
 
-
+        public static bool IsAppClosing { get; set; } = false;
     }
 }

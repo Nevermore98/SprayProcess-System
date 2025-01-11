@@ -22,9 +22,5 @@ namespace SprayProcessSystem.DAL.Services
             }
             return result;
         }
-
-        // 获取所有用户
-
-
     }
 }

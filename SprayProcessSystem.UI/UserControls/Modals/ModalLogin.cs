@@ -1,6 +1,7 @@
 ﻿using AntdUI;
 using Mapster;
 using Microsoft.Extensions.DependencyInjection;
+using NLog;
 using SprayProcessSystem.BLL.Dto.UserDto;
 using SprayProcessSystem.BLL.Managers;
 using SprayProcessSystem.Model;
@@ -12,6 +13,7 @@ namespace SprayProcessSystem.UI.UserControls.Modals
     {
         private readonly Form _form;
         private readonly UserManager _userManager;
+        private readonly Logger _logger;
 
         public User CurrentUser { get; set; } = new User();
         public bool Submit { get; private set; }
@@ -20,13 +22,18 @@ namespace SprayProcessSystem.UI.UserControls.Modals
 
         public ModalLogin(Form form)
         {
-
             InitializeComponent();
-            this._form = form;
+            this.Load += (s, e) =>
+            {
+                txt_userName.Select();
+            };
 
+            _form = form;
             _userManager = Program.ServiceProvider.GetRequiredService<UserManager>();
+            _logger = LogManager.GetCurrentClassLogger();
             this.Font = new Font(Global.FontCollection.Families[0], 10);
         }
+
 
         private async void Login()
         {
@@ -55,6 +62,7 @@ namespace SprayProcessSystem.UI.UserControls.Modals
                 Submit = true;
                 CurrentUser = isExistResponse.Data[0].Adapt<User>();
                 Generic.ShowMessage(_form, isExistResponse.Message, TType.Success);
+                _logger.Info($"登录用户 {userLoginDto.UserName} 成功");
                 this.Dispose();
             }
             else

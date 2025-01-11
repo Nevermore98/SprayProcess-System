@@ -25,6 +25,11 @@ namespace SprayProcessSystem.DAL.Services
             return rows > 0;
         }
 
+        public async Task<bool> UpdateAsync(T entity, Expression<Func<T, bool>> whereExpression)
+        {
+            return await Database.SqlSugarClient.Updateable(entity).Where(whereExpression).ExecuteCommandAsync() > 0;
+        }
+
         //public async virtual Task<bool> UpdateAsync(T model, Expression<Func<T, bool>> whereExpression, Expression<Func<T, object>> updateColumns)
         //{
         //    var sql = Database.SqlSugarClient.Updateable(model)
@@ -107,6 +112,11 @@ namespace SprayProcessSystem.DAL.Services
         public async Task<T> GetByIdAsync(object id)
         {
             return await Database.SqlSugarClient.Queryable<T>().InSingleAsync(id);
+        }
+
+        public async Task<T> GetByWhereAsync(Expression<Func<T, bool>> whereExpression)
+        {
+            return await Database.SqlSugarClient.Queryable<T>().FirstAsync(whereExpression);
         }
 
         public async Task<List<T>> GetListAsync(Expression<Func<T, bool>> whereExpression)

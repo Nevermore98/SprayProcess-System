@@ -116,11 +116,11 @@ namespace SprayProcessSystem.BLL.Managers
         }
 
 
-        public async Task<BaseResult<ResultUserQueryDto>> QueryUserByUserNameAsync(UserQueryByUserName request)
+        public async Task<BaseResult<ResultUserQueryDto>> QueryUserByUserNameAsync(UserQueryByUserNameDto request)
         {
             var entity = request.Adapt<UserEntity>();
 
-            var res = await _userService.QueryOneAsync(e => e.UserName.ToLower() == entity.UserName.ToLower());
+            var res = await _userService.QueryOneAsync(x => x.UserName.ToLower() == entity.UserName.ToLower());
 
             if (res == null)
             {

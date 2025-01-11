@@ -1,9 +1,9 @@
 ﻿using AntdUI;
 using Mapster;
 using Microsoft.Extensions.DependencyInjection;
+using SprayProcessSystem.BLL.Dto.AuthDto;
 using SprayProcessSystem.BLL.Dto.UserDto;
 using SprayProcessSystem.BLL.Managers;
-using SprayProcessSystem.DAL;
 using SprayProcessSystem.Model;
 using SprayProcessSystem.UI.Models;
 using SprayProcessSystem.UI.UserControls.Modals;
@@ -15,21 +15,70 @@ namespace SprayProcessSystem.UI.Views
         private AntList<User> _userList = new();
         private User _currentUser;
         private readonly UserManager _userManager;
+        private readonly AuthManager _authManager;
         private int _adminRowIndex;
 
         public ViewUserManage()
         {
             _userManager = Program.ServiceProvider.GetRequiredService<UserManager>();
-
+            _authManager = Program.ServiceProvider.GetRequiredService<AuthManager>();
+            this.Load += ViewUserManage_Load;
             InitializeComponent();
 
             InitTableColumns();
             LoadTableData();
         }
 
+        private async void ViewUserManage_Load(object? sender, EventArgs e)
+        {
+            // 加载权限，设置勾选框
+            var queryEngineerAuthResponse = await _authManager.QueryAuthByRoleAsync(new AuthQueryResultDto() { Role = "工程师" });
+            if (queryEngineerAuthResponse.Result == Constants.Result.Success)
+            {
+                var engineerAuthList = queryEngineerAuthResponse.Data[0].AuthList;
+                var engineerAuthControlList = Generic.GetChildControls(panel_engineerAuth);
+                foreach (var item in engineerAuthControlList)
+                {
+                    if (item is AntdUI.Checkbox checkbox && checkbox.Enabled)
+                    {
+                        checkbox.Checked = engineerAuthList.Contains(checkbox.Text);
+                    }
+                }
+            }
+
+            // 操作员
+            var queryOperatorAuthResponse = await _authManager.QueryAuthByRoleAsync(new AuthQueryResultDto() { Role = "操作员" });
+            if (queryOperatorAuthResponse.Result == Constants.Result.Success)
+            {
+                var operatorAuthList = queryOperatorAuthResponse.Data[0].AuthList;
+                var operatorAuthControlList = Generic.GetChildControls(panel_operatorAuth);
+                foreach (var item in operatorAuthControlList)
+                {
+                    if (item is AntdUI.Checkbox checkbox && checkbox.Enabled)
+                    {
+                        checkbox.Checked = operatorAuthList.Contains(checkbox.Text);
+                    }
+                }
+            }
+
+            // 访客
+            var queryVisitorAuthResponse = await _authManager.QueryAuthByRoleAsync(new AuthQueryResultDto() { Role = "访客" });
+            if (queryVisitorAuthResponse.Result == Constants.Result.Success)
+            {
+                var visitorAuthList = queryVisitorAuthResponse.Data[0].AuthList;
+                var visitorAuthControlList = Generic.GetChildControls(panel_visitorAuth);
+                foreach (var item in visitorAuthControlList)
+                {
+                    if (item is AntdUI.Checkbox checkbox && checkbox.Enabled)
+                    {
+                        checkbox.Checked = visitorAuthList.Contains(checkbox.Text);
+                    }
+                }
+            }
+        }
+
         private void InitTableColumns()
         {
-            //table_user.SetRowEnable(0, false, true);
             table_user.RowHeight = 40;
             table_user.Columns = new ColumnCollection() {
                 new ColumnCheck("IsSelected"){Fixed = true},
@@ -169,6 +218,73 @@ namespace SprayProcessSystem.UI.Views
             }
             LoadTableData();
             Generic.ShowMessage(this.ParentForm, "更新用户数据完成", TType.Success);
+        }
+
+        private async void btnSaveAuth_Click(object sender, EventArgs e)
+        {
+            var authUpdateDto = new AuthUpdateDto();
+
+            // 工程师
+            var engineerAuthControlList = Generic.GetChildControls(panel_engineerAuth);
+            var engineerAuths = new List<string>();
+            
+            foreach (var item in engineerAuthControlList)
+            {
+                if (item is AntdUI.Checkbox checkBox && checkBox.Checked)
+                {
+                    engineerAuths.Add(checkBox.Text);
+                }
+            }
+            
+            authUpdateDto = new AuthUpdateDto()
+            {
+                Auths = string.Join(",", engineerAuths),
+                Role = "工程师"
+            };
+            var updateEngineerAuthResponse = await _authManager.UpdateAuthByRoleAsync(authUpdateDto);
+            if (updateEngineerAuthResponse.Result == Constants.Result.Fail) Generic.ShowMessage(this.ParentForm, updateEngineerAuthResponse.Message, TType.Error);
+            
+            // 操作员
+            var operatorAuthControlList = Generic.GetChildControls(panel_operatorAuth);
+            var operatorAuths = new List<string>();
+            foreach (var item in operatorAuthControlList)
+            {
+                if (item is AntdUI.Checkbox checkBox && checkBox.Checked)
+                {
+                    operatorAuths.Add(checkBox.Text);
+                }
+            }
+            authUpdateDto = new AuthUpdateDto()
+            {
+                Auths = string.Join(",", operatorAuths),
+                Role = "操作员"
+            };
+            var updateOperatorAuthResponse = await _authManager.UpdateAuthByRoleAsync(authUpdateDto);
+            if (updateOperatorAuthResponse.Result == Constants.Result.Fail) Generic.ShowMessage(this.ParentForm, updateOperatorAuthResponse.Message, TType.Error);
+
+            // 访客
+            var visitorAuthControlList = Generic.GetChildControls(panel_visitorAuth);
+            var visitorAuths = new List<string>();
+            foreach (var item in visitorAuthControlList)
+            {
+                if (item is AntdUI.Checkbox checkBox && checkBox.Checked)
+                {
+                    visitorAuths.Add(checkBox.Text);
+                }
+            }
+            authUpdateDto = new AuthUpdateDto()
+            {
+                Auths = string.Join(",", visitorAuths),
+                Role = "访客"
+            };
+            var updateVisitorAuthResponse = await _authManager.UpdateAuthByRoleAsync(authUpdateDto);
+            if (updateVisitorAuthResponse.Result == Constants.Result.Fail) Generic.ShowMessage(this.ParentForm, updateVisitorAuthResponse.Message, TType.Error);
+
+            if (updateEngineerAuthResponse.Result == Constants.Result.Success && updateOperatorAuthResponse.Result == Constants.Result.Success && updateVisitorAuthResponse.Result == Constants.Result.Success)
+            {
+                Generic.ShowMessage(this.ParentForm, "保存权限成功", TType.Success);
+            }
+
         }
     }
 }

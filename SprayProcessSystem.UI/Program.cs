@@ -13,6 +13,9 @@ using SprayProcessSystem.Model.Entities;
 using SprayProcessSystem.UI.UserControls.Modals;
 using SprayProcessSystem.BLL.Managers;
 using SprayProcessSystem.DAL.Services;
+using SprayProcessSystem.Helper;
+using static SprayProcessSystem.Model.Constants;
+using Masuit.Tools;
 
 namespace SprayProcessSystem.UI
 {
@@ -44,6 +47,47 @@ namespace SprayProcessSystem.UI
             db.CodeFirst.SetStringDefaultLength(200).InitTables(typeof(AuthEntity), typeof(DataEntity), typeof(RecipeEntity), typeof(UserEntity));
 #endif
 
+            var list = EnumHelper.GetAllEnumDescriptionArray<NavigationType>();
+            var allAuthList = list.Select(x => x.Description).ToArray();
+            var engineerAuthList = list.Where(x => x.Value != NavigationType.UserManage).Select(x => x.Description).ToArray();
+            var operatorAuthList = new[] { "生产看板", "产线总控" };
+            var visitorAuthList = new[] { "生产看板" };
+
+            // Auth 表初始化
+            // TODO 加密
+            if (!db.Queryable<AuthEntity>().Any())
+            {
+                db.Insertable(new AuthEntity()
+                {
+                    Role = "开发者",
+                    AuthList = allAuthList.ToList()
+                }).ExecuteCommand();
+
+                db.Insertable(new AuthEntity()
+                {
+                    Role = "管理员",
+                    AuthList = allAuthList.ToList()
+                }).ExecuteCommand();
+
+                db.Insertable(new AuthEntity()
+                {
+                    Role = "工程师",
+                    AuthList = engineerAuthList.ToList()
+                }).ExecuteCommand();
+
+                db.Insertable(new AuthEntity()
+                {
+                    Role = "操作员",
+                    AuthList = operatorAuthList.ToList()
+                }).ExecuteCommand();
+
+                db.Insertable(new AuthEntity()
+                {
+                    Role = "访客",
+                    AuthList = visitorAuthList.ToList()
+                }).ExecuteCommand();
+            }
+
             // 如果 User 表里没有 Admin，则添加
             if (!db.Queryable<UserEntity>().Any(x => x.UserName.ToLower() == "admin"))
             {
@@ -53,6 +97,18 @@ namespace SprayProcessSystem.UI
                     Password = Database.HashValue("admin"),
                     Role = "管理员",
                     NickName = "默认管理员",
+                    IsEnabled = true
+                }).ExecuteCommand();
+            }
+
+            if (!db.Queryable<UserEntity>().Any(x => x.UserName.ToLower() == "dev"))
+            {
+                db.Insertable(new UserEntity()
+                {
+                    UserName = "dev",
+                    Password = Database.HashValue("dev"),
+                    Role = "开发者",
+                    NickName = "开发者模式",
                     IsEnabled = true
                 }).ExecuteCommand();
             }
@@ -82,10 +138,10 @@ namespace SprayProcessSystem.UI
                 });
 
             //获取存储在 appsettings.json 中的 NLog 配置信息
-            var nlogConifg = config.GetSection("NLog");
+            var nlogConfig = config.GetSection("NLog");
 
             //设置 NLog 配置
-            LogManager.Configuration = new NLogLoggingConfiguration(nlogConifg);
+            LogManager.Configuration = new NLogLoggingConfiguration(nlogConfig);
 
             var sqlSugarConfig = config.GetSection("SqlSugar");
             var dbType = Enum.Parse<DbType>(sqlSugarConfig["DbType"]);
@@ -93,6 +149,8 @@ namespace SprayProcessSystem.UI
 
             services.AddSingleton<UserService>();
             services.AddSingleton<UserManager>(sp => new UserManager(sp.GetService<UserService>()));
+            services.AddSingleton<AuthService>();
+            services.AddSingleton<AuthManager>(sp => new AuthManager(sp.GetService<AuthService>()));
 
             services.AddSqlSugarSetup(dbType, connectionString);
 

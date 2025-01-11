@@ -37,8 +37,9 @@
             // lbl_station
             // 
             lbl_station.Location = new Point(3, 3);
+            lbl_station.Margin = new Padding(3, 3, 0, 3);
             lbl_station.Name = "lbl_station";
-            lbl_station.Size = new Size(47, 46);
+            lbl_station.Size = new Size(68, 43);
             lbl_station.TabIndex = 0;
             lbl_station.Text = "工站名称";
             // 
@@ -49,18 +50,18 @@
             gridPanel1.Dock = DockStyle.Fill;
             gridPanel1.Location = new Point(0, 0);
             gridPanel1.Name = "gridPanel1";
-            gridPanel1.Size = new Size(181, 52);
-            gridPanel1.Span = "100% 100;";
+            gridPanel1.Size = new Size(161, 49);
+            gridPanel1.Span = "100% 70;";
             gridPanel1.TabIndex = 1;
             gridPanel1.Text = "gridPanel1";
             // 
             // sw_status
             // 
             sw_status.CheckedText = "开";
-            sw_status.Location = new Point(61, 4);
-            sw_status.Margin = new Padding(8, 4, 8, 4);
+            sw_status.Location = new Point(71, 4);
+            sw_status.Margin = new Padding(0, 4, 8, 4);
             sw_status.Name = "sw_status";
-            sw_status.Size = new Size(112, 44);
+            sw_status.Size = new Size(82, 41);
             sw_status.TabIndex = 1;
             sw_status.UnCheckedText = "关";
             sw_status.CheckedChanged += sw_status_CheckedChanged;
@@ -71,7 +72,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             Controls.Add(gridPanel1);
             Name = "StationTotalControl";
-            Size = new Size(181, 52);
+            Size = new Size(161, 49);
             gridPanel1.ResumeLayout(false);
             ResumeLayout(false);
         }

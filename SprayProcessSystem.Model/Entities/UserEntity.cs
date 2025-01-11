@@ -11,5 +11,8 @@ namespace SprayProcessSystem.Model.Entities
         public string Role { get; set; }
         public bool IsEnabled { get; set; } = true;
 
+
+        [SugarColumn(IsIgnore = true)]
+        public List<string> AuthList { get; set; } = new();
     }
 }

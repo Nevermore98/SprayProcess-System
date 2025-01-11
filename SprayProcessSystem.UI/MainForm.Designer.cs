@@ -30,18 +30,18 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             pageHeader = new AntdUI.PageHeader();
-            flowPanel1 = new AntdUI.FlowPanel();
+            button1 = new AntdUI.Button();
             dp_user = new AntdUI.Dropdown();
             menu = new AntdUI.Menu();
             panelContent = new AntdUI.Panel();
             pageHeader.SuspendLayout();
-            flowPanel1.SuspendLayout();
             SuspendLayout();
             // 
             // pageHeader
             // 
             pageHeader.BackColor = Color.White;
-            pageHeader.Controls.Add(flowPanel1);
+            pageHeader.Controls.Add(button1);
+            pageHeader.Controls.Add(dp_user);
             pageHeader.DividerShow = true;
             pageHeader.Dock = DockStyle.Top;
             pageHeader.Font = new Font("Microsoft YaHei UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
@@ -50,35 +50,36 @@
             pageHeader.Margin = new Padding(0);
             pageHeader.MaximizeBox = false;
             pageHeader.Name = "pageHeader";
+            pageHeader.Padding = new Padding(0, 0, 0, 1);
             pageHeader.ShowButton = true;
             pageHeader.ShowIcon = true;
             pageHeader.Size = new Size(1080, 40);
             pageHeader.TabIndex = 0;
             pageHeader.Text = "喷涂工艺 SCADA";
             // 
-            // flowPanel1
+            // button1
             // 
-            flowPanel1.Align = AntdUI.TAlignFlow.RightCenter;
-            flowPanel1.BackColor = Color.Transparent;
-            flowPanel1.Controls.Add(dp_user);
-            flowPanel1.Dock = DockStyle.Right;
-            flowPanel1.Location = new Point(769, 0);
-            flowPanel1.Margin = new Padding(3, 4, 3, 4);
-            flowPanel1.Name = "flowPanel1";
-            flowPanel1.Size = new Size(187, 40);
-            flowPanel1.TabIndex = 4;
-            flowPanel1.Text = "flowPanel1";
+            button1.AutoSizeMode = AntdUI.TAutoSize.Width;
+            button1.Dock = DockStyle.Right;
+            button1.Location = new Point(708, 0);
+            button1.Margin = new Padding(4);
+            button1.Name = "button1";
+            button1.Padding = new Padding(2);
+            button1.Size = new Size(138, 39);
+            button1.TabIndex = 1;
+            button1.Text = "开发者工具";
+            button1.WaveSize = 0;
             // 
             // dp_user
             // 
-            dp_user.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             dp_user.AutoSizeMode = AntdUI.TAutoSize.Width;
+            dp_user.Dock = DockStyle.Right;
             dp_user.IconRatio = 1F;
             dp_user.IconSvg = resources.GetString("dp_user.IconSvg");
-            dp_user.Location = new Point(74, 4);
-            dp_user.Margin = new Padding(3, 4, 3, 4);
+            dp_user.Location = new Point(846, 0);
+            dp_user.Margin = new Padding(4, 4, 6, 6);
             dp_user.Name = "dp_user";
-            dp_user.Size = new Size(110, 32);
+            dp_user.Size = new Size(110, 39);
             dp_user.TabIndex = 0;
             dp_user.Text = "登录";
             dp_user.WaveSize = 0;
@@ -92,7 +93,7 @@
             menu.Location = new Point(0, 40);
             menu.Margin = new Padding(3, 4, 3, 4);
             menu.Name = "menu";
-            menu.Size = new Size(180, 710);
+            menu.Size = new Size(180, 720);
             menu.TabIndex = 0;
             menu.Text = "menu1";
             // 
@@ -104,14 +105,14 @@
             panelContent.Margin = new Padding(3, 4, 3, 4);
             panelContent.Name = "panelContent";
             panelContent.Padding = new Padding(13, 12, 13, 12);
-            panelContent.Size = new Size(900, 710);
+            panelContent.Size = new Size(900, 720);
             panelContent.TabIndex = 1;
             // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(9F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1080, 750);
+            ClientSize = new Size(1080, 760);
             Controls.Add(panelContent);
             Controls.Add(menu);
             Controls.Add(pageHeader);
@@ -120,8 +121,7 @@
             Name = "MainForm";
             Text = "喷涂工艺 SCADA";
             pageHeader.ResumeLayout(false);
-            flowPanel1.ResumeLayout(false);
-            flowPanel1.PerformLayout();
+            pageHeader.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -130,7 +130,7 @@
         private AntdUI.PageHeader pageHeader;
         private AntdUI.Menu menu;
         private AntdUI.Panel panelContent;
-        private AntdUI.FlowPanel flowPanel1;
         private AntdUI.Dropdown dp_user;
+        private AntdUI.Button button1;
     }
 }

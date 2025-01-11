@@ -62,7 +62,7 @@
             label6 = new AntdUI.Label();
             input4 = new AntdUI.Input();
             label7 = new AntdUI.Label();
-            uploadDragger2 = new AntdUI.UploadDragger();
+            upd_plcExcel = new AntdUI.UploadDragger();
             flowPanel7 = new AntdUI.FlowPanel();
             txt_plcConfigPath = new AntdUI.Input();
             label15 = new AntdUI.Label();
@@ -96,7 +96,7 @@
             stackPanel1.Controls.Add(flowPanel2);
             stackPanel1.Controls.Add(flowPanel3);
             stackPanel1.Controls.Add(flowPanel1);
-            stackPanel1.Controls.Add(uploadDragger2);
+            stackPanel1.Controls.Add(upd_plcExcel);
             stackPanel1.Controls.Add(flowPanel7);
             stackPanel1.Controls.Add(label1);
             stackPanel1.Dock = DockStyle.Fill;
@@ -408,15 +408,14 @@
             label7.TabIndex = 2;
             label7.Text = "IP 地址";
             // 
-            // uploadDragger2
+            // upd_plcExcel
             // 
-            uploadDragger2.Location = new Point(3, 100);
-            uploadDragger2.Name = "uploadDragger2";
-            uploadDragger2.Size = new Size(894, 77);
-            uploadDragger2.TabIndex = 4;
-            uploadDragger2.Text = "点击或拖拽 PLC 配置 Excel 文件";
-            uploadDragger2.DragChanged += upd_plcConfigPath_DragChanged;
-            uploadDragger2.Click += upd_plcConfigPath_Click;
+            upd_plcExcel.Location = new Point(3, 100);
+            upd_plcExcel.Name = "upd_plcExcel";
+            upd_plcExcel.Size = new Size(894, 77);
+            upd_plcExcel.TabIndex = 4;
+            upd_plcExcel.Text = "点击或拖拽 PLC 配置 Excel 文件";
+            upd_plcExcel.DragChanged += upd_plcConfigPath_DragChanged;
             // 
             // flowPanel7
             // 
@@ -506,6 +505,6 @@
         private AntdUI.FlowPanel flowPanel7;
         private AntdUI.Input txt_plcConfigPath;
         private AntdUI.Label label15;
-        private AntdUI.UploadDragger uploadDragger2;
+        private AntdUI.UploadDragger upd_plcExcel;
     }
 }
