@@ -38,7 +38,7 @@ namespace SprayProcessSystem.UI.UserControls.Modals
             _userManager = Program.ServiceProvider.GetRequiredService<UserManager>();
 
             var list = EnumHelper.GetAllEnumDescriptionArray<Constants.RoleEnum>();
-            select_role.Items.AddRange(list.Select(x => x.Description).ToArray());
+            select_role.Items.AddRange(list.Where(x=>x.Description != "开发者").Select(x => x.Description).ToArray());
             this.Font = new Font(Global.FontCollection.Families[0], 10);
             InitData();
         }
@@ -99,7 +99,12 @@ namespace SprayProcessSystem.UI.UserControls.Modals
             _user.UserName = txt_userName.Text;
             _user.NickName = txt_nickName.Text;
             _user.Role = (string)select_role.SelectedValue;
-            _user.Password = txt_password.Text;
+
+            if (!_isEdit)
+            {
+                _user.Password = txt_password.Text;
+            }
+            
             _user.IsEnabled = switch_enabled.Checked;
 
             if (!_isEdit)

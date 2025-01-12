@@ -1,4 +1,5 @@
-﻿using SprayProcessSystem.Model.Entities;
+﻿using AngleSharp.Dom;
+using SprayProcessSystem.Model.Entities;
 using SqlSugar;
 using System.Linq.Expressions;
 
@@ -18,7 +19,7 @@ namespace SprayProcessSystem.DAL.Services
             //var sql = Database.SqlSugarClient.Updateable(model);
             //var rows = await sql.ExecuteCommandAsync();
             //return rows > 0;
-
+            model.UpdatedAt = DateTime.Now;
             var sql = Database.SqlSugarClient.Updateable(model)
                         .IgnoreColumns(ignoreAllNullColumns: true);
             var rows = await sql.ExecuteCommandAsync();
@@ -27,6 +28,7 @@ namespace SprayProcessSystem.DAL.Services
 
         public async Task<bool> UpdateAsync(T entity, Expression<Func<T, bool>> whereExpression)
         {
+            entity.UpdatedAt = DateTime.Now;
             return await Database.SqlSugarClient.Updateable(entity).Where(whereExpression).ExecuteCommandAsync() > 0;
         }
 
@@ -70,7 +72,7 @@ namespace SprayProcessSystem.DAL.Services
 
 
     // TODO0 修改 BaseService
-    public class BaseService2<T> where T : class, new()
+    public class BaseService2<T> where T : BaseEntity, new()
     {
         #region 增加
         public async Task<bool> AddAsync(T entity)
@@ -99,6 +101,7 @@ namespace SprayProcessSystem.DAL.Services
         #region 修改
         public async Task<bool> UpdateAsync(T entity)
         {
+            entity.UpdatedAt = DateTime.Now;
             return await Database.SqlSugarClient.Updateable(entity).IgnoreColumns(ignoreAllNullColumns: true).ExecuteCommandAsync() > 0;
         }
 

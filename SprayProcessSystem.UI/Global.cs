@@ -4,6 +4,7 @@ using System.Drawing.Text;
 using IoTClient.Clients.PLC;
 using IoTClient.Enums;
 using SprayProcessSystem.Model;
+using SprayProcessSystem.UI.Models;
 
 
 namespace SprayProcessSystem.UI
@@ -21,5 +22,6 @@ namespace SprayProcessSystem.UI
         public static Dictionary<string, PlcData> PlcNameDataDict = new();
 
         public static bool IsAppClosing { get; set; } = false;
+        public static User CurrentUser { get; set; }
     }
 }

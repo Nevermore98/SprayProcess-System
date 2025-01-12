@@ -1,6 +1,7 @@
 ﻿using Mapster;
 using SprayProcessSystem.BLL.Dto.AuthDto;
 using SprayProcessSystem.DAL.Services;
+using SprayProcessSystem.Helper;
 using SprayProcessSystem.Model;
 using SprayProcessSystem.Model.Entities;
 
@@ -24,18 +25,33 @@ namespace SprayProcessSystem.BLL.Managers
             }
 
             var dto = res.Adapt<AuthQueryResultDto>();
+            dto.AuthList = AESHelper.Decrypt(res.Auths, AESHelper.EncryptKey).Split(",").ToList();
+
             return new BaseResult<AuthQueryResultDto>() { Data = new() { dto }, Result = Constants.Result.Success };
         }
 
-        // 更新
+
         public async Task<BaseResult> UpdateAuthByRoleAsync(AuthUpdateDto request)
         {
             var entity = request.Adapt<AuthEntity>();
+            // 加密
+            entity.Auths = AESHelper.Encrypt(request.Auths, AESHelper.EncryptKey);
+           
+
             var res = await _authService.UpdateAsync(entity, x=>x.Role == request.Role);
             if (!res)
             {
                 return new BaseResult() { Result = Constants.Result.Fail, Message = $"更新 {request.Role} 权限失败" };
             }
+
+
+      
+
+            //Console.WriteLine("加密后的密文: " + encryptedText);
+
+            // 解密
+            //string decryptedText = AESHelper.Decrypt(encryptedText, AESHelper.EncryptKey);
+            //Console.WriteLine("解密后的明文: " + decryptedText);
 
             return new BaseResult() { Result = Constants.Result.Success, Message = $"更新 {request.Role} 权限成功" };
         }

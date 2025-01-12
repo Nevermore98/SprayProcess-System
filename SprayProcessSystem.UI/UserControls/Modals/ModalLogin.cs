@@ -16,7 +16,7 @@ namespace SprayProcessSystem.UI.UserControls.Modals
         private readonly Logger _logger;
 
         public User CurrentUser { get; set; } = new User();
-        public bool Submit { get; private set; }
+        public bool IsLoginSuccess { get; private set; }
 
         public string UserName { get; set; }
 
@@ -59,11 +59,20 @@ namespace SprayProcessSystem.UI.UserControls.Modals
             var isExistResponse = await _userManager.LoginAsync(userLoginDto);
             if (isExistResponse.Result == Constants.Result.Success)
             {
-                Submit = true;
-                CurrentUser = isExistResponse.Data[0].Adapt<User>();
-                Generic.ShowMessage(_form, isExistResponse.Message, TType.Success);
-                _logger.Info($"登录用户 {userLoginDto.UserName} 成功");
-                this.Dispose();
+                if (isExistResponse.Data[0].IsEnabled)
+                {
+                    IsLoginSuccess = true;
+                    CurrentUser = isExistResponse.Data[0].Adapt<User>();
+                    Generic.ShowMessage(_form, isExistResponse.Message, TType.Success);
+                    _logger.Info($"登录用户 {userLoginDto.UserName} 成功");
+                    this.Dispose();
+                }
+                else
+                {
+                    IsLoginSuccess = false;
+                    CurrentUser = null;
+                    Generic.ShowMessage(_form, $"用户 {userLoginDto.UserName} 已被管理员禁用", TType.Error);
+                }
             }
             else
             {
@@ -76,7 +85,7 @@ namespace SprayProcessSystem.UI.UserControls.Modals
         }
         private void btn_cancel_Click(object sender, EventArgs e)
         {
-            Submit = false;
+            IsLoginSuccess = false;
             this.Dispose();
         }
 

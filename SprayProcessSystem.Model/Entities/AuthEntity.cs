@@ -10,12 +10,5 @@ namespace SprayProcessSystem.Model.Entities
 
         [SugarColumn(ColumnDataType = "Nvarchar(500)")]
         public string Auths { get; set; }
-
-        [SugarColumn(IsIgnore = true)]
-        public List<string> AuthList
-        {
-            get => string.IsNullOrEmpty(Auths) ? new List<string>() : Auths.Split(',').ToList();
-            set => Auths = string.Join(",", value);
-        }
     }
 }

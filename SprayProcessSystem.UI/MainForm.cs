@@ -21,7 +21,6 @@ namespace SprayProcessSystem.UI
         private readonly UserManager _userManager;
         private readonly AuthManager _authManager;
 
-        public User CurrentUser { get; set; }
 
         public Control CurrentNavigationView { get; set; } = new Control();
 
@@ -63,14 +62,14 @@ namespace SprayProcessSystem.UI
             {
                 var form = ActivatorUtilities.CreateInstance<ModalLogin>(Program.ServiceProvider, this);
                 form.Size = new Size(300, 200);
-                Generic.ShowModal(this, CurrentUser == null ? "登录用户" : "切换用户", form, TType.None, false);
+                Generic.ShowModal(this, Global.CurrentUser == null ? "登录用户" : "切换用户", form, TType.None, false);
 
                 // 提交编辑
-                if (form.Submit)
+                if (form.IsLoginSuccess)
                 {
-                    CurrentUser = form.CurrentUser;
+                    Global.CurrentUser = form.CurrentUser;
                     dp_user.ShowArrow = true;
-                    dp_user.Text = CurrentUser.NickName;
+                    dp_user.Text = Global.CurrentUser.NickName;
                     dp_user.Trigger = Trigger.Hover;
                     dp_user.Items.Clear();
                     dp_user.IconSvg = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"200\" height=\"200\" viewBox=\"0 0 24 24\"><path d=\"M5.85 17.1q1.275-.975 2.85-1.537T12 15t3.3.563t2.85 1.537q.875-1.025 1.363-2.325T20 12q0-3.325-2.337-5.663T12 4T6.337 6.338T4 12q0 1.475.488 2.775T5.85 17.1M12 13q-1.475 0-2.488-1.012T8.5 9.5t1.013-2.488T12 6t2.488 1.013T15.5 9.5t-1.012 2.488T12 13m0 9q-2.075 0-3.9-.788t-3.175-2.137T2.788 15.9T2 12t.788-3.9t2.137-3.175T8.1 2.788T12 2t3.9.788t3.175 2.137T21.213 8.1T22 12t-.788 3.9t-2.137 3.175t-3.175 2.138T12 22\"/></svg>";
@@ -85,7 +84,7 @@ namespace SprayProcessSystem.UI
                     });
 
                     LoadMenu();
-                    LoadDevTool();
+                    EnterDevMode();
                 }
             }
             dp_user.Click += async (s, e) =>
@@ -104,7 +103,7 @@ namespace SprayProcessSystem.UI
                         dp_user.Trigger = Trigger.Click;
                         dp_user.Items.Clear();
                         dp_user.IconSvg = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"200\" height=\"200\" viewBox=\"0 0 24 24\"><path d=\"M13 21q-.425 0-.712-.288T12 20t.288-.712T13 19h6V5h-6q-.425 0-.712-.288T12 4t.288-.712T13 3h6q.825 0 1.413.588T21 5v14q0 .825-.587 1.413T19 21zm-1.825-8H4q-.425 0-.712-.288T3 12t.288-.712T4 11h7.175L9.3 9.125q-.275-.275-.275-.675t.275-.7t.7-.313t.725.288L14.3 11.3q.3.3.3.7t-.3.7l-3.575 3.575q-.3.3-.712.288T9.3 16.25q-.275-.3-.262-.712t.287-.688z\"/></svg>";
-                        CurrentUser = null;
+                        Global.CurrentUser = null;
                         LoadMenu();
                         break;
                     case "切换用户":
@@ -113,6 +112,10 @@ namespace SprayProcessSystem.UI
                 }
             };
 
+            btn_devTool.Click += (s, e) =>
+            {
+
+            };
 
             Closing += (s, e) =>
             {
@@ -170,7 +173,9 @@ namespace SprayProcessSystem.UI
             Global.SiemensClient = new SiemensClient(plcConfig.SiemensVersion, plcConfig.Ip, plcConfig.Port, plcConfig.Rack, plcConfig.Slot, plcConfig.ConnectTimeout);
         }
 
-        // 加载自定义字体
+        /// <summary>
+        /// 加载自定义字体
+        /// </summary>
         private void LoadCustomFont(string fontPath)
         {
             Global.FontCollection.AddFontFile(fontPath);
@@ -251,7 +256,7 @@ namespace SprayProcessSystem.UI
             //}
 
 
-            if (CurrentUser == null)
+            if (Global.CurrentUser == null)
             {
                 var productMenuKeyPair = Constants.MenuItemDict.Where(x => x.Key.Text == "生产看板").FirstOrDefault();
                 var productMenuRootMenu = new AntdUI.MenuItem { Text = productMenuKeyPair.Key.Text, IconSvg = productMenuKeyPair.Key.IconSvg };
@@ -269,7 +274,7 @@ namespace SprayProcessSystem.UI
             }
             else
             {
-                var getAuthListResponse = await _authManager.QueryAuthByRoleAsync(new AuthQueryResultDto() { Role = CurrentUser.Role });
+                var getAuthListResponse = await _authManager.QueryAuthByRoleAsync(new AuthQueryResultDto() { Role = Global.CurrentUser.Role });
                 if (getAuthListResponse.Result == Result.Success)
                 {
                     foreach (var auth in getAuthListResponse.Data)
@@ -305,14 +310,21 @@ namespace SprayProcessSystem.UI
             Navigate(EnumHelper.GetEnumDescription(NavigationType.ProductionBoard));
 
         }
-        // 加载开发者工具
-        private void LoadDevTool()
+
+        /// <summary>
+        /// 进入开发者模式
+        /// </summary>
+        private void EnterDevMode()
         {
-            if (CurrentUser.Role == EnumHelper.GetEnumDescription(RoleEnum.Developer))
+            if (Global.CurrentUser.Role == EnumHelper.GetEnumDescription(RoleEnum.Developer))
             {
-                Generic.ShowMessage(this, "开发者模式已开启", TType.Success);
+                btn_devTool.Visible = true;
+                Generic.ShowMessage(this, "已进入开发者模式", TType.Info);
+            }
+            else
+            {
+                btn_devTool.Visible = false;
             }
         }
     }
-
 }

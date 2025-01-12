@@ -125,7 +125,7 @@ namespace SprayProcessSystem.UI.Views
             table_user.SetRowEnable(_adminRowIndex, true, true);
             var queryAllUserResponse = await _userManager.QueryAllUserAsync();
             var userList = queryAllUserResponse.Data;
-            _userList.AddRange(userList.Select(x => x.Adapt<User>()).ToArray());
+            _userList.AddRange(userList.Where(x => x.UserName.ToLower() != "dev").Select(x => x.Adapt<User>()).ToArray());
             Console.WriteLine(_userList);
             table_user.Binding(_userList);
 

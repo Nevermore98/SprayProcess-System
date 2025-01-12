@@ -30,7 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             pageHeader = new AntdUI.PageHeader();
-            button1 = new AntdUI.Button();
+            btn_devTool = new AntdUI.Button();
             dp_user = new AntdUI.Dropdown();
             menu = new AntdUI.Menu();
             panelContent = new AntdUI.Panel();
@@ -40,7 +40,7 @@
             // pageHeader
             // 
             pageHeader.BackColor = Color.White;
-            pageHeader.Controls.Add(button1);
+            pageHeader.Controls.Add(btn_devTool);
             pageHeader.Controls.Add(dp_user);
             pageHeader.DividerShow = true;
             pageHeader.Dock = DockStyle.Top;
@@ -57,18 +57,19 @@
             pageHeader.TabIndex = 0;
             pageHeader.Text = "喷涂工艺 SCADA";
             // 
-            // button1
+            // btn_devTool
             // 
-            button1.AutoSizeMode = AntdUI.TAutoSize.Width;
-            button1.Dock = DockStyle.Right;
-            button1.Location = new Point(708, 0);
-            button1.Margin = new Padding(4);
-            button1.Name = "button1";
-            button1.Padding = new Padding(2);
-            button1.Size = new Size(138, 39);
-            button1.TabIndex = 1;
-            button1.Text = "开发者工具";
-            button1.WaveSize = 0;
+            btn_devTool.AutoSizeMode = AntdUI.TAutoSize.Width;
+            btn_devTool.Dock = DockStyle.Right;
+            btn_devTool.Location = new Point(708, 0);
+            btn_devTool.Margin = new Padding(4);
+            btn_devTool.Name = "btn_devTool";
+            btn_devTool.Padding = new Padding(2);
+            btn_devTool.Size = new Size(138, 39);
+            btn_devTool.TabIndex = 1;
+            btn_devTool.Text = "开发者工具";
+            btn_devTool.Visible = false;
+            btn_devTool.WaveSize = 0;
             // 
             // dp_user
             // 
@@ -131,6 +132,6 @@
         private AntdUI.Menu menu;
         private AntdUI.Panel panelContent;
         private AntdUI.Dropdown dp_user;
-        private AntdUI.Button button1;
+        private AntdUI.Button btn_devTool;
     }
 }

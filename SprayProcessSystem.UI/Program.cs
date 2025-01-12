@@ -60,31 +60,31 @@ namespace SprayProcessSystem.UI
                 db.Insertable(new AuthEntity()
                 {
                     Role = "开发者",
-                    AuthList = allAuthList.ToList()
+                    Auths = AESHelper.Encrypt(string.Join(",", allAuthList), AESHelper.EncryptKey)
                 }).ExecuteCommand();
 
                 db.Insertable(new AuthEntity()
                 {
                     Role = "管理员",
-                    AuthList = allAuthList.ToList()
+                    Auths = AESHelper.Encrypt(string.Join(",", allAuthList), AESHelper.EncryptKey)
                 }).ExecuteCommand();
 
                 db.Insertable(new AuthEntity()
                 {
                     Role = "工程师",
-                    AuthList = engineerAuthList.ToList()
+                    Auths = AESHelper.Encrypt(string.Join(",", engineerAuthList), AESHelper.EncryptKey)
                 }).ExecuteCommand();
 
                 db.Insertable(new AuthEntity()
                 {
                     Role = "操作员",
-                    AuthList = operatorAuthList.ToList()
+                    Auths = AESHelper.Encrypt(string.Join(",", operatorAuthList), AESHelper.EncryptKey)
                 }).ExecuteCommand();
 
                 db.Insertable(new AuthEntity()
                 {
                     Role = "访客",
-                    AuthList = visitorAuthList.ToList()
+                    Auths = AESHelper.Encrypt(string.Join(",", visitorAuthList), AESHelper.EncryptKey)
                 }).ExecuteCommand();
             }
 
