@@ -13,7 +13,7 @@ namespace SprayProcessSystem.UI.UserControls.Modals
         private readonly UserAddUpdateDto _user;
         private readonly bool _isEdit;
         private readonly UserManager _userManager;
-        public bool Submit { get; set; }
+        public bool IsSubmit { get; set; }
 
         public string UserName { get; set; }
         
@@ -112,7 +112,7 @@ namespace SprayProcessSystem.UI.UserControls.Modals
                 var isExistResponse = await _userManager.IsUserExistAsync(new UserIsExistDto() { UserName = _user.UserName });
                 if (isExistResponse.Result == Constants.Result.Success)
                 {
-                    Submit = true;
+                    IsSubmit = true;
                     this.Dispose();
                 }
                 else
@@ -122,7 +122,7 @@ namespace SprayProcessSystem.UI.UserControls.Modals
             }
             else
             {
-                Submit = true;
+                IsSubmit = true;
                 this.Dispose();
             }
         }
@@ -131,7 +131,7 @@ namespace SprayProcessSystem.UI.UserControls.Modals
 
         private void btn_cancel_Click(object sender, EventArgs e)
         {
-            Submit = false;
+            IsSubmit = false;
             this.Dispose();
         }
     }

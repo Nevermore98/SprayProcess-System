@@ -148,6 +148,7 @@
             // 
             // panel_visitorAuth
             // 
+            panel_visitorAuth.BorderWidth = 1F;
             panel_visitorAuth.Controls.Add(checkbox20);
             panel_visitorAuth.Controls.Add(checkbox21);
             panel_visitorAuth.Controls.Add(checkbox22);
@@ -167,54 +168,54 @@
             // checkbox20
             // 
             checkbox20.Dock = DockStyle.Top;
-            checkbox20.Location = new Point(8, 157);
+            checkbox20.Location = new Point(10, 159);
             checkbox20.Name = "checkbox20";
-            checkbox20.Size = new Size(124, 20);
+            checkbox20.Size = new Size(120, 20);
             checkbox20.TabIndex = 9;
             checkbox20.Text = "系统参数";
             // 
             // checkbox21
             // 
             checkbox21.Dock = DockStyle.Top;
-            checkbox21.Location = new Point(8, 137);
+            checkbox21.Location = new Point(10, 139);
             checkbox21.Name = "checkbox21";
-            checkbox21.Size = new Size(124, 20);
+            checkbox21.Size = new Size(120, 20);
             checkbox21.TabIndex = 8;
             checkbox21.Text = "日志管理";
             // 
             // checkbox22
             // 
             checkbox22.Dock = DockStyle.Top;
-            checkbox22.Location = new Point(8, 117);
+            checkbox22.Location = new Point(10, 119);
             checkbox22.Name = "checkbox22";
-            checkbox22.Size = new Size(124, 20);
+            checkbox22.Size = new Size(120, 20);
             checkbox22.TabIndex = 7;
             checkbox22.Text = "报表管理";
             // 
             // checkbox23
             // 
             checkbox23.Dock = DockStyle.Top;
-            checkbox23.Location = new Point(8, 97);
+            checkbox23.Location = new Point(10, 99);
             checkbox23.Name = "checkbox23";
-            checkbox23.Size = new Size(124, 20);
+            checkbox23.Size = new Size(120, 20);
             checkbox23.TabIndex = 6;
             checkbox23.Text = "图表管理";
             // 
             // checkbox24
             // 
             checkbox24.Dock = DockStyle.Top;
-            checkbox24.Location = new Point(8, 77);
+            checkbox24.Location = new Point(10, 79);
             checkbox24.Name = "checkbox24";
-            checkbox24.Size = new Size(124, 20);
+            checkbox24.Size = new Size(120, 20);
             checkbox24.TabIndex = 5;
             checkbox24.Text = "配方管理";
             // 
             // checkbox25
             // 
             checkbox25.Dock = DockStyle.Top;
-            checkbox25.Location = new Point(8, 57);
+            checkbox25.Location = new Point(10, 59);
             checkbox25.Name = "checkbox25";
-            checkbox25.Size = new Size(124, 20);
+            checkbox25.Size = new Size(120, 20);
             checkbox25.TabIndex = 3;
             checkbox25.Text = "产线总控";
             // 
@@ -223,9 +224,9 @@
             checkbox29.Checked = true;
             checkbox29.Dock = DockStyle.Top;
             checkbox29.Enabled = false;
-            checkbox29.Location = new Point(8, 37);
+            checkbox29.Location = new Point(10, 39);
             checkbox29.Name = "checkbox29";
-            checkbox29.Size = new Size(124, 20);
+            checkbox29.Size = new Size(120, 20);
             checkbox29.TabIndex = 12;
             checkbox29.Text = "生产看板";
             // 
@@ -233,15 +234,16 @@
             // 
             label6.BackColor = Color.Transparent;
             label6.Dock = DockStyle.Top;
-            label6.Location = new Point(8, 8);
+            label6.Location = new Point(10, 10);
             label6.Name = "label6";
-            label6.Size = new Size(124, 29);
+            label6.Size = new Size(120, 29);
             label6.TabIndex = 4;
             label6.Text = "访客权限";
             label6.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // panel_operatorAuth
             // 
+            panel_operatorAuth.BorderWidth = 1F;
             panel_operatorAuth.Controls.Add(checkbox2);
             panel_operatorAuth.Controls.Add(checkbox3);
             panel_operatorAuth.Controls.Add(checkbox16);
@@ -261,54 +263,54 @@
             // checkbox2
             // 
             checkbox2.Dock = DockStyle.Top;
-            checkbox2.Location = new Point(8, 157);
+            checkbox2.Location = new Point(10, 159);
             checkbox2.Name = "checkbox2";
-            checkbox2.Size = new Size(124, 20);
+            checkbox2.Size = new Size(120, 20);
             checkbox2.TabIndex = 9;
             checkbox2.Text = "系统参数";
             // 
             // checkbox3
             // 
             checkbox3.Dock = DockStyle.Top;
-            checkbox3.Location = new Point(8, 137);
+            checkbox3.Location = new Point(10, 139);
             checkbox3.Name = "checkbox3";
-            checkbox3.Size = new Size(124, 20);
+            checkbox3.Size = new Size(120, 20);
             checkbox3.TabIndex = 8;
             checkbox3.Text = "日志管理";
             // 
             // checkbox16
             // 
             checkbox16.Dock = DockStyle.Top;
-            checkbox16.Location = new Point(8, 117);
+            checkbox16.Location = new Point(10, 119);
             checkbox16.Name = "checkbox16";
-            checkbox16.Size = new Size(124, 20);
+            checkbox16.Size = new Size(120, 20);
             checkbox16.TabIndex = 7;
             checkbox16.Text = "报表管理";
             // 
             // checkbox17
             // 
             checkbox17.Dock = DockStyle.Top;
-            checkbox17.Location = new Point(8, 97);
+            checkbox17.Location = new Point(10, 99);
             checkbox17.Name = "checkbox17";
-            checkbox17.Size = new Size(124, 20);
+            checkbox17.Size = new Size(120, 20);
             checkbox17.TabIndex = 6;
             checkbox17.Text = "图表管理";
             // 
             // checkbox18
             // 
             checkbox18.Dock = DockStyle.Top;
-            checkbox18.Location = new Point(8, 77);
+            checkbox18.Location = new Point(10, 79);
             checkbox18.Name = "checkbox18";
-            checkbox18.Size = new Size(124, 20);
+            checkbox18.Size = new Size(120, 20);
             checkbox18.TabIndex = 5;
             checkbox18.Text = "配方管理";
             // 
             // checkbox19
             // 
             checkbox19.Dock = DockStyle.Top;
-            checkbox19.Location = new Point(8, 57);
+            checkbox19.Location = new Point(10, 59);
             checkbox19.Name = "checkbox19";
-            checkbox19.Size = new Size(124, 20);
+            checkbox19.Size = new Size(120, 20);
             checkbox19.TabIndex = 3;
             checkbox19.Text = "产线总控";
             // 
@@ -317,9 +319,9 @@
             checkbox28.Checked = true;
             checkbox28.Dock = DockStyle.Top;
             checkbox28.Enabled = false;
-            checkbox28.Location = new Point(8, 37);
+            checkbox28.Location = new Point(10, 39);
             checkbox28.Name = "checkbox28";
-            checkbox28.Size = new Size(124, 20);
+            checkbox28.Size = new Size(120, 20);
             checkbox28.TabIndex = 12;
             checkbox28.Text = "生产看板";
             // 
@@ -327,15 +329,16 @@
             // 
             label5.BackColor = Color.Transparent;
             label5.Dock = DockStyle.Top;
-            label5.Location = new Point(8, 8);
+            label5.Location = new Point(10, 10);
             label5.Name = "label5";
-            label5.Size = new Size(124, 29);
+            label5.Size = new Size(120, 29);
             label5.TabIndex = 4;
             label5.Text = "操作员权限";
             label5.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // panel_engineerAuth
             // 
+            panel_engineerAuth.BorderWidth = 1F;
             panel_engineerAuth.Controls.Add(checkbox8);
             panel_engineerAuth.Controls.Add(checkbox7);
             panel_engineerAuth.Controls.Add(checkbox6);
@@ -355,54 +358,54 @@
             // checkbox8
             // 
             checkbox8.Dock = DockStyle.Top;
-            checkbox8.Location = new Point(8, 157);
+            checkbox8.Location = new Point(10, 159);
             checkbox8.Name = "checkbox8";
-            checkbox8.Size = new Size(124, 20);
+            checkbox8.Size = new Size(120, 20);
             checkbox8.TabIndex = 9;
             checkbox8.Text = "系统参数";
             // 
             // checkbox7
             // 
             checkbox7.Dock = DockStyle.Top;
-            checkbox7.Location = new Point(8, 137);
+            checkbox7.Location = new Point(10, 139);
             checkbox7.Name = "checkbox7";
-            checkbox7.Size = new Size(124, 20);
+            checkbox7.Size = new Size(120, 20);
             checkbox7.TabIndex = 8;
             checkbox7.Text = "日志管理";
             // 
             // checkbox6
             // 
             checkbox6.Dock = DockStyle.Top;
-            checkbox6.Location = new Point(8, 117);
+            checkbox6.Location = new Point(10, 119);
             checkbox6.Name = "checkbox6";
-            checkbox6.Size = new Size(124, 20);
+            checkbox6.Size = new Size(120, 20);
             checkbox6.TabIndex = 7;
             checkbox6.Text = "报表管理";
             // 
             // checkbox5
             // 
             checkbox5.Dock = DockStyle.Top;
-            checkbox5.Location = new Point(8, 97);
+            checkbox5.Location = new Point(10, 99);
             checkbox5.Name = "checkbox5";
-            checkbox5.Size = new Size(124, 20);
+            checkbox5.Size = new Size(120, 20);
             checkbox5.TabIndex = 6;
             checkbox5.Text = "图表管理";
             // 
             // checkbox4
             // 
             checkbox4.Dock = DockStyle.Top;
-            checkbox4.Location = new Point(8, 77);
+            checkbox4.Location = new Point(10, 79);
             checkbox4.Name = "checkbox4";
-            checkbox4.Size = new Size(124, 20);
+            checkbox4.Size = new Size(120, 20);
             checkbox4.TabIndex = 5;
             checkbox4.Text = "配方管理";
             // 
             // checkbox1
             // 
             checkbox1.Dock = DockStyle.Top;
-            checkbox1.Location = new Point(8, 57);
+            checkbox1.Location = new Point(10, 59);
             checkbox1.Name = "checkbox1";
-            checkbox1.Size = new Size(124, 20);
+            checkbox1.Size = new Size(120, 20);
             checkbox1.TabIndex = 3;
             checkbox1.Text = "产线总控";
             // 
@@ -411,9 +414,9 @@
             checkbox27.Checked = true;
             checkbox27.Dock = DockStyle.Top;
             checkbox27.Enabled = false;
-            checkbox27.Location = new Point(8, 37);
+            checkbox27.Location = new Point(10, 39);
             checkbox27.Name = "checkbox27";
-            checkbox27.Size = new Size(124, 20);
+            checkbox27.Size = new Size(120, 20);
             checkbox27.TabIndex = 12;
             checkbox27.Text = "生产看板";
             // 
@@ -421,15 +424,16 @@
             // 
             label3.BackColor = Color.Transparent;
             label3.Dock = DockStyle.Top;
-            label3.Location = new Point(8, 8);
+            label3.Location = new Point(10, 10);
             label3.Name = "label3";
-            label3.Size = new Size(124, 29);
+            label3.Size = new Size(120, 29);
             label3.TabIndex = 4;
             label3.Text = "工程师权限";
             label3.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // panel_adminAuth
             // 
+            panel_adminAuth.BorderWidth = 1F;
             panel_adminAuth.Controls.Add(checkbox9);
             panel_adminAuth.Controls.Add(checkbox15);
             panel_adminAuth.Controls.Add(checkbox10);
@@ -452,9 +456,9 @@
             checkbox9.Checked = true;
             checkbox9.Dock = DockStyle.Top;
             checkbox9.Enabled = false;
-            checkbox9.Location = new Point(8, 177);
+            checkbox9.Location = new Point(10, 179);
             checkbox9.Name = "checkbox9";
-            checkbox9.Size = new Size(124, 20);
+            checkbox9.Size = new Size(120, 20);
             checkbox9.TabIndex = 9;
             checkbox9.Text = "系统参数";
             // 
@@ -463,9 +467,9 @@
             checkbox15.Checked = true;
             checkbox15.Dock = DockStyle.Top;
             checkbox15.Enabled = false;
-            checkbox15.Location = new Point(8, 157);
+            checkbox15.Location = new Point(10, 159);
             checkbox15.Name = "checkbox15";
-            checkbox15.Size = new Size(124, 20);
+            checkbox15.Size = new Size(120, 20);
             checkbox15.TabIndex = 10;
             checkbox15.Text = "用户管理";
             // 
@@ -474,9 +478,9 @@
             checkbox10.Checked = true;
             checkbox10.Dock = DockStyle.Top;
             checkbox10.Enabled = false;
-            checkbox10.Location = new Point(8, 137);
+            checkbox10.Location = new Point(10, 139);
             checkbox10.Name = "checkbox10";
-            checkbox10.Size = new Size(124, 20);
+            checkbox10.Size = new Size(120, 20);
             checkbox10.TabIndex = 8;
             checkbox10.Text = "日志管理";
             // 
@@ -485,9 +489,9 @@
             checkbox11.Checked = true;
             checkbox11.Dock = DockStyle.Top;
             checkbox11.Enabled = false;
-            checkbox11.Location = new Point(8, 117);
+            checkbox11.Location = new Point(10, 119);
             checkbox11.Name = "checkbox11";
-            checkbox11.Size = new Size(124, 20);
+            checkbox11.Size = new Size(120, 20);
             checkbox11.TabIndex = 7;
             checkbox11.Text = "报表管理";
             // 
@@ -496,9 +500,9 @@
             checkbox12.Checked = true;
             checkbox12.Dock = DockStyle.Top;
             checkbox12.Enabled = false;
-            checkbox12.Location = new Point(8, 97);
+            checkbox12.Location = new Point(10, 99);
             checkbox12.Name = "checkbox12";
-            checkbox12.Size = new Size(124, 20);
+            checkbox12.Size = new Size(120, 20);
             checkbox12.TabIndex = 6;
             checkbox12.Text = "图表管理";
             // 
@@ -507,9 +511,9 @@
             checkbox13.Checked = true;
             checkbox13.Dock = DockStyle.Top;
             checkbox13.Enabled = false;
-            checkbox13.Location = new Point(8, 77);
+            checkbox13.Location = new Point(10, 79);
             checkbox13.Name = "checkbox13";
-            checkbox13.Size = new Size(124, 20);
+            checkbox13.Size = new Size(120, 20);
             checkbox13.TabIndex = 5;
             checkbox13.Text = "配方管理";
             // 
@@ -518,9 +522,9 @@
             checkbox14.Checked = true;
             checkbox14.Dock = DockStyle.Top;
             checkbox14.Enabled = false;
-            checkbox14.Location = new Point(8, 57);
+            checkbox14.Location = new Point(10, 59);
             checkbox14.Name = "checkbox14";
-            checkbox14.Size = new Size(124, 20);
+            checkbox14.Size = new Size(120, 20);
             checkbox14.TabIndex = 3;
             checkbox14.Text = "产线总控";
             // 
@@ -529,9 +533,9 @@
             checkbox26.Checked = true;
             checkbox26.Dock = DockStyle.Top;
             checkbox26.Enabled = false;
-            checkbox26.Location = new Point(8, 37);
+            checkbox26.Location = new Point(10, 39);
             checkbox26.Name = "checkbox26";
-            checkbox26.Size = new Size(124, 20);
+            checkbox26.Size = new Size(120, 20);
             checkbox26.TabIndex = 11;
             checkbox26.Text = "生产看板";
             // 
@@ -539,9 +543,9 @@
             // 
             label4.BackColor = Color.Transparent;
             label4.Dock = DockStyle.Top;
-            label4.Location = new Point(8, 8);
+            label4.Location = new Point(10, 10);
             label4.Name = "label4";
-            label4.Size = new Size(124, 29);
+            label4.Size = new Size(120, 29);
             label4.TabIndex = 4;
             label4.Text = "管理员权限";
             label4.TextAlign = ContentAlignment.MiddleCenter;

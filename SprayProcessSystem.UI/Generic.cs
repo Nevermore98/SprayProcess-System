@@ -1,4 +1,5 @@
 ﻿using AntdUI;
+using IoTClient.Enums;
 using NLog;
 using SprayProcessSystem.Helper;
 using static SprayProcessSystem.Model.Constants;
@@ -13,12 +14,11 @@ namespace SprayProcessSystem.UI
         /// 写入 PLC 数据
         /// </summary>
         /// <returns></returns>
-        public static bool PlcWrite(string name, dynamic value)
+        public static bool PlcWrite(string name, dynamic value, DataTypeEnum dataType = DataTypeEnum.Bool)
         {
             var plcData = Global.PlcNameDataDict[name];
-            return Global.SiemensClient.Write(plcData.Address, value).IsSucceed;
+            return Global.SiemensClient.Write(plcData.Address, value, dataType).IsSucceed;
         }
-
 
 
         /// <summary>
@@ -61,33 +61,35 @@ namespace SprayProcessSystem.UI
             return childControls;
         }
 
-        public static void AppendLog(string message, LogLevelEnum logLevelEnum, Input inputControl, bool isWriteToLog = true)
-        {
-            inputControl.AppendText($"{DateTime.Now:yyyy-MM-dd HH:mm:ss} --- [{EnumHelper.GetEnumDescription(logLevelEnum)}] --- {message}\r\n");
+        //public static void AppendLog(string message, LogLevelEnum logLevelEnum, Input inputControl, bool isWriteToFile = true)
+        //{
+        //    inputControl.AppendText($"{DateTime.Now:yyyy-MM-dd HH:mm:ss} --- [{EnumHelper.GetEnumDescription(logLevelEnum)}] --- {message}\r\n");
 
-            if (!isWriteToLog) return;
-            switch (logLevelEnum)
-            {
-                case LogLevelEnum.Info:
-                    _logger.Info(message);
-                    break;
-                case LogLevelEnum.Warn:
-                    _logger.Warn(message);
-                    break;
-                case LogLevelEnum.Error:
-                    _logger.Error(message);
-                    break;
-                case LogLevelEnum.Debug:
-                    _logger.Debug(message);
-                    break;
-                default:
-                    _logger.Info(message);
-                    break;
-            }
-        }
+        //    if (!isWriteToFile) return;
+        //    switch (logLevelEnum)
+        //    {
+        //        case LogLevelEnum.Info:
+        //            _logger.Info(message);
+        //            break;
+        //        case LogLevelEnum.Warn:
+        //            _logger.Warn(message);
+        //            break;
+        //        case LogLevelEnum.Error:
+        //            _logger.Error(message);
+        //            break;
+        //        case LogLevelEnum.Debug:
+        //            _logger.Debug(message);
+        //            break;
+        //        default:
+        //            _logger.Info(message);
+        //            break;
+        //    }
+        //}
 
+        // 用于在主控界面的文本框中输出日志
+        public static Action<string, LogLevelEnum, bool> AppendLog { get; set; }
 
-        public static void ShowMessage(Form form, string message, TType messageType)
+        public static void ShowMessage(Form form, string message, TType messageType, bool isWriteToFileLog = true)
         {
             AntdUI.Message.open(new AntdUI.Message.Config(form, message, messageType)
             {
@@ -97,6 +99,7 @@ namespace SprayProcessSystem.UI
                 ShowInWindow = true
             });
 
+            if (!isWriteToFileLog) return;
             switch (messageType)
             {
                 case TType.Success:
@@ -114,6 +117,9 @@ namespace SprayProcessSystem.UI
             }
         }
 
+        /// <summary>
+        /// 显示模态框
+        /// </summary>
         public static DialogResult ShowModal(Form form, string title, object content, TType modalType, bool isShowDefaultBtns =true)
         {
             return AntdUI.Modal.open(new AntdUI.Modal.Config(form, title, content, modalType)

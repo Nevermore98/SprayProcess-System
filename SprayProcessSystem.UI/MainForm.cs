@@ -44,6 +44,8 @@ namespace SprayProcessSystem.UI
             SetFontForApplication(this, new Font(Global.FontCollection.Families[0], 12)); // 设置全局字体
             AntdUI.Style.SetPrimary(Color.FromArgb(64, 158, 255));
 
+            // TODO0 调试
+            Global.CurrentUser = new User() { Role = "开发者" };
             LoadMenu();
 
             dp_user.ShowArrow = false;

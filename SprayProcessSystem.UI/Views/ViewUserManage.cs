@@ -24,13 +24,13 @@ namespace SprayProcessSystem.UI.Views
             _authManager = Program.ServiceProvider.GetRequiredService<AuthManager>();
             this.Load += ViewUserManage_Load;
             InitializeComponent();
-
-            InitTableColumns();
-            LoadTableData();
         }
 
         private async void ViewUserManage_Load(object? sender, EventArgs e)
         {
+            InitTableColumns();
+            LoadTableData();
+
             // 加载权限，设置勾选框
             var queryEngineerAuthResponse = await _authManager.QueryAuthByRoleAsync(new AuthQueryResultDto() { Role = "工程师" });
             if (queryEngineerAuthResponse.Result == Constants.Result.Success)
@@ -126,7 +126,7 @@ namespace SprayProcessSystem.UI.Views
             var queryAllUserResponse = await _userManager.QueryAllUserAsync();
             var userList = queryAllUserResponse.Data;
             _userList.AddRange(userList.Where(x => x.UserName.ToLower() != "dev").Select(x => x.Adapt<User>()).ToArray());
-            Console.WriteLine(_userList);
+
             table_user.Binding(_userList);
 
             // 禁用默认管理员账号
@@ -149,7 +149,7 @@ namespace SprayProcessSystem.UI.Views
                         form.Size = new Size(300, 350);
                         Generic.ShowModal(this.ParentForm, "编辑用户", form, TType.Info, false);
                         // 提交编辑
-                        if (form.Submit)
+                        if (form.IsSubmit)
                         {
                             userAddUpdateDto.UpdatedAt = DateTime.Now;
                             var updateUserResponse = await _userManager.UpdateUserAsync(userAddUpdateDto);
@@ -190,7 +190,7 @@ namespace SprayProcessSystem.UI.Views
                 Font = new Font(Global.FontCollection.Families[0], 11),
                 MaskClosable = true,
             });
-            if (form.Submit)
+            if (form.IsSubmit)
             {
                 var addUserResponse = await _userManager.AddUserAsync(userAddUpdateDto);
                 if (addUserResponse.Result == Constants.Result.Success) LoadTableData();

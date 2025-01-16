@@ -1,17 +1,54 @@
 ﻿using AntdUI;
+using Microsoft.Extensions.DependencyInjection;
+using NLog;
+using SprayProcessSystem.Helper;
 using SprayProcessSystem.UI.UserControls;
+using System.Windows.Forms;
 using static SprayProcessSystem.Model.Constants;
 
 namespace SprayProcessSystem.UI.Views
 {
     public partial class ViewTotalControl : UserControl
     {
+        private readonly Logger _logger;
+        private readonly MainForm _mainForm;
+
         public ViewTotalControl()
         {
             InitializeComponent();
-            Load += ViewTotalControl_Load;
+            _logger = LogManager.GetCurrentClassLogger();
+            _mainForm = Program.ServiceProvider.GetRequiredService<MainForm>();
+            Generic.AppendLog = AppendLog;
 
-            
+            Load += ViewTotalControl_Load;
+        }
+
+        private void AppendLog(string message, LogLevelEnum logLevelEnum, bool isWriteToFile)
+        {
+            txt_log.AppendText($"{DateTime.Now:yyyy-MM-dd HH:mm:ss} --- [{EnumHelper.GetEnumDescription(logLevelEnum)}] --- {message}\r\n");
+            if (!isWriteToFile) return;
+            switch (logLevelEnum)
+            {
+                case LogLevelEnum.Info:
+                    _logger.Info(message);
+                    Generic.ShowMessage(_mainForm, message, TType.Success, false);
+                    break;
+                case LogLevelEnum.Warn:
+                    _logger.Warn(message);
+                    Generic.ShowMessage(_mainForm, message, TType.Warn, false);
+                    break;
+                case LogLevelEnum.Error:
+                    _logger.Error(message);
+                    Generic.ShowMessage(_mainForm, message, TType.Error, false);
+                    break;
+                case LogLevelEnum.Debug:
+                    _logger.Debug(message);
+                    Generic.ShowMessage(_mainForm, message, TType.None, false);
+                    break;
+                default:
+                    _logger.Info(message);
+                    break;
+            }
         }
 
         private void ViewTotalControl_Load(object? sender, EventArgs e)
@@ -32,7 +69,7 @@ namespace SprayProcessSystem.UI.Views
                     Font = new Font(Global.FontCollection.Families[0], 13),
                     ShowInWindow = true
                 });
-                Generic.AppendLog($"设置 {text} 失败，未连接到 PLC！", LogLevelEnum.Error, txt_log);
+                Generic.AppendLog($"设置 {text} 失败，未连接到 PLC！", LogLevelEnum.Error, true);
                 return;
             }
 
@@ -56,7 +93,7 @@ namespace SprayProcessSystem.UI.Views
                     Font = new Font(Global.FontCollection.Families[0], 13),
                     ShowInWindow = true
                 });
-                Generic.AppendLog($"设置 {text} 成功", LogLevelEnum.Info, txt_log);
+                Generic.AppendLog($"设置 {text} 成功", LogLevelEnum.Info, true);
             }
             else
             {
@@ -67,7 +104,7 @@ namespace SprayProcessSystem.UI.Views
                     Font = new Font(Global.FontCollection.Families[0], 13),
                     ShowInWindow = true
                 });
-                Generic.AppendLog($"设置 {text} 失败", LogLevelEnum.Error, txt_log);
+                Generic.AppendLog($"设置 {text} 失败", LogLevelEnum.Error, true);
             }
         }
 
@@ -88,7 +125,7 @@ namespace SprayProcessSystem.UI.Views
                     ShowInWindow = true
                 });
                 stationTotalControl.IsTurnOn = false;
-                Generic.AppendLog($"设置 {text} 失败，未连接到 PLC！", LogLevelEnum.Error, txt_log);
+                Generic.AppendLog($"设置 {text} 失败，未连接到 PLC！", LogLevelEnum.Error, true);
                 return;
             }
 
@@ -103,7 +140,7 @@ namespace SprayProcessSystem.UI.Views
                     Font = new Font(Global.FontCollection.Families[0], 13),
                     ShowInWindow = true
                 });
-                Generic.AppendLog($"设置 {text} 成功", LogLevelEnum.Info, txt_log);
+                Generic.AppendLog($"设置 {text} 成功", LogLevelEnum.Info, true);
             }
             else
             {
@@ -114,7 +151,7 @@ namespace SprayProcessSystem.UI.Views
                     Font = new Font(Global.FontCollection.Families[0], 13),
                     ShowInWindow = true
                 });
-                Generic.AppendLog($"设置 {text} 失败", LogLevelEnum.Error, txt_log);
+                Generic.AppendLog($"设置 {text} 失败", LogLevelEnum.Error, true);
             }
         }
     }

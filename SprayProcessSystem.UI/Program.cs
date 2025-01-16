@@ -113,7 +113,8 @@ namespace SprayProcessSystem.UI
                 }).ExecuteCommand();
             }
 
-
+            // 提前加载总控界面，赋值委托 AppendLog
+            ServiceProvider.GetRequiredService<ViewTotalControl>();
             var mainForm = ServiceProvider.GetRequiredService<MainForm>();
             Application.Run(mainForm);
         }
@@ -151,6 +152,8 @@ namespace SprayProcessSystem.UI
             services.AddSingleton<UserManager>(sp => new UserManager(sp.GetService<UserService>()));
             services.AddSingleton<AuthService>();
             services.AddSingleton<AuthManager>(sp => new AuthManager(sp.GetService<AuthService>()));
+            services.AddSingleton<RecipeService>();
+            services.AddSingleton<RecipeManager>(sp => new RecipeManager(sp.GetService<RecipeService>()));
 
             services.AddSqlSugarSetup(dbType, connectionString);
 
@@ -158,7 +161,7 @@ namespace SprayProcessSystem.UI
 
             services.AddSingleton<ViewProductionBoard>();
             services.AddSingleton<ViewTotalControl>();
-            services.AddSingleton<ViewRecipeManage>();
+            services.AddTransient<ViewRecipeManage>();
 
             services.AddSingleton<ViewChartManage>();
             services.AddSingleton<ViewReportManage>();
