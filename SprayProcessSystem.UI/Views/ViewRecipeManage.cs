@@ -144,6 +144,8 @@ namespace SprayProcessSystem.UI.Views
                 if (form.IsSubmit)
                 {
                     await LoadRecipe();
+                    table_recipe.ScrollLine(_recipeList.Count);
+                    table_recipe.SelectedIndex = _recipeList.Count;
                 }
             };
 

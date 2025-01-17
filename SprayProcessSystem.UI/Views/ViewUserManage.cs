@@ -29,7 +29,7 @@ namespace SprayProcessSystem.UI.Views
         private async void ViewUserManage_Load(object? sender, EventArgs e)
         {
             InitTableColumns();
-            LoadTableData();
+            await LoadTableData();
 
             // 加载权限，设置勾选框
             var queryEngineerAuthResponse = await _authManager.QueryAuthByRoleAsync(new AuthQueryResultDto() { Role = "工程师" });
@@ -119,7 +119,7 @@ namespace SprayProcessSystem.UI.Views
             };
         }
 
-        private async void LoadTableData()
+        private async Task LoadTableData()
         {
             _userList.Clear();
             table_user.SetRowEnable(_adminRowIndex, true, true);
@@ -156,7 +156,7 @@ namespace SprayProcessSystem.UI.Views
 
                             var messageType = updateUserResponse.Result == Constants.Result.Success ? TType.Success : TType.Error;
                             Generic.ShowMessage(this.ParentForm, updateUserResponse.Message, messageType);
-                            LoadTableData();
+                            await LoadTableData();
                         }
                         break;
                     case "删除":
@@ -165,7 +165,7 @@ namespace SprayProcessSystem.UI.Views
                         if (modalResult == DialogResult.OK)
                         {
                             var deleteUserResponse = await _userManager.DeleteUserAsync(new UserDeleteDto { Id = user.Id, UserName = user.UserName });
-                            if (deleteUserResponse.Result == Constants.Result.Success) LoadTableData();
+                            if (deleteUserResponse.Result == Constants.Result.Success) await LoadTableData();
 
                             var messageType = deleteUserResponse.Result == Constants.Result.Success ? TType.Success : TType.Error;
                             Generic.ShowMessage(this.ParentForm, deleteUserResponse.Message, messageType);
@@ -193,7 +193,12 @@ namespace SprayProcessSystem.UI.Views
             if (form.IsSubmit)
             {
                 var addUserResponse = await _userManager.AddUserAsync(userAddUpdateDto);
-                if (addUserResponse.Result == Constants.Result.Success) LoadTableData();
+                if (addUserResponse.Result == Constants.Result.Success)
+                {
+                    await LoadTableData();
+                    table_user.ScrollLine(_userList.Count);
+                    table_user.SelectedIndex = _userList.Count;
+                }
 
                 var messageType = addUserResponse.Result == Constants.Result.Success ? TType.Success : TType.Error;
                 Generic.ShowMessage(this.ParentForm, addUserResponse.Message, messageType);
@@ -216,7 +221,7 @@ namespace SprayProcessSystem.UI.Views
                     await _userManager.DeleteUserAsync(new UserDeleteDto { Id = user.Id });
                 }
             }
-            LoadTableData();
+            await LoadTableData();
             Generic.ShowMessage(this.ParentForm, "更新用户数据完成", TType.Success);
         }
 

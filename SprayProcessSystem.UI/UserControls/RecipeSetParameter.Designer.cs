@@ -59,11 +59,12 @@
             // 
             // txt_value
             // 
+            txt_value.DecimalPlaces = 1;
             txt_value.Location = new Point(121, 3);
             txt_value.Name = "txt_value";
             txt_value.Size = new Size(109, 47);
             txt_value.TabIndex = 3;
-            txt_value.Text = "0";
+            txt_value.Text = "0.0";
             txt_value.WaveSize = 1;
             txt_value.TextChanged += txt_value_TextChanged;
             // 

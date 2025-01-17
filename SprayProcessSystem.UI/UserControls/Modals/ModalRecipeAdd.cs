@@ -1,4 +1,5 @@
-﻿using Mapster;
+﻿using AntdUI;
+using Mapster;
 using Microsoft.Extensions.DependencyInjection;
 using SprayProcessSystem.BLL.Dto.RecipeDto;
 using SprayProcessSystem.BLL.Managers;
@@ -19,6 +20,10 @@ namespace SprayProcessSystem.UI.UserControls.Modals
         {
             InitializeComponent();
             _recipeManager = Program.ServiceProvider.GetRequiredService<RecipeManager>();
+            this.Load += (s, e) =>
+            {
+                txt_receipeName.Select();
+            };
         }
 
         private async void btn_ok_Click(object sender, EventArgs e)
@@ -63,7 +68,8 @@ namespace SprayProcessSystem.UI.UserControls.Modals
             }
             else
             {
-                Generic.AppendLog(updateRecipeResponse.Message, LogLevelEnum.Error, true);
+                Generic.ShowMessage(this.ParentForm, updateRecipeResponse.Message, TType.Error);
+                return;
             }
 
             IsSubmit = true;
