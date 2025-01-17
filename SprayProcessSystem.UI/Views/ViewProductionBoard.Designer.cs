@@ -36,6 +36,7 @@
             gridPanel1 = new AntdUI.GridPanel();
             gridPanel_TitleInfo = new AntdUI.GridPanel();
             panel1 = new Panel();
+            lbl_time = new AntdUI.LabelTime();
             gridPanel2 = new AntdUI.GridPanel();
             label8 = new AntdUI.Label();
             label7 = new AntdUI.Label();
@@ -125,7 +126,6 @@
             stationStatus4 = new UserControls.StationStatus();
             panel30 = new AntdUI.Panel();
             stationAlarm4 = new UserControls.StationAlarm();
-            lbl_time = new AntdUI.LabelTime();
             gridPanel1.SuspendLayout();
             gridPanel_TitleInfo.SuspendLayout();
             panel1.SuspendLayout();
@@ -177,7 +177,7 @@
             lbl_sysStatus.Name = "lbl_sysStatus";
             lbl_sysStatus.Size = new Size(141, 23);
             lbl_sysStatus.TabIndex = 2;
-            lbl_sysStatus.Text = "系统状态：";
+            lbl_sysStatus.Text = "系统状态：正常";
             // 
             // lbl_title
             // 
@@ -256,6 +256,14 @@
             panel1.Size = new Size(282, 46);
             panel1.TabIndex = 2;
             // 
+            // lbl_time
+            // 
+            lbl_time.Location = new Point(40, 8);
+            lbl_time.Name = "lbl_time";
+            lbl_time.Size = new Size(157, 29);
+            lbl_time.TabIndex = 2;
+            lbl_time.Text = "labelTime1";
+            // 
             // gridPanel2
             // 
             gridPanel2.Controls.Add(label8);
@@ -279,7 +287,7 @@
             label8.Name = "label8";
             label8.Size = new Size(172, 19);
             label8.TabIndex = 4;
-            label8.Text = "label8";
+            label8.Text = "累计产量：10000";
             // 
             // label7
             // 
@@ -288,7 +296,7 @@
             label7.Name = "label7";
             label7.Size = new Size(172, 19);
             label7.TabIndex = 3;
-            label7.Text = "label7";
+            label7.Text = "累计报警：6";
             // 
             // label6
             // 
@@ -297,7 +305,7 @@
             label6.Name = "label6";
             label6.Size = new Size(172, 19);
             label6.TabIndex = 2;
-            label6.Text = "label6";
+            label6.Text = "不良技术：5";
             // 
             // label5
             // 
@@ -306,7 +314,7 @@
             label5.Name = "label5";
             label5.Size = new Size(172, 19);
             label5.TabIndex = 1;
-            label5.Text = "label5";
+            label5.Text = "实际产量：2500";
             // 
             // label4
             // 
@@ -864,10 +872,10 @@
             // 
             // lineChart_SolidifyStove
             // 
-            lineChart_SolidifyStove.Dock = DockStyle.Fill;
+            lineChart_SolidifyStove.Dock = DockStyle.Top;
             lineChart_SolidifyStove.Location = new Point(5, 44);
             lineChart_SolidifyStove.Name = "lineChart_SolidifyStove";
-            lineChart_SolidifyStove.Size = new Size(440, 291);
+            lineChart_SolidifyStove.Size = new Size(440, 180);
             lineChart_SolidifyStove.TabIndex = 19;
             // 
             // panel21
@@ -900,7 +908,7 @@
             panel22.Name = "panel22";
             panel22.Size = new Size(432, 72);
             panel22.TabIndex = 9;
-            panel22.Tag = "水分炉监控";
+            panel22.Tag = "固化炉监控";
             panel22.Text = "panel22";
             // 
             // stationValue1
@@ -952,7 +960,7 @@
             panel33.Name = "panel33";
             panel33.Size = new Size(432, 72);
             panel33.TabIndex = 8;
-            panel33.Tag = "水分炉报警";
+            panel33.Tag = "固化炉报警";
             panel33.Text = "panel33";
             // 
             // stationAlarm7
@@ -1043,10 +1051,10 @@
             // 
             // lineChart_WaterStove
             // 
-            lineChart_WaterStove.Dock = DockStyle.Fill;
+            lineChart_WaterStove.Dock = DockStyle.Top;
             lineChart_WaterStove.Location = new Point(5, 44);
             lineChart_WaterStove.Name = "lineChart_WaterStove";
-            lineChart_WaterStove.Size = new Size(440, 291);
+            lineChart_WaterStove.Size = new Size(440, 180);
             lineChart_WaterStove.TabIndex = 19;
             // 
             // panel24
@@ -1386,14 +1394,6 @@
             stationAlarm4.TabIndex = 6;
             stationAlarm4.Visible = false;
             // 
-            // lbl_time
-            // 
-            lbl_time.Location = new Point(40, 8);
-            lbl_time.Name = "lbl_time";
-            lbl_time.Size = new Size(157, 29);
-            lbl_time.TabIndex = 2;
-            lbl_time.Text = "labelTime1";
-            // 
             // ViewProductionBoard
             // 
             AutoScaleDimensions = new SizeF(9F, 20F);
@@ -1519,7 +1519,6 @@
         private UserControls.StationStatus stationStatus2;
         private AntdUI.Panel panel26;
         private UserControls.StationAlarm stationAlarm1;
-        private LiveChartsCore.SkiaSharpView.WinForms.CartesianChart lineChart_WaterStove;
         private UserControls.StationAlarm stationAlarm3;
         private UserControls.StationAlarm stationAlarm2;
         private AntdUI.GridPanel gridPanel5;
@@ -1552,5 +1551,6 @@
         private AntdUI.Label label9;
         private Panel panel1;
         private AntdUI.LabelTime lbl_time;
+        private LiveChartsCore.SkiaSharpView.WinForms.CartesianChart lineChart_WaterStove;
     }
 }

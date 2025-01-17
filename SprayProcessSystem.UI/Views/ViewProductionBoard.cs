@@ -47,6 +47,8 @@ namespace SprayProcessSystem.UI.Views
             lbl_title.Font = new Font(Global.FontCollection.Families[0], 18, FontStyle.Bold);
             lbl_time.Font = new Font(Global.FontCollection.Families[0], 10);
             gridPanel_TitleInfo.Font = new Font(Global.FontCollection.Families[0], 9);
+            lbl_sysStatus.Text = "系统状态：正常";
+            lbl_sysStatus.ForeColor = new ColorConverter().ConvertFromString("#52c41a") as Color?;
 
             InitValue();
         }
@@ -179,6 +181,7 @@ namespace SprayProcessSystem.UI.Views
 
         private void InitLineChart()
         {
+            // 之前还可以设置折线图 dock = fill，但是现在不行了，会被不知道什么东西遮挡
             _waterStoveValues = new ObservableCollection<double>();
             _currentTimeLabels = new ObservableCollection<string>();
             _solidifyStoveValues = new ObservableCollection<double>();
