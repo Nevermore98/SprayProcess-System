@@ -30,6 +30,8 @@
         {
             gridPanel1 = new AntdUI.GridPanel();
             panel_recipeDetail = new AntdUI.Panel();
+            lbl_updatedAt = new AntdUI.Label();
+            lbl_createdAt = new AntdUI.Label();
             recipeSetParameter14 = new UserControls.RecipeSetParameter();
             recipeSetParameter13 = new UserControls.RecipeSetParameter();
             recipeSetParameter12 = new UserControls.RecipeSetParameter();
@@ -78,6 +80,8 @@
             // panel_recipeDetail
             // 
             panel_recipeDetail.BorderWidth = 1F;
+            panel_recipeDetail.Controls.Add(lbl_updatedAt);
+            panel_recipeDetail.Controls.Add(lbl_createdAt);
             panel_recipeDetail.Controls.Add(recipeSetParameter14);
             panel_recipeDetail.Controls.Add(recipeSetParameter13);
             panel_recipeDetail.Controls.Add(recipeSetParameter12);
@@ -99,6 +103,24 @@
             panel_recipeDetail.TabIndex = 0;
             panel_recipeDetail.Text = "panel2";
             panel_recipeDetail.Visible = false;
+            // 
+            // lbl_updatedAt
+            // 
+            lbl_updatedAt.Font = new Font("Microsoft YaHei UI", 7F, FontStyle.Regular, GraphicsUnit.Point);
+            lbl_updatedAt.Location = new Point(13, 495);
+            lbl_updatedAt.Name = "lbl_updatedAt";
+            lbl_updatedAt.Size = new Size(230, 26);
+            lbl_updatedAt.TabIndex = 24;
+            lbl_updatedAt.Text = "更新日期：";
+            // 
+            // lbl_createdAt
+            // 
+            lbl_createdAt.Font = new Font("Microsoft YaHei UI", 7F, FontStyle.Regular, GraphicsUnit.Point);
+            lbl_createdAt.Location = new Point(13, 474);
+            lbl_createdAt.Name = "lbl_createdAt";
+            lbl_createdAt.Size = new Size(230, 26);
+            lbl_createdAt.TabIndex = 23;
+            lbl_createdAt.Text = "创建日期：";
             // 
             // recipeSetParameter14
             // 
@@ -412,5 +434,7 @@
         private UserControls.RecipeSetParameter recipeSetParameter10;
         private UserControls.RecipeSetParameter recipeSetParameter9;
         private UserControls.RecipeSetParameter recipeSetParameter8;
+        private AntdUI.Label lbl_updatedAt;
+        private AntdUI.Label lbl_createdAt;
     }
 }

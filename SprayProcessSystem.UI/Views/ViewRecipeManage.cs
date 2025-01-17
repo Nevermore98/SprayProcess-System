@@ -5,7 +5,6 @@ using Masuit.Tools;
 using Microsoft.Extensions.DependencyInjection;
 using MiniExcelLibs;
 using SprayProcessSystem.BLL.Dto.RecipeDto;
-using SprayProcessSystem.BLL.Dto.UserDto;
 using SprayProcessSystem.BLL.Managers;
 using SprayProcessSystem.Helper;
 using SprayProcessSystem.Model;
@@ -40,6 +39,8 @@ namespace SprayProcessSystem.UI.Views
         private void InitControls()
         {
             table_recipe.EditMode = TEditMode.DoubleClick;
+            table_recipe.RowSelectedBg = new ColorConverter().ConvertFromString("#53a8ff") as Color?;
+            table_recipe.RowSelectedFore = Color.White;
             table_recipe.LostFocusClearSelection = false;
             table_recipe.Radius = 0;
             table_recipe.VisibleHeader = false;
@@ -51,8 +52,12 @@ namespace SprayProcessSystem.UI.Views
                     SortOrder = true
                 },
             };
-
+            lbl_createdAt.Font = new Font(Global.FontCollection.Families[0], 10);
+            lbl_updatedAt.Font = new Font(Global.FontCollection.Families[0], 10);
+            lbl_createdAt.ForeColor = new ColorConverter().ConvertFromString("#9E9E9E") as Color?;
+            lbl_updatedAt.ForeColor = new ColorConverter().ConvertFromString("#9E9E9E") as Color?;
         }
+
         private void BindEvents()
         {
             table_recipe.SelectIndexChanged += async (s, e) =>
@@ -70,7 +75,7 @@ namespace SprayProcessSystem.UI.Views
                     foreach (var property in data.GetType().GetProperties())
                     {
                         var value = property.GetValue(data).ToString();
-                        if (value != null)
+                        if (value != null)  
                         {
                             var sugarColumnAttribute = AttributeHelper.GetPropertyAttribute<SqlSugar.SugarColumn>(
                                  typeof(RecipeEntity),
@@ -94,15 +99,16 @@ namespace SprayProcessSystem.UI.Views
                             }
                         }
                     }
+
+                    lbl_createdAt.Text = $"创建时间：{data.CreatedAt:yyyy-MM-dd HH:mm:ss}";
+                    lbl_updatedAt.Text = $"更新时间：{data.UpdatedAt:yyyy-MM-dd HH:mm:ss}";
                 }
             };
 
 
             table_recipe.CellEndEdit += (s, e) =>
             {
-                Console.WriteLine(e);
                 string newProductType = e.Value.ToString();
-                Console.WriteLine(_currentRecipe);
                 if (_recipeList.Any(x => x.ProductType == newProductType))
                 {
                     Generic.ShowMessage(this.ParentForm, $"产品类型 {newProductType} 已存在", TType.Warn, false);
@@ -123,21 +129,21 @@ namespace SprayProcessSystem.UI.Views
                 await LoadRecipe();
                 table_recipe.SelectedIndex = -1;
                 panel_recipeDetail.Visible = false;
+                Generic.ShowMessage(this.ParentForm, $"刷新成功", TType.Success, false);
             };
 
-            btn_add.Click += (s, e) =>
+            btn_add.Click += async (s, e) =>
             {
                 table_recipe.SelectedIndex = -1;
                 panel_recipeDetail.Visible = false;
 
                 var form = ActivatorUtilities.CreateInstance<ModalRecipeAdd>(Program.ServiceProvider);
-                form.Size = new Size(700, 600);
+                form.Size = new Size(700, 650);
                 Generic.ShowModal(this.ParentForm, "新增配方", form, TType.Info, false);
                 // 提交编辑
-                // TODO
                 if (form.IsSubmit)
                 {
-
+                    await LoadRecipe();
                 }
             };
 
@@ -149,8 +155,11 @@ namespace SprayProcessSystem.UI.Views
                 {
                     try
                     {
+                        table_recipe.SelectedIndex = -1;
+                        panel_recipeDetail.Visible = false;
+
                         var filePath = fileDialog.FileName;
-                        var rows = MiniExcel.Query<ResultRecipeQueryDto>(filePath).ToList();
+                        var rows = MiniExcel.Query<RecipeEntity>(filePath).ToList();
 
                         //查询数据库的配方，如果导入的配方名称数据库没有就添加，如果有就更新
                         var queryAllRecipeResponse = await _recipeManager.QueryAllRecipeAsync();
@@ -168,7 +177,7 @@ namespace SprayProcessSystem.UI.Views
                                     var res = await _recipeManager.UpdateRecipeAsync(updateDto);
                                     if (res.Result != Constants.Result.Success)
                                     {
-                                        Generic.AppendLog("导入失败:" + res.Message, LogLevelEnum.Error, true);
+                                        Generic.AppendLog("导入配方 Excel 失败:" + res.Message, LogLevelEnum.Error, true);
                                         return;
                                     }
                                 }
@@ -179,24 +188,24 @@ namespace SprayProcessSystem.UI.Views
                                     var res = await _recipeManager.AddRecipeAsync(addDto);
                                     if (res.Result != Constants.Result.Success)
                                     {
-                                        Generic.AppendLog("导入失败:" + res.Message, LogLevelEnum.Error, true);
+                                        Generic.AppendLog("导入配方 Excel 失败:" + res.Message, LogLevelEnum.Error, true);
                                         return;
                                     }
                                 }
 
                             }
-                            Generic.AppendLog("导入成功", LogLevelEnum.Info, true);
+                            Generic.AppendLog("导入配方 Excel 成功", LogLevelEnum.Info, true);
                             await LoadRecipe();
                         }
                         else
                         {
-                            Generic.AppendLog($"导入失败：{queryAllRecipeResponse.Message}", LogLevelEnum.Error, true);
+                            Generic.AppendLog($"导入配方 Excel 失败：{queryAllRecipeResponse.Message}", LogLevelEnum.Error, true);
 
                         }
                     }
                     catch (Exception ex)
                     {
-                        Generic.AppendLog($"导入失败：{ex.Message}", LogLevelEnum.Error, true);
+                        Generic.AppendLog($"导入配方 Excel 失败：{ex.Message}", LogLevelEnum.Error, true);
                     }
                 }
 
@@ -212,11 +221,11 @@ namespace SprayProcessSystem.UI.Views
                     {
                         var filePath = saveFileDialog.FileName;
                         MiniExcel.SaveAs(filePath, _recipeList);
-                        Generic.AppendLog("导出成功", LogLevelEnum.Info, true);
+                        Generic.AppendLog("导出配方 Excel 成功", LogLevelEnum.Info, true);
                     }
                     catch (Exception ex)
                     {
-                        Generic.AppendLog($"导出失败：{ex.Message}", LogLevelEnum.Error, true);
+                        Generic.AppendLog($"导出配方 Excel 失败：{ex.Message}", LogLevelEnum.Error, true);
                     }
                 }
             };
@@ -285,11 +294,12 @@ namespace SprayProcessSystem.UI.Views
                 var dto = recipeEntity.Adapt<RecipeUpdateDto>();
                 dto.Id = _currentRecipe.Id;
                 dto.CreatedAt = _currentRecipe.CreatedAt;
-                dto.UpdatedAt = _currentRecipe.UpdatedAt;
                 var updateRecipeResponse = await _recipeManager.UpdateRecipeAsync(dto);
                 if (updateRecipeResponse.Result == Constants.Result.Success)
                 {
                     await LoadRecipe();
+                    _currentRecipe = _recipeList[table_recipe.SelectedIndex - 1];
+                    lbl_updatedAt.Text = $"更新时间：{_currentRecipe.UpdatedAt:yyyy-MM-dd HH:mm:ss}";
                     Generic.AppendLog($"保存配方 {_currentRecipe.ProductType} 成功", LogLevelEnum.Info, true);
                 }
                 else
@@ -301,12 +311,16 @@ namespace SprayProcessSystem.UI.Views
 
             btn_delete.Click += async (s, e) =>
             {
+                var modalResult = Generic.ShowModal(this.ParentForm, "删除配方", "确定删除该配方吗？", TType.Warn);
+                if (modalResult != DialogResult.OK) return;
+
                 var deleteRecipeResponse = await _recipeManager.DeleteRecipeAsync(new RecipeDeleteDto() { Id = _currentRecipe.Id });
                 if (deleteRecipeResponse.Result == Constants.Result.Success)
                 {
                     await LoadRecipe();
                     table_recipe.SelectedIndex = -1;
                     panel_recipeDetail.Visible = false;
+                    Generic.AppendLog($"删除配方 {_currentRecipe.ProductType} 成功", LogLevelEnum.Info, true);
                 }
                 else
                 {
