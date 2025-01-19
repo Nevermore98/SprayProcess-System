@@ -8,6 +8,7 @@ namespace SprayProcessSystem.Model
         public PlcSettings Plc { get; set; }
         public DatabaseSettings Database { get; set; }
         public GeneralSettings General { get; set; }
+        public LogSettings Log { get; set; }
 
 
         public class DatabaseSettings
@@ -35,11 +36,17 @@ namespace SprayProcessSystem.Model
             public int ReConnectInterval { get; set; }
         }
 
+        public class LogSettings
+        {
+            public string LogDir { get; set; }
+            public int AutoClearDays { get; set; }  
+        }
+
         public override void SetDefault()
         {
             Plc = new PlcSettings
             {
-                ConfigPath = "Configs/PLC_Config.xlsx",
+                ConfigPath = $@"{AppDomain.CurrentDomain.BaseDirectory}Configs\PLC_Config.xlsx",
                 SiemensVersion = SiemensVersion.S7_1200,
                 Ip = "127.0.0.1",
                 Port = 102,
@@ -60,6 +67,11 @@ namespace SprayProcessSystem.Model
             {
                 Language = "zh-CN",
                 AutoStart = false
+            };
+            Log = new LogSettings
+            {
+                LogDir = $@"{AppDomain.CurrentDomain.BaseDirectory}Logs",
+                AutoClearDays = 0 // 不清理
             };
         }
     }

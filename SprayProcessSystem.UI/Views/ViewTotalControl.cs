@@ -62,13 +62,6 @@ namespace SprayProcessSystem.UI.Views
 
             if (!Global.SiemensClient.Connected)
             {
-                AntdUI.Message.open(new AntdUI.Message.Config(this.ParentForm, "未连接到 PLC！", TType.Error)
-                {
-                    AutoClose = 3,
-                    Align = TAlignFrom.Top,
-                    Font = new Font(Global.FontCollection.Families[0], 13),
-                    ShowInWindow = true
-                });
                 Generic.AppendLog($"设置 {text} 失败，未连接到 PLC！", LogLevelEnum.Error, true);
                 return;
             }
@@ -86,24 +79,10 @@ namespace SprayProcessSystem.UI.Views
 
             if (result)
             {
-                AntdUI.Message.open(new AntdUI.Message.Config(this.ParentForm, $"设置 {text} 成功！", TType.Success)
-                {
-                    AutoClose = 3,
-                    Align = TAlignFrom.Top,
-                    Font = new Font(Global.FontCollection.Families[0], 13),
-                    ShowInWindow = true
-                });
                 Generic.AppendLog($"设置 {text} 成功", LogLevelEnum.Info, true);
             }
             else
             {
-                AntdUI.Message.open(new AntdUI.Message.Config(this.ParentForm, $"设置 {text} 失败！", TType.Error)
-                {
-                    AutoClose = 3,
-                    Align = TAlignFrom.Top,
-                    Font = new Font(Global.FontCollection.Families[0], 13),
-                    ShowInWindow = true
-                });
                 Generic.AppendLog($"设置 {text} 失败", LogLevelEnum.Error, true);
             }
         }
@@ -117,13 +96,6 @@ namespace SprayProcessSystem.UI.Views
 
             if (!Global.SiemensClient.Connected)
             {
-                AntdUI.Message.open(new AntdUI.Message.Config(this.ParentForm, "未连接到 PLC！", TType.Error)
-                {
-                    AutoClose = 3,
-                    Align = TAlignFrom.Top,
-                    Font = new Font(Global.FontCollection.Families[0], 13),
-                    ShowInWindow = true
-                });
                 stationTotalControl.IsTurnOn = false;
                 Generic.AppendLog($"设置 {text} 失败，未连接到 PLC！", LogLevelEnum.Error, true);
                 return;
@@ -133,24 +105,10 @@ namespace SprayProcessSystem.UI.Views
             bool result = Generic.PlcWrite(text, true);
             if (result)
             {
-                AntdUI.Message.open(new AntdUI.Message.Config(this.ParentForm, $"设置 {text} 成功！", TType.Success)
-                {
-                    AutoClose = 3,
-                    Align = TAlignFrom.Top,
-                    Font = new Font(Global.FontCollection.Families[0], 13),
-                    ShowInWindow = true
-                });
                 Generic.AppendLog($"设置 {text} 成功", LogLevelEnum.Info, true);
             }
             else
             {
-                AntdUI.Message.open(new AntdUI.Message.Config(this.ParentForm, $"设置 {text} 失败！", TType.Error)
-                {
-                    AutoClose = 3,
-                    Align = TAlignFrom.Top,
-                    Font = new Font(Global.FontCollection.Families[0], 13),
-                    ShowInWindow = true
-                });
                 Generic.AppendLog($"设置 {text} 失败", LogLevelEnum.Error, true);
             }
         }

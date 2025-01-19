@@ -20,6 +20,7 @@ namespace SprayProcessSystem.UI
         private readonly ILogger _logger;
         private readonly UserManager _userManager;
         private readonly AuthManager _authManager;
+        private ServiceLifetime _currentViewLifetime;
 
 
         public Control CurrentNavigationView { get; set; } = new Control();
@@ -198,6 +199,12 @@ namespace SprayProcessSystem.UI
 
         private void Navigate(string view)
         {
+            // 先释放当前视图
+            if (CurrentNavigationView != null && CurrentNavigationView is IDisposable disposable && _currentViewLifetime != ServiceLifetime.Singleton)
+            {
+                disposable.Dispose();
+            }
+
             NavigationType navigationType = EnumHelper.GetEnumFromDescription<NavigationType>(view);
             Control viewToNavigate = navigationType switch
             {
@@ -224,9 +231,9 @@ namespace SprayProcessSystem.UI
             // 官方说明：容器添加控件，需要调整 dpi。
             // SingleTon 会导致每次切换会导致控件变大，Transient 就不会有这个问题
             // 判断 CurrentNavigationView 是 SingleTon 还是 Transient。单例就保持不变，瞬态就调整 dpi
-            var serviceDescriptor = Global.ViewToLifetimeDict[CurrentNavigationView.GetType().Name];
+            _currentViewLifetime = Global.ViewToLifetimeDict[CurrentNavigationView.GetType().Name];
 
-            if (serviceDescriptor == ServiceLifetime.Transient)
+            if (_currentViewLifetime == ServiceLifetime.Transient)
             {
                 AutoDpi(CurrentNavigationView);
             }
@@ -310,7 +317,6 @@ namespace SprayProcessSystem.UI
             // 设置初始的页面
             menu.SelectIndex(0);
             Navigate(EnumHelper.GetEnumDescription(NavigationType.ProductionBoard));
-
         }
 
         /// <summary>

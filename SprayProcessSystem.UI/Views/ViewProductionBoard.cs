@@ -361,7 +361,16 @@ namespace SprayProcessSystem.UI.Views
 
                             var reConnectResult = Global.SiemensClient.Open();
                             _isPlcConnected = reConnectResult.IsSucceed;
-                            _logger.Info($"PLC 重连结果：{(_isPlcConnected ? "成功" : "失败")}");
+                            
+                            if (_isPlcConnected)
+                            {
+                                _logger.Info($"PLC 重连成功");
+                            }
+                            else
+                            {
+                                _logger.Error($"PLC 重连失败");
+                            }
+
                             if (_isPlcConnected)
                             {
                                 Invoke(() =>

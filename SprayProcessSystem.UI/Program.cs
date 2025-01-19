@@ -189,14 +189,15 @@ namespace SprayProcessSystem.UI
         // 捕获UI线程中的未处理异常
         static void Application_ThreadException(object sender, System.Threading.ThreadExceptionEventArgs e)
         {
-            LogManager.GetCurrentClassLogger().Warn(e.Exception, "未处理的UI线程异常");
+            LogManager.GetCurrentClassLogger().Warn(e.Exception.Message, "未处理的UI线程异常");
         }
 
 
         // 捕获非UI线程中的未处理异常
         static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
-            LogManager.GetCurrentClassLogger().Warn(e.ExceptionObject as Exception, "未处理的非UI线程异常");
+            var ex = (Exception)e.ExceptionObject;
+            LogManager.GetCurrentClassLogger().Warn(ex.Message, "未处理的非UI线程异常");
         }
     }
 }
