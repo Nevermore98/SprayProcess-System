@@ -2,8 +2,6 @@
 {
     public class DataQueryResultDto: BaseDto
     {
-        public DateTime InsertTime { get; set; }
-
         public string DegreasingPH { get; set; }
         public string PhosphatingPH { get; set; }
 

@@ -1,29 +1,35 @@
 ﻿using IoTClient.Enums;
 using LiveChartsCore;
 using LiveChartsCore.SkiaSharpView;
+using LiveChartsCore.SkiaSharpView.VisualElements;
+using Microsoft.Extensions.DependencyInjection;
 using MiniExcelLibs;
 using NLog;
+using SprayProcessSystem.BLL.Dto.DataDto;
+using SprayProcessSystem.BLL.Managers;
+using SprayProcessSystem.Helper;
 using SprayProcessSystem.Model;
+using SprayProcessSystem.Model.Entities;
 using SprayProcessSystem.UI.UserControls;
-using System.Collections.ObjectModel;
-using Timer = System.Timers.Timer;
-using LiveChartsCore.SkiaSharpView.VisualElements;
 using SqlSugar;
+using System.Collections.ObjectModel;
+using static SprayProcessSystem.Model.Constants;
+using Timer = System.Timers.Timer;
 
 namespace SprayProcessSystem.UI.Views
 {
     public partial class ViewProductionBoard : UserControl
     {
         private readonly ILogger _logger;
-
+        private readonly DataManager _dataManager;
         private List<Control> _controlList;
 
         private bool _isPlcConnected = false;
         private CancellationTokenSource _readPlcCts = new();
         private List<PlcVarConfig> _plcVarConfigList = new();
         private Timer _readPlcTimer = new();
+        private Timer _saveDataTimer = new();
         private Dictionary<string, List<string>> _stationNameAlarmDict = new();
-
 
 
         private float _waterStoveTemperature;
@@ -32,17 +38,23 @@ namespace SprayProcessSystem.UI.Views
         private ObservableCollection<double> _waterStoveValues;
         private ObservableCollection<double> _solidifyStoveValues;
         private Timer _chartInsertDataTimer = new();
-        private System.Threading.Timer resetTimer; 
+        private System.Threading.Timer _resetTimer; 
 
         public ViewProductionBoard()
         {
             InitializeComponent();
+            _dataManager = Program.ServiceProvider.GetRequiredService<DataManager>();
             Load += ViewProductionBoard_Load;
 
             _logger = LogManager.GetCurrentClassLogger();
-            _readPlcTimer.Interval = 50;
+
+            _readPlcTimer.Interval = 500;
             _readPlcTimer.Elapsed += ReadPlcTimer_Elapsed;
             _readPlcTimer.Start();
+
+            _saveDataTimer.Interval = 2000;
+            _saveDataTimer.Elapsed += SaveDataTimer_Elapsed;
+            _saveDataTimer.Start();
 
             lbl_title.Font = new Font(Global.FontCollection.Families[0], 18, FontStyle.Bold);
             lbl_time.Font = new Font(Global.FontCollection.Families[0], 10);
@@ -53,7 +65,28 @@ namespace SprayProcessSystem.UI.Views
             InitValue();
         }
 
+        private async void SaveDataTimer_Elapsed(object? sender, System.Timers.ElapsedEventArgs e)
+        {
+            // 添加数据
+            var dataAddDto = new DataAddDto();
 
+            foreach (var item in Global.DataNeedSaveList)
+            {
+                if (!Global.DataNameChToEnDict.ContainsKey(item)) continue;
+                // 只要有任何一个值为 null，就表示还没完全读取到数据，直接返回
+                if (Global.PlcNameDataDict[item].Value == null) return;
+
+                var chineseName = Global.DataNameChToEnDict[item];
+                var value = Global.PlcNameDataDict[item].Value.ToString();
+                dataAddDto.GetType().GetProperty(chineseName).SetValue(dataAddDto, value);
+            }
+
+            var res = await _dataManager.AddDataAsync(dataAddDto);
+            if (res.Result == Constants.Result.Fail)
+            {
+                Generic.AppendLog($"保存数据失败：{res.Message}", LogLevelEnum.Error, true);
+            }
+        }
 
         private void ReadPlcTimer_Elapsed(object? sender, System.Timers.ElapsedEventArgs e)
         {
@@ -273,13 +306,13 @@ namespace SprayProcessSystem.UI.Views
 
             void ChartInteractionStarted(object sender, EventArgs e)
             {
-                resetTimer?.Dispose();
+                _resetTimer?.Dispose();
             }
 
             void ChartInteractionEnded(object sender, EventArgs e)
             {
-                resetTimer?.Dispose();
-                resetTimer = new System.Threading.Timer(_ =>
+                _resetTimer?.Dispose();
+                _resetTimer = new System.Threading.Timer(_ =>
                 {
                     if (_isPlcConnected)
                     {

@@ -54,6 +54,11 @@ namespace SprayProcessSystem.DAL.Services
             return await sql.FirstAsync();
         }
 
+        public async Task<List<T>> QueryListAsync(Expression<Func<T, bool>> whereExpression)
+        {
+            return await Database.SqlSugarClient.Queryable<T>().Where(whereExpression).ToListAsync();
+        }
+
         public async virtual Task<List<T>> QueryAllAsync()
         {
             var sql = Database.SqlSugarClient.Queryable<T>();

@@ -153,6 +153,8 @@ namespace SprayProcessSystem.UI
             services.AddSingleton<AuthManager>(sp => new AuthManager(sp.GetService<AuthService>()));
             services.AddSingleton<RecipeService>();
             services.AddSingleton<RecipeManager>(sp => new RecipeManager(sp.GetService<RecipeService>()));
+            services.AddSingleton<DataService>();
+            services.AddSingleton<DataManager>(sp => new DataManager(sp.GetService<DataService>()));
 
             services.AddSqlSugarSetup(dbType, connectionString);
 

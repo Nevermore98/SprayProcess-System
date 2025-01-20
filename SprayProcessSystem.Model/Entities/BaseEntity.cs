@@ -8,9 +8,17 @@ namespace SprayProcessSystem.Model.Entities
         [SugarColumn(IsPrimaryKey = true, IsIdentity = true)]
         [ExcelIgnore]
         public int Id { get; set; }
+
         [ExcelFormat("yyyy-MM-dd HH:mm:ss")]
+        [ExcelColumn(Name = "创建时间", Width = 18)]
         public DateTime CreatedAt { get; set; } = DateTime.Now;
+
         [ExcelFormat("yyyy-MM-dd HH:mm:ss")]
-        public DateTime UpdatedAt { get; set; } = DateTime.Now;
+        [ExcelColumn(Name = "更新时间", Width = 18)]
+        public DateTime UpdatedAt { get; set; }
+
+        [SugarColumn(IsIgnore = true)]
+        [ExcelIgnore]
+        public int Index { get; set; }
     }
 }

@@ -11,8 +11,4 @@
     <ProjectReference Include="..\SprayProcessSystem.DAL\SprayProcessSystem.DAL.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Dto\DataDto\" />
-  </ItemGroup>
-
 </Project>

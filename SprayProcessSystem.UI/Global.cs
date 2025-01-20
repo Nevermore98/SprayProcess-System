@@ -23,5 +23,7 @@ namespace SprayProcessSystem.UI
 
         public static bool IsAppClosing { get; set; } = false;
         public static User CurrentUser { get; set; }
+        public static List<string> DataNeedSaveList { get; set; } = new List<string>();
+        public static Dictionary<string, string> DataNameChToEnDict { get; set; } = new Dictionary<string, string>();
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SprayProcessSystem.BLL.Dto.DataDto
 {
-    public class QueryDataDto: BaseDto
+    public class DataQueryDto: BaseDto
     {
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }

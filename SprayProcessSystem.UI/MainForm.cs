@@ -7,6 +7,7 @@ using SprayProcessSystem.BLL.Dto.AuthDto;
 using SprayProcessSystem.BLL.Managers;
 using SprayProcessSystem.Helper;
 using SprayProcessSystem.Model;
+using SprayProcessSystem.Model.Entities;
 using SprayProcessSystem.UI.Models;
 using SprayProcessSystem.UI.UserControls.Modals;
 using SprayProcessSystem.UI.Views;
@@ -34,9 +35,26 @@ namespace SprayProcessSystem.UI
             _userManager = Program.ServiceProvider.GetRequiredService<UserManager>();
             _authManager = Program.ServiceProvider.GetRequiredService<AuthManager>();
 
+            BindEvent();
             InitPlcClient();
             InitControl();
-            BindEvent();
+            InitData();
+        }
+
+        private void InitData()
+        {
+            foreach (var property in typeof(DataEntity).GetProperties())
+            {
+                var sugarColumnAttribute = AttributeHelper.GetPropertyAttribute<SqlSugar.SugarColumn>(
+                        typeof(DataEntity),
+                        property.Name
+                    );
+
+                if (sugarColumnAttribute != null && !string.IsNullOrEmpty(sugarColumnAttribute.ColumnDescription))
+                {
+                    Global.DataNameChToEnDict.Add(sugarColumnAttribute.ColumnDescription, property.Name);
+                }
+            }
         }
 
         private void InitControl()
@@ -172,6 +190,14 @@ namespace SprayProcessSystem.UI
                 Slot = AppConfig.Current.Plc.Slot,
                 ConnectTimeout = AppConfig.Current.Plc.ConnectTimeout
             };
+
+            foreach (var item in plcVarConfigList)
+            {
+                if (item.IsSaved)
+                {
+                    Global.DataNeedSaveList.Add(item.Name);
+                }
+            }
 
             Global.SiemensClient = new SiemensClient(plcConfig.SiemensVersion, plcConfig.Ip, plcConfig.Port, plcConfig.Rack, plcConfig.Slot, plcConfig.ConnectTimeout);
         }
