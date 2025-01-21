@@ -28,29 +28,121 @@
         /// </summary>
         private void InitializeComponent()
         {
+            stackPanel1 = new AntdUI.StackPanel();
+            btn_export = new AntdUI.Button();
+            btn_query = new AntdUI.Button();
+            dpr_chartDateRange = new AntdUI.DatePickerRange();
+            lineChart_data = new LiveChartsCore.SkiaSharpView.WinForms.CartesianChart();
+            panel_legend = new AntdUI.StackPanel();
             label1 = new AntdUI.Label();
+            button1 = new AntdUI.Button();
+            stackPanel1.SuspendLayout();
             SuspendLayout();
+            // 
+            // stackPanel1
+            // 
+            stackPanel1.Controls.Add(button1);
+            stackPanel1.Controls.Add(label1);
+            stackPanel1.Controls.Add(btn_export);
+            stackPanel1.Controls.Add(btn_query);
+            stackPanel1.Controls.Add(dpr_chartDateRange);
+            stackPanel1.Dock = DockStyle.Top;
+            stackPanel1.Location = new Point(0, 0);
+            stackPanel1.Name = "stackPanel1";
+            stackPanel1.Size = new Size(790, 42);
+            stackPanel1.TabIndex = 2;
+            stackPanel1.Text = "stackPanel1";
+            // 
+            // btn_export
+            // 
+            btn_export.Location = new Point(388, 3);
+            btn_export.Name = "btn_export";
+            btn_export.Size = new Size(96, 36);
+            btn_export.TabIndex = 2;
+            btn_export.Text = "导出";
+            btn_export.Type = AntdUI.TTypeMini.Primary;
+            btn_export.WaveSize = 1;
+            // 
+            // btn_query
+            // 
+            btn_query.Location = new Point(286, 3);
+            btn_query.Name = "btn_query";
+            btn_query.Size = new Size(96, 36);
+            btn_query.TabIndex = 1;
+            btn_query.Text = "查询";
+            btn_query.Type = AntdUI.TTypeMini.Primary;
+            btn_query.WaveSize = 1;
+            btn_query.Click += btn_query_Click;
+            // 
+            // dpr_chartDateRange
+            // 
+            dpr_chartDateRange.Location = new Point(3, 3);
+            dpr_chartDateRange.Name = "dpr_chartDateRange";
+            dpr_chartDateRange.PlaceholderEnd = "结束日期";
+            dpr_chartDateRange.PlaceholderStart = "开始日期";
+            dpr_chartDateRange.Presets.AddRange(new object[] { "今天", "近三天", "近一周", "近一月", "近三月", "近半年", "近一年" });
+            dpr_chartDateRange.Size = new Size(277, 36);
+            dpr_chartDateRange.TabIndex = 4;
+            dpr_chartDateRange.WaveSize = 1;
+            dpr_chartDateRange.ValueChanged += dpr_chartDateRange_ValueChanged;
+            dpr_chartDateRange.PresetsClickChanged += dpr_chartDateRange_PresetsClickChanged;
+            // 
+            // lineChart_data
+            // 
+            lineChart_data.Dock = DockStyle.Fill;
+            lineChart_data.Location = new Point(171, 42);
+            lineChart_data.Name = "lineChart_data";
+            lineChart_data.Size = new Size(619, 559);
+            lineChart_data.TabIndex = 3;
+            // 
+            // panel_legend
+            // 
+            panel_legend.Dock = DockStyle.Left;
+            panel_legend.Location = new Point(0, 42);
+            panel_legend.Name = "panel_legend";
+            panel_legend.Size = new Size(171, 559);
+            panel_legend.TabIndex = 4;
+            panel_legend.Text = "stackPanel2";
+            panel_legend.Vertical = true;
             // 
             // label1
             // 
-            label1.Location = new Point(133, 178);
+            label1.Location = new Point(490, 3);
             label1.Name = "label1";
-            label1.Size = new Size(96, 29);
-            label1.TabIndex = 0;
-            label1.Text = "图表";
+            label1.Size = new Size(96, 36);
+            label1.TabIndex = 5;
+            label1.Text = "label1";
+            // 
+            // button1
+            // 
+            button1.Location = new Point(592, 3);
+            button1.Name = "button1";
+            button1.Size = new Size(96, 36);
+            button1.TabIndex = 6;
+            button1.Text = "button1";
             // 
             // ViewChartManage
             // 
             AutoScaleDimensions = new SizeF(9F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            Controls.Add(label1);
+            Controls.Add(lineChart_data);
+            Controls.Add(panel_legend);
+            Controls.Add(stackPanel1);
             Name = "ViewChartManage";
             Size = new Size(790, 601);
+            stackPanel1.ResumeLayout(false);
             ResumeLayout(false);
         }
 
         #endregion
 
+        private AntdUI.StackPanel stackPanel1;
+        private AntdUI.Button btn_export;
+        private AntdUI.Button btn_query;
+        private AntdUI.DatePickerRange dpr_chartDateRange;
+        private LiveChartsCore.SkiaSharpView.WinForms.CartesianChart lineChart_data;
+        private AntdUI.StackPanel panel_legend;
+        private AntdUI.Button button1;
         private AntdUI.Label label1;
     }
 }

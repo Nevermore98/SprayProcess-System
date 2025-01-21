@@ -27,7 +27,7 @@ namespace SprayProcessSystem.UI.Views
         private bool _isPlcConnected = false;
         private CancellationTokenSource _readPlcCts = new();
         private List<PlcVarConfig> _plcVarConfigList = new();
-        private Timer _readPlcTimer = new();
+        private Timer _updateControlValueTimer = new();
         private Timer _saveDataTimer = new();
         private Dictionary<string, List<string>> _stationNameAlarmDict = new();
 
@@ -48,11 +48,11 @@ namespace SprayProcessSystem.UI.Views
 
             _logger = LogManager.GetCurrentClassLogger();
 
-            _readPlcTimer.Interval = 500;
-            _readPlcTimer.Elapsed += ReadPlcTimer_Elapsed;
-            _readPlcTimer.Start();
+            _updateControlValueTimer.Interval = 500;
+            _updateControlValueTimer.Elapsed += UpdateControlValueTimer_Elapsed;
+            _updateControlValueTimer.Start();
 
-            _saveDataTimer.Interval = 2000;
+            _saveDataTimer.Interval = 10000;
             _saveDataTimer.Elapsed += SaveDataTimer_Elapsed;
             _saveDataTimer.Start();
 
@@ -88,8 +88,9 @@ namespace SprayProcessSystem.UI.Views
             }
         }
 
-        private void ReadPlcTimer_Elapsed(object? sender, System.Timers.ElapsedEventArgs e)
+        private void UpdateControlValueTimer_Elapsed(object? sender, System.Timers.ElapsedEventArgs e)
         {
+            // 根据读取到的 PLC 值更新控件值
             if (Global.SiemensClient.Connected)
             {
                 lbl_temperature.Text = $"厂内温度：{Global.PlcNameDataDict["厂内温度"].Value}℃";
@@ -366,6 +367,7 @@ namespace SprayProcessSystem.UI.Views
                                 lbl_plcStatus.ForeColor = new ColorConverter().ConvertFromString("#52c41a") as Color?;
                             });
 
+                            // 读取 PLC
                             var readResult = Global.SiemensClient.BatchRead(Global.PlcBatchReadDict);
                             if (readResult.IsSucceed)
                             {
@@ -385,6 +387,7 @@ namespace SprayProcessSystem.UI.Views
                                     _waterStoveTemperature = 0;
                                 });
                             }
+
                             await Task.Delay(AppConfig.Current.Plc.ReadInterval);
                         }
                         else

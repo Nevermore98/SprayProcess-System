@@ -305,7 +305,7 @@
             label6.Name = "label6";
             label6.Size = new Size(172, 19);
             label6.TabIndex = 2;
-            label6.Text = "不良技术：5";
+            label6.Text = "不良计数：5";
             // 
             // label5
             // 

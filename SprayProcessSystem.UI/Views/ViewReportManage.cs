@@ -129,7 +129,8 @@ namespace SprayProcessSystem.UI.Views
                     btn_query.Text = "查询";
                     return;
                 }
-                _dataList.AddRange(dataList.Select(x => x.Adapt<DataEntity>()).ToArray());
+
+                _dataList.AddRange(dataList.Adapt<List<DataEntity>>());
 
                 pag_data.Total = _dataList.Count;
                 pag_data.PageSize = _pageSize;
