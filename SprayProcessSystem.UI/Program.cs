@@ -31,7 +31,7 @@ namespace SprayProcessSystem.UI
 
             AntdUI.Localization.DefaultLanguage = "zh-CN";
             AntdUI.Config.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAliasGridFit;
-
+            AntdUI.Style.SetPrimary(Color.FromArgb(64, 158, 255));
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);

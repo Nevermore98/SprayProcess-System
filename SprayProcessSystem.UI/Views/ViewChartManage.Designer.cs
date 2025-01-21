@@ -29,21 +29,15 @@
         private void InitializeComponent()
         {
             stackPanel1 = new AntdUI.StackPanel();
-            btn_export = new AntdUI.Button();
             btn_query = new AntdUI.Button();
             dpr_chartDateRange = new AntdUI.DatePickerRange();
             lineChart_data = new LiveChartsCore.SkiaSharpView.WinForms.CartesianChart();
             panel_legend = new AntdUI.StackPanel();
-            label1 = new AntdUI.Label();
-            button1 = new AntdUI.Button();
             stackPanel1.SuspendLayout();
             SuspendLayout();
             // 
             // stackPanel1
             // 
-            stackPanel1.Controls.Add(button1);
-            stackPanel1.Controls.Add(label1);
-            stackPanel1.Controls.Add(btn_export);
             stackPanel1.Controls.Add(btn_query);
             stackPanel1.Controls.Add(dpr_chartDateRange);
             stackPanel1.Dock = DockStyle.Top;
@@ -52,16 +46,6 @@
             stackPanel1.Size = new Size(790, 42);
             stackPanel1.TabIndex = 2;
             stackPanel1.Text = "stackPanel1";
-            // 
-            // btn_export
-            // 
-            btn_export.Location = new Point(388, 3);
-            btn_export.Name = "btn_export";
-            btn_export.Size = new Size(96, 36);
-            btn_export.TabIndex = 2;
-            btn_export.Text = "导出";
-            btn_export.Type = AntdUI.TTypeMini.Primary;
-            btn_export.WaveSize = 1;
             // 
             // btn_query
             // 
@@ -105,22 +89,6 @@
             panel_legend.Text = "stackPanel2";
             panel_legend.Vertical = true;
             // 
-            // label1
-            // 
-            label1.Location = new Point(490, 3);
-            label1.Name = "label1";
-            label1.Size = new Size(96, 36);
-            label1.TabIndex = 5;
-            label1.Text = "label1";
-            // 
-            // button1
-            // 
-            button1.Location = new Point(592, 3);
-            button1.Name = "button1";
-            button1.Size = new Size(96, 36);
-            button1.TabIndex = 6;
-            button1.Text = "button1";
-            // 
             // ViewChartManage
             // 
             AutoScaleDimensions = new SizeF(9F, 20F);
@@ -137,12 +105,9 @@
         #endregion
 
         private AntdUI.StackPanel stackPanel1;
-        private AntdUI.Button btn_export;
         private AntdUI.Button btn_query;
         private AntdUI.DatePickerRange dpr_chartDateRange;
         private LiveChartsCore.SkiaSharpView.WinForms.CartesianChart lineChart_data;
         private AntdUI.StackPanel panel_legend;
-        private AntdUI.Button button1;
-        private AntdUI.Label label1;
     }
 }

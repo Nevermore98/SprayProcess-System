@@ -14,7 +14,6 @@ using SprayProcessSystem.Model.Entities;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using Button = AntdUI.Button;
-using Label = AntdUI.Label;
 
 namespace SprayProcessSystem.UI.Views
 {
@@ -26,6 +25,7 @@ namespace SprayProcessSystem.UI.Views
         private List<DataEntity> _dataList = new();
         private bool _isLegendColorSetFinished = false;
         private Dictionary<string, Color> _seriesToColorDict = new();
+        private List<Control> _legendButtonList = new();
 
         public ViewChartManage()
         {
@@ -38,19 +38,51 @@ namespace SprayProcessSystem.UI.Views
 
         private void InitControls()
         {
-            lineChart_data.ZoomMode = LiveChartsCore.Measure.ZoomAndPanMode.Both;
+            lineChart_data.ZoomMode = LiveChartsCore.Measure.ZoomAndPanMode.X;
 
             lineChart_data.TooltipTextSize = 16;
-            //lineChart_data.TooltipTextPaint = viewModel.TooltipTextPaint, 
-            //lineChart_data.TooltipBackgroundPaint = viewModel.TooltipBackgroundPaint, 
             lineChart_data.TooltipPosition = LiveChartsCore.Measure.TooltipPosition.Left;
+            //lineChart_data.LegendPosition = LegendPosition.Left;
 
+            panel_legend.Resize += (s, e) =>
+            {
+                var totalButtonsHeight = _legendButtonList.Sum(b => b.Height + b.Margin.Top + b.Margin.Bottom);
+                var verticalPadding = Math.Max((panel_legend.Height - totalButtonsHeight) / 2, 0);
+                panel_legend.Padding = new Padding(
+                    panel_legend.Padding.Left,
+                    verticalPadding,
+                    panel_legend.Padding.Right,
+                    0
+                );
+            };
+
+            lineChart_data.UpdateFinished += (e) =>
+            {
+                if (_isLegendColorSetFinished) return;
+                foreach (var item in panel_legend.Controls)
+                {
+                    if (item is Button button)
+                    {
+                        var index = panel_legend.Controls.IndexOf(button);
+                        var series = lineChart_data.Series.Reverse().ToArray()[index] as LineSeries<double?>;
+                        var stroke = series.Stroke;
+                        SKColor skColor = (SKColor)series.Stroke.GetField("Color");
+                        var color = Color.FromArgb(skColor.Alpha, skColor.Red, skColor.Green, skColor.Blue);
+                        button.BackColor = color;
+
+                        _seriesToColorDict.Add(button.Text, color);
+                        // 按下背景色加深
+                        button.BackActive = ControlPaint.Dark(color, 0.1f);
+                        // 悬浮背景色加浅
+                        button.BackHover = ControlPaint.Light(color, 0.25f);
+                    }
+                }
+                _isLegendColorSetFinished = true;
+            };
         }
 
         private async void UpdateChart()
         {
-            var seriesCollection = new ObservableCollection<ISeries>();
-
             var properties = new Dictionary<string, Func<DataEntity, double?>>
             {
                 { "脱脂pH值", x => ConvertToDouble(x.DegreasingPH) },
@@ -75,7 +107,12 @@ namespace SprayProcessSystem.UI.Views
             }
 
             panel_legend.Controls.Clear();
-            var labelList = new List<Control>();
+            _legendButtonList.Clear();
+            _seriesToColorDict.Clear();
+
+            _legendButtonList = new List<Control>();
+            var seriesCollection = new ObservableCollection<ISeries>();
+
             foreach (var property in properties)
             {
                 if (property.Value == null) continue;
@@ -107,11 +144,13 @@ namespace SprayProcessSystem.UI.Views
                     Text = property.Key,
                     BackColor = Color.LightGray,
                     ForeColor = Color.White,
+                    Type = TTypeMini.Primary,
                     Width = 70,
-                    Height = 50,
+                    Height = 40,
                     Radius = 6,
+                    WaveSize = 1,
                     Padding = new Padding(8, 4, 8, 4),
-                    Margin = new Padding(4),
+                    Margin = new Padding(0, 4, 0, 4),
                     Cursor = Cursors.Hand,
                     Dock = DockStyle.Top
                 };
@@ -121,31 +160,48 @@ namespace SprayProcessSystem.UI.Views
                     currentSeries.IsVisible = !currentSeries.IsVisible;
                     if (!currentSeries.IsVisible)
                     {
-                        // TODO 保存到字典
                         button.BackColor = Color.LightGray;
+                        button.BackActive = ControlPaint.Dark(Color.LightGray, 0.1f);
+                        button.BackHover = ControlPaint.Light(Color.LightGray, 0.25f);
                     }
                     else
                     {
                         button.BackColor = _seriesToColorDict[button.Text];
+                        button.BackActive = ControlPaint.Dark((Color)button.BackColor, 0.1f);
+                        button.BackHover = ControlPaint.Light((Color)button.BackColor, 0.25f);
                     }
                 };
 
-                labelList.Insert(0, button);
+                _legendButtonList.Insert(0, button);
             }
 
-            panel_legend.Controls.AddRange(labelList.ToArray());
+            panel_legend.Controls.AddRange(_legendButtonList.ToArray());
 
-            lineChart_data.LegendPosition = LegendPosition.Left;
+            int totalButtonsHeight = _legendButtonList.Sum(b => b.Height + b.Margin.Top + b.Margin.Bottom);
+            int verticalPadding = Math.Max((panel_legend.Height - totalButtonsHeight) / 2, 0);
+
+            panel_legend.Padding = new Padding(
+                panel_legend.Padding.Left,
+                verticalPadding,
+                panel_legend.Padding.Right,
+                0
+            );
+
             lineChart_data.Series = seriesCollection;
+
+            var themeColor = Color.FromArgb(64, 158, 255);
+            var skThemeColor = new SKColor((uint)themeColor.ToArgb());
+
             lineChart_data.XAxes = new List<Axis>
             {
                 new Axis
                 {
                     Labels = _dataList.OrderBy(x => x.CreatedAt).Select(x => x.CreatedAt.ToString("MM-dd HH:mm:ss")).ToList(),
                     LabelsRotation = 30,
-                    CrosshairLabelsBackground = SKColors.DarkOrange.AsLvcColor(),
-                    CrosshairLabelsPaint = new SolidColorPaint(SKColors.DarkRed),
-                    CrosshairPaint = new SolidColorPaint(SKColors.DarkOrange, 1),
+                    CrosshairLabelsBackground = SKColors.WhiteSmoke.AsLvcColor(),
+                    CrosshairLabelsPaint = new SolidColorPaint(skThemeColor),
+                    CrosshairPaint = new SolidColorPaint(skThemeColor, 1),
+                    CrosshairSnapEnabled = true
                 }
             };
 
@@ -153,31 +209,11 @@ namespace SprayProcessSystem.UI.Views
             {
                 new Axis
                 {
-                    CrosshairLabelsBackground = SKColors.DarkOrange.AsLvcColor(),
-                    CrosshairLabelsPaint = new SolidColorPaint(SKColors.DarkRed),
-                    CrosshairPaint = new SolidColorPaint(SKColors.DarkOrange, 1),
+                    CrosshairLabelsBackground = SKColors.WhiteSmoke.AsLvcColor(),
+                    CrosshairLabelsPaint = new SolidColorPaint(skThemeColor),
+                    CrosshairPaint = new SolidColorPaint(skThemeColor, 1),
                     CrosshairSnapEnabled = true
                 }
-            };
-
-            lineChart_data.UpdateFinished += (e) =>
-            {
-                if (_isLegendColorSetFinished) return;
-                foreach (var item in panel_legend.Controls)
-                {
-                    if (item is Button button)
-                    {
-                        // TODO
-                        var index = panel_legend.Controls.IndexOf(button);
-                        var series = lineChart_data.Series.Reverse().ToArray()[index] as LineSeries<double?>;
-                        var stroke = series.Stroke;
-                        SKColor skColor = (SKColor)series.Stroke.GetField("Color");
-                        var color = Color.FromArgb(skColor.Alpha, skColor.Red, skColor.Green, skColor.Blue);
-                        button.BackColor = color;
-                        _seriesToColorDict.Add(button.Text, color);
-                    }
-                }
-                _isLegendColorSetFinished = true;
             };
         }
 
