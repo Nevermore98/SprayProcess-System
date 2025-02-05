@@ -1,8 +1,33 @@
 # 喷涂工艺 SCADA
 
 ## 界面截图
-![生产看板](./Images/product-board.png)
 
-![配方管理](./Images/recipe-manage.png)
+### 生产看板
+![生产看板](./Images/生产看板.png)
 
-![用户管理](./Images/user-manage.png)
+### 产线总控
+![产线总控](./Images/产线总控.png)
+
+### 配方管理
+![配方管理](./Images/配方管理.png)
+
+导出配方：
+![导出配方](./Images/导出配方.png)
+
+### 图表管理
+![图表管理](./Images/图表管理.png)
+
+### 报表管理
+![报表管理](./Images/报表管理.png)
+
+### 日志管理
+![日志管理](./Images/日志管理.png)
+
+导出日志：
+![导出日志](./Images/导出日志.png)
+
+### 用户管理
+![用户管理](./Images/用户管理.png)
+
+### 系统参数
+![系统参数](./Images/系统参数.png)
