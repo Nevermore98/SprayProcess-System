@@ -57,7 +57,7 @@
 
   <ItemGroup>
     <None Update="Configs\appsettings.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Assets\Fonts\DingTalk-JinBuTi.ttf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

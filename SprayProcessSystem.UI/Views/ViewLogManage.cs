@@ -42,7 +42,7 @@ namespace SprayProcessSystem.UI.Views
             cmb_level.Items.Clear();
 
             AppConfig.Current.Load();
-            _logDir = AppConfig.Current.Log.LogDir;
+            _logDir = AppConfig.Current.Log.Dir;
 
             var yearMonthDirList = Directory.GetDirectories(_logDir);
             cmb_yearMonth.Items.AddRange(yearMonthDirList.Select(x => Path.GetFileName(x)).ToArray());

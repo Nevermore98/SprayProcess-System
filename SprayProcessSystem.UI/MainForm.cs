@@ -12,6 +12,7 @@ using SprayProcessSystem.UI.Models;
 using SprayProcessSystem.UI.UserControls.Modals;
 using SprayProcessSystem.UI.Views;
 using static SprayProcessSystem.Model.Constants;
+using Timer = System.Windows.Forms.Timer;
 
 
 namespace SprayProcessSystem.UI
@@ -23,6 +24,8 @@ namespace SprayProcessSystem.UI
         private readonly AuthManager _authManager;
         private ServiceLifetime _currentViewLifetime;
 
+
+        private Timer cleanupTimer;
 
         public Control CurrentNavigationView { get; set; } = new Control();
 
@@ -39,6 +42,24 @@ namespace SprayProcessSystem.UI
             InitPlcClient();
             InitControl();
             InitData();
+            InitializeCleanupTimer();
+        }
+
+
+        private void InitializeCleanupTimer()
+        {
+            cleanupTimer = new Timer();
+            cleanupTimer.Interval = 24 * 60 * 60 * 1000; // 24小时
+            cleanupTimer.Tick += CleanupTimer_Tick;
+            cleanupTimer.Start();
+        }
+
+        private void CleanupTimer_Tick(object sender, EventArgs e)
+        {
+            string logRootDir = AppConfig.Current.Log.Dir;
+            int daysToKeep = AppConfig.Current.Log.KeepDays;
+
+            LogCleaner.CleanOldLogs(logRootDir, daysToKeep);
         }
 
         private void InitData()
@@ -135,7 +156,7 @@ namespace SprayProcessSystem.UI
 
             btn_devTool.Click += (s, e) =>
             {
-
+                Generic.ShowMessage(this, "开发者模式 TODO", TType.Warn);
             };
 
             Closing += (s, e) =>
@@ -225,12 +246,6 @@ namespace SprayProcessSystem.UI
 
         private void Navigate(string view)
         {
-            // 先释放当前视图
-            if (CurrentNavigationView != null && CurrentNavigationView is IDisposable disposable && _currentViewLifetime != ServiceLifetime.Singleton)
-            {
-                disposable.Dispose();
-            }
-
             NavigationType navigationType = EnumHelper.GetEnumFromDescription<NavigationType>(view);
             Control viewToNavigate = navigationType switch
             {
@@ -250,6 +265,12 @@ namespace SprayProcessSystem.UI
 
 
             if (viewToNavigate.GetType() == CurrentNavigationView.GetType()) return;
+
+            // 先释放当前视图
+            if (CurrentNavigationView != null && CurrentNavigationView is IDisposable disposable && _currentViewLifetime != ServiceLifetime.Singleton)
+            {
+                disposable.Dispose();
+            }
 
             panelContent.Controls.Clear();
             CurrentNavigationView = viewToNavigate;

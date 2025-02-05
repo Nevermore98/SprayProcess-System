@@ -42,6 +42,16 @@ namespace SprayProcessSystem.UI
 
             ConfigureServices();
 
+            InitDatabase();
+
+            // 提前加载总控界面，赋值委托 AppendLog
+            ServiceProvider.GetRequiredService<ViewTotalControl>();
+            var mainForm = ServiceProvider.GetRequiredService<MainForm>();
+            Application.Run(mainForm);
+        }
+
+        private static void InitDatabase()
+        {
             var db = ServiceProvider.GetRequiredService<ISqlSugarClient>();
 #if DEBUG
             db.CodeFirst.SetStringDefaultLength(200).InitTables(typeof(AuthEntity), typeof(DataEntity), typeof(RecipeEntity), typeof(UserEntity));
@@ -111,13 +121,7 @@ namespace SprayProcessSystem.UI
                     IsEnabled = true
                 }).ExecuteCommand();
             }
-
-            // 提前加载总控界面，赋值委托 AppendLog
-            ServiceProvider.GetRequiredService<ViewTotalControl>();
-            var mainForm = ServiceProvider.GetRequiredService<MainForm>();
-            Application.Run(mainForm);
         }
-
 
         private static void ConfigureServices()
         {
@@ -169,7 +173,7 @@ namespace SprayProcessSystem.UI
             services.AddTransient<ViewLogManage>();
 
             services.AddTransient<ViewUserManage>();
-            services.AddTransient<ViewSettings>();
+            services.AddSingleton<ViewSettings>();
 
             services.AddTransient<ModalUserEdit>();
             services.AddTransient<ModalLogin>();

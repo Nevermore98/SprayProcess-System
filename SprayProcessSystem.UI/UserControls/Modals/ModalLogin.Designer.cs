@@ -93,6 +93,7 @@
             // 
             txt_password.Location = new Point(74, 3);
             txt_password.Name = "txt_password";
+            txt_password.PasswordChar = '*';
             txt_password.Size = new Size(161, 34);
             txt_password.TabIndex = 1;
             txt_password.WaveSize = 1;

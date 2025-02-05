@@ -38,8 +38,8 @@ namespace SprayProcessSystem.Model
 
         public class LogSettings
         {
-            public string LogDir { get; set; }
-            public int AutoClearDays { get; set; }  
+            public string Dir { get; set; }
+            public int KeepDays { get; set; }  
         }
 
         public override void SetDefault()
@@ -70,8 +70,8 @@ namespace SprayProcessSystem.Model
             };
             Log = new LogSettings
             {
-                LogDir = $@"{AppDomain.CurrentDomain.BaseDirectory}Logs",
-                AutoClearDays = 0 // 不清理
+                Dir = $@"{AppDomain.CurrentDomain.BaseDirectory}Logs",
+                KeepDays = -1 // 不清理
             };
         }
     }
