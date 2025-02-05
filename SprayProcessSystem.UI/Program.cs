@@ -57,6 +57,14 @@ namespace SprayProcessSystem.UI
             db.CodeFirst.SetStringDefaultLength(200).InitTables(typeof(AuthEntity), typeof(DataEntity), typeof(RecipeEntity), typeof(UserEntity));
 #endif
 
+            // 如果 Data 目录下不存在  SprayProcessSystem.db 文件，则创建
+            if (!File.Exists(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data", "SprayProcessSystem.db")))
+            {
+                db.DbMaintenance.CreateDatabase();
+                db.CodeFirst.SetStringDefaultLength(200).InitTables(typeof(AuthEntity), typeof(DataEntity), typeof(RecipeEntity), typeof(UserEntity));
+            }
+
+
             var list = EnumHelper.GetAllEnumDescriptionArray<NavigationType>();
             var allAuthList = list.Select(x => x.Description).ToArray();
             var engineerAuthList = list.Where(x => x.Value != NavigationType.UserManage).Select(x => x.Description).ToArray();
@@ -173,7 +181,7 @@ namespace SprayProcessSystem.UI
             services.AddTransient<ViewLogManage>();
 
             services.AddTransient<ViewUserManage>();
-            services.AddSingleton<ViewSettings>();
+            services.AddTransient<ViewSettings>();
 
             services.AddTransient<ModalUserEdit>();
             services.AddTransient<ModalLogin>();

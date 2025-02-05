@@ -15,7 +15,7 @@ namespace SprayProcessSystem.Model.Entities
 
         [ExcelFormat("yyyy-MM-dd HH:mm:ss")]
         [ExcelColumn(Name = "更新时间", Width = 18)]
-        public DateTime UpdatedAt { get; set; }
+        public DateTime UpdatedAt { get; set; } = DateTime.Now;
 
         [SugarColumn(IsIgnore = true)]
         [ExcelIgnore]

@@ -61,6 +61,7 @@ namespace SprayProcessSystem.UI.Views
             btn_logDir.Click += (s, e) =>
             {
                 var dialog = new FolderBrowserDialog();
+                dialog.DirectoryPath = AppConfig.Current.Log.Dir;
                 if (dialog.ShowDialog() == DialogResult.OK)
                 {
                     string logDirPath = Path.Combine(dialog.DirectoryPath, "Logs");

@@ -6,7 +6,6 @@ namespace SprayProcessSystem.Model.Entities
     [SugarTable("data")]
     public class DataEntity : BaseEntity
     {
-        // TODO0 可空
         [SugarColumn(ColumnDescription = "脱脂pH值", IsNullable = true)]
         [ExcelColumn(Name = "脱脂pH值", Width = 18)]
         public string? DegreasingPH { get; set; }

@@ -9,6 +9,14 @@
     <ApplicationIcon>Assets\FluentEmojiFlatFactory.ico</ApplicationIcon>
     <UseWPF>False</UseWPF>
     <RunPostBuildEvent>OnOutputUpdated</RunPostBuildEvent>
+    <AssemblyName>SprayProcessSystem</AssemblyName>
+    <AssemblyTitle>喷涂工艺SCADA</AssemblyTitle>
+    <AssemblyDescription>喷涂工艺SCADA系统</AssemblyDescription>
+    <Company>Nevermore98</Company>
+    <Product>喷涂工艺SCADA系统</Product>
+    <Copyright>Copyright © 2025 Nevermore98</Copyright>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <FileVersion>1.0.0.0</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>

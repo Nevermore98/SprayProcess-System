@@ -85,7 +85,7 @@ namespace SprayProcessSystem.UI
             
 
             // TODO0 调试
-            Global.CurrentUser = new User() { Role = "开发者" };
+            //Global.CurrentUser = new User() { Role = "开发者" };
             LoadMenu();
 
             dp_user.ShowArrow = false;
@@ -129,7 +129,7 @@ namespace SprayProcessSystem.UI
                     EnterDevMode();
                 }
             }
-            dp_user.Click += async (s, e) =>
+            dp_user.Click += (s, e) =>
             {
                 LoginOrSwitchUser();
             };
